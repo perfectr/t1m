@@ -1,6 +1,4 @@
-# t1m
-Tier One Data Monitoring prototype
-
+# T1M - Tier One Data Monitoring prototype
 
 This is a starter project based on the following technologies;
 
@@ -19,7 +17,7 @@ This is just a "starting" point. It doesn't necessarily represent the best way t
 enough useful real-world example code to point you in the right direction. What it doesn't contain is very many
 real-world business rules and error handling.
 
-Features
+### Features
  - Person Search
     - search criteria
     - pagination
@@ -27,19 +25,19 @@ Features
  - Create/Edit Person
     - client-side validation rules
     - Save/Update of passwords securely
+ - Authentication  (work in progress)
 
 
-ToDo
- - Authentication
+### ToDo
  - Security Roles & Permissions
  - Delete or Deactivate of a Person
  - Server-side Person validation rules
  - More example Unit Tests
 
 
-To use this project
+# To use this project
 
-1. Install Java JDK 1.8   (recommend C:\Java)
+1. Install Java JDK 1.7   (recommend C:\Java)
 2. Install Gradle 2.2
  - set the GRADLE_HOME variable
  - add gradle home bin directory to your path
@@ -48,7 +46,7 @@ To use this project
 4. Install Node.js
 5. Install a Java IDE like Intellij IDEA, Eclipse, NetBeans (recommend Intellij IDEA)
 
-Checkout this project into some sort of projects/development folder (recommend C:\Projects\AngularSpring)
+Checkout this project into some sort of projects/development folder (recommend C:\Projects\t1m)
  - can use IDE, or Git command line
 
 5. Install SQL Server
@@ -79,7 +77,7 @@ once and then whenever your Domain/Entity classes change.
 
 Assuming there are no build problems the server startup logging should get through to something like the following snippet.
 
-
+```
 2015-01-19 17:22:05.991  INFO 7452 --- [           main] n.g.d.t.c.MyWebMvcConfigurerAdapter      : Adding resource mapping: /resources/0.1.0/css/** -> classpath:/static/css/**
 2015-01-19 17:22:05.996  INFO 7452 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/resources/0.1.0/css/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
 2015-01-19 17:22:05.996  INFO 7452 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
@@ -88,6 +86,7 @@ Assuming there are no build problems the server startup logging should get throu
 2015-01-19 17:22:06.283  INFO 7452 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
 2015-01-19 17:22:06.328  INFO 7452 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 6080 (http)
 2015-01-19 17:22:06.329  INFO 7452 --- [           main] nz.govt.doc.t1m.Application              : Started Application in 5.962 seconds (JVM running for 6.375)
+```
 
 
 9. Open the following link in your web browser
@@ -95,10 +94,7 @@ Assuming there are no build problems the server startup logging should get throu
 http://localhost:6080/
 
 
-
-
-
-Documentation Links
+## Documentation Links
 
 Various documentation links - sometimes more than one so to point you in the right direction of the most useful documentation.
 
