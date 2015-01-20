@@ -100,33 +100,33 @@ Various documentation links - sometimes more than one so to point you in the rig
 
 AngularJS is the main MVC Web Framework, it uses JQuery underneath but you should try to ignore that almost always and
 do things the "Angular" way.
-https://angularjs.org/
-https://code.angularjs.org/1.3.9/docs/guide
-https://code.angularjs.org/1.3.9/docs/api
-https://code.angularjs.org/1.3.9/docs/tutorial
+* https://angularjs.org/
+* https://code.angularjs.org/1.3.9/docs/guide
+* https://code.angularjs.org/1.3.9/docs/api
+* https://code.angularjs.org/1.3.9/docs/tutorial
 
 Bootstrap is the CSS framework
-http://getbootstrap.com/
+* http://getbootstrap.com/
 
 To Bootstrap easier to use with AngularJS a bunch of people wrote "Angular-UI" which joins Bootstrap and AngularJS together.
-http://angular-ui.github.io/
-http://angular-ui.github.io/bootstrap/
+* http://angular-ui.github.io/
+* http://angular-ui.github.io/bootstrap/
 
 Spring Boot is a particular flavour of Spring which sits on top of the underlying Spring Framework
-http://spring.io/
-http://projects.spring.io/spring-boot/
-http://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/
-http://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/api/
-http://projects.spring.io/spring-framework/
-http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
-http://docs.spring.io/spring/docs/current/javadoc-api/
+* http://spring.io/
+* http://projects.spring.io/spring-boot/
+* http://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/
+* http://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/api/
+* http://projects.spring.io/spring-framework/
+* http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
+* http://docs.spring.io/spring/docs/current/javadoc-api/
 
 Hibernate the object-relational-mapping framework. Load/save Java objects into a relational database. You should almost
 always focus on the "JPA" way of doing things and avoid using the Hibernate classes directly.
-http://hibernate.org/orm/
+* http://hibernate.org/orm/
 
 QueryDSL is makes it a lot easier to write dynamic queries and is better than the equivalent JPA way of doing this. It's
 worth the increase in complexity of adding another library on top of Hibernate.
-http://www.querydsl.com/
-http://www.querydsl.com/static/querydsl/3.6.0/reference/html/
+* http://www.querydsl.com/
+* http://www.querydsl.com/static/querydsl/3.6.0/reference/html/
 
