@@ -1,0 +1,177 @@
+/* app css stylesheet */
+
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #e6e4db;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a {
+  color: #fff;
+  background-color: #67652f !important;
+}
+
+.navbar-default {
+  background-color: #eae1dc !important;
+}
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+
+/* angular-loading-bar */
+#loading-bar-spinner {
+  display: block;
+  position: fixed;
+  z-index: 10002;
+  top: 60px;
+  left: 20px;
+}
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+
+/*
+ * Display asterisk for mandatory/required fields
+ */
+.form-group.required .control-label:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 4px;
+    font-family: 'Glyphicons Halflings';
+    font-weight: normal;
+    font-size: 7px;
+}
+
+
+/*
+ * An additional style of links for navigation buttons
+ */
+a.pagelink:link	{ color: #333; text-decoration: none; }
+a.pagelink:visited	{ color: #333; text-decoration: none; }
+a.pagelink:active	{ color: #6B6B6B; text-decoration: none; }
+a.pagelink:hover	{ color: #6B6B6B; text-decoration: none; }
+
+/* Application Title in top left  */
+.app-brand {
+  float: left;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  color: #FFF;
+}
+
+.app-nav {
+  list-style: none;
+}
+
+.app-nav-right {
+  float: right !important;
+}
+
+a.app-header-link:link	  { color: #FFF; text-decoration: none; }
+a.app-header-link:visited { color: #FFF; text-decoration: none; }
+a.app-header-link:active  { color: #FFF; text-decoration: none; }
+a.app-header-link:hover	  { color: #FFF; text-decoration: none; }
+
+
+
+.version {
+  font-size: 9px;
+  color: #AAA;
+}
+
+/*
+ * Hyperlinks that stay on the same page (no href attribute)
+ */
+.stayLink {
+    cursor: pointer;
+}
+
+
+.rowtotal {
+    background-color: #EAEAEA;
+}

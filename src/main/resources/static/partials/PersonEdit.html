@@ -1,0 +1,132 @@
+
+<h2>Person Edit</h2>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table width="100%;">
+            <tr>
+                <td><h3>Selected Person</h3></td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr style="margin-top: 0px;"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-repeat="msg in selectedPerson.responseMessages">
+            <div class="alert alert-danger" role="alert">{{msg.description}}</div>
+        </div>
+    </div>
+</div>
+
+<!-- View mode -->
+<div ng-hide="editMode">
+    <div class="row" >
+        <dl class="dl-horizontal">
+            <dt>Name</dt>
+            <dd>{{selectedPerson.model.firstName}}&nbsp;{{selectedPerson.model.familyName}}</dd>
+
+            <dt>Username / Email</dt>
+            <dd>{{selectedPerson.model.emailAddress}}</dd>
+        </dl>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5 class="panel-title">Permissions</h5>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>Name Editor</dt>
+                <dd>{{selectedPerson.model.nameEditor ? 'Yes' : 'No'}}&nbsp;</dd>
+
+                <dt>Administrator</dt>
+                <dd>{{selectedPerson.model.administrator ? 'Yes' : 'No'}}&nbsp;</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<!-- Edit mode -->
+<div class="row" ng-show="editMode">
+    <div class="col-md-12">
+        <form name="personForm" role="form" ng-submit="submitForm(personForm.$invalid)" novalidate autocomplete="off">
+            <div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group required" ng-class="{'has-error' : personForm.firstNameTxtFld.$invalid && !personForm.firstNameTxtFld.$pristine}">
+                            <label class="control-label" for="firstNameTxtFld">First Name</label>
+                            <input type="text" class="form-control" id="firstNameTxtFld" name="firstNameTxtFld" ng-model="selectedPerson.model.firstName" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group required" ng-class="{'has-error' : personForm.familyNameTxtFld.$invalid && !personForm.familyNameTxtFld.$pristine}">
+                            <label class="control-label" for="familyNameTxtFld">Family Name</label>
+                            <input type="text" class="form-control" id="familyNameTxtFld" name="familyNameTxtFld" ng-model="selectedPerson.model.familyName" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group required" ng-class="{'has-error' : personForm.emailTxtFld.$invalid && !personForm.emailTxtFld.$pristine}">
+                            <label class="control-label" for="emailTxtFld">Email</label>
+                            <input type="email" class="form-control" id="emailTxtFld" name="emailTxtFld" ng-model="selectedPerson.model.emailAddress" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : personForm.passwordTxtFld.$invalid && !personForm.passwordTxtFld.$pristine, 'required' : selectedPerson.model.personId == null}">
+                            <label class="control-label" for="passwordTxtFld">Password</label>
+                            <input type="password" class="form-control" id="passwordTxtFld" name="passwordTxtFld" ng-model="selectedPerson.model.passwordEdit" ng-required="selectedPerson.model.personId == null">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">Permissions</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="selectedPerson.model.nameEditor" ng-disabled="!currentUser.administrator"> Name Editor</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" ng-model="selectedPerson.model.administrator" ng-disabled="!currentUser.administrator"> Administrator</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-danger" ng-click="">Deactivate</button>
+                </div>
+                <div class="col-md-8" align="right">
+                    <button type="submit" class="btn btn-primary" ng-click="saveAction(personForm.$invalid)" ng-disabled="personForm.$invalid">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="cancelAction()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Mode switching controls -->
+<div class="row" ng-hide="editMode">
+    <div class="col-md-12">
+        <hr>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8" align="right">
+            <button type="button" class="btn btn-primary" ng-click="editAction()" ng-disabled="!(currentUser.personId == selectedPerson.model.personId || currentUser.administrator)">Edit</button>
+        </div>
+    </div>
+</div>
