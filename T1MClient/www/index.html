@@ -30,32 +30,41 @@
         <title>T1MClient</title>
     </head>
     <body>
-        <div ng-app="" id = "main" class="app" ng-controller="formController">
+        <div ng-app="HelloApp" id="main" class="app" ng-controller="HelloCtrl">
             <h1>T1 Monitoring</h1>
+
+            <div>
+                <label>Name:</label>
+                <input type="text" ng-model="yourName" placeholder="Enter a name here">
+                <hr>
+                <h1>Hello {{yourName}}!</h1>
+                <h3>Hello {{name}}!</h3>
+            </div>
+
             <form name="form">
                 <br>
                 Sampling Location Identifier:
                 <br>
-                <input type = "text" id = "sli" placeHolder="e.g. AD175">
+                <input type="text" id="sli" placeHolder="e.g. AD175">
                 <br><br>
                 Start Date:
                 <br>
-                <input type = "date" id = "startDate">
+                <input type="date" id="startDate">
                 <br><br>
                 End Date:
                 <br>
-                <input type = "date" id = "endDate">
+                <input type="date" id="endDate">
                 <br><br>
                 Observer:
                 <br>
-                <input type = "text" id = "obs" placeHolder="e.g. John Doe">
+                <input type="text" id="obs" placeHolder="e.g. John Doe">
                 <br><br>
               </form>
             <button onclick="submitMyForm()">Submit</button>
-            <p id="sli1" ng-bind ="sli"></p>
-            <p id="startDate1" ng-bind ="sli"></p>
-            <p id="endDate1" ng-bind ="sli"></p>
-            <p id="obs1" ng-bind ="sli"></p>
+            <p id="sli1" ng-bind="sli"></p>
+            <p id="startDate1" ng-bind="sli"></p>
+            <p id="endDate1" ng-bind="sli"></p>
+            <p id="obs1" ng-bind="sli"></p>
         </div>
         
         <script type="text/javascript" src="cordova.js"></script>
@@ -65,37 +74,12 @@
             app.initialize();
         </script>
         <script type="text/javascript">
-/*            function formController($scope){
-                $scope.submitMyForm = function() {
-                    //var scope = angular.element($("#main")).scope();
-                    //var data = $scope.sli;
-                    document.getElementById("demo").innerHTML = "hello";
-
-                };
-            }*/
-            
-            function submitMyForm(){
-                var sli = document.getElementById("sli").value;
-                var startDate = document.getElementById("startDate").value;
-                var endDate = document.getElementById("endDate").value;
-                var obs = document.getElementById("obs").value;
-                
-                var form = {
-                    "sli": sli,
-                    "startDate": startDate,
-                    "endDate": endDate,
-                    "obs": obs
-                };
-                
-                //document.getElementById("sli1").innerHTML = sli;
-                //document.getElementById("startDate1").innerHTML = startDate;
-                //document.getElementById("endDate1").innerHTML = endDate;
-                document.getElementById("obs1").innerHTML = JSON.stringify(form);
-            }
+            var helloApp = angular.module("HelloApp", []);
+            helloApp.controller("HelloCtrl", [ '$scope', function($scope) {
+                $scope.name = "Calvin Hobbes";
+            }]);
         </script>
         
     </body>
-    
-
     
 </html>
