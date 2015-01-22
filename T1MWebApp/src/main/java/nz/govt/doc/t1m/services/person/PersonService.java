@@ -37,6 +37,7 @@ public class PersonService {
         // validate the personEntity - is there already a person with this email address (with a different personId)?
 
         PersonEntity personResponse = personRepository.save(person);
+        System.out.println(person.getFirstName());
 
         // This is a bit ugly but we need personId from after the save because the id is assigned by the database
         // and would be null for new persons otherwise. But we also need passwordEdit from before the save because
