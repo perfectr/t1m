@@ -30,54 +30,59 @@
         <title>T1MClient</title>
     </head>
     <body>
-        <div ng-app="HelloApp" id="main" class="app" ng-controller="HelloCtrl">
+        <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mCtrl">
             <h1>T1 Monitoring</h1>
-
-            <div>
-                <label>Name:</label>
-                <input type="text" ng-model="yourName" placeholder="Enter a name here">
-                <hr>
-                <h1>Hello {{yourName}}!</h1>
-                <h3>Hello {{name}}!</h3>
-            </div>
 
             <form name="form">
                 <br>
                 Sampling Location Identifier:
                 <br>
-                <input type="text" id="sli" placeHolder="e.g. AD175">
+                <input type="text" id="sli" ng-model="surveyRecord.sli" placeHolder="e.g. AD175">
                 <br><br>
                 Start Date:
                 <br>
-                <input type="date" id="startDate">
+                <input type="date" id="startDate" ng-model="surveyRecord.sdt">
                 <br><br>
                 End Date:
                 <br>
-                <input type="date" id="endDate">
+                <input type="date" id="endDate" ng-model="surveyRecord.edt">
                 <br><br>
                 Observer:
                 <br>
-                <input type="text" id="obs" placeHolder="e.g. John Doe">
+                <input type="text" id="obs" placeHolder="e.g. John Doe" ng-model="surveyRecord.obs">
                 <br><br>
               </form>
-            <button onclick="submitMyForm()">Submit</button>
-            <p id="sli1" ng-bind="sli"></p>
-            <p id="startDate1" ng-bind="sli"></p>
-            <p id="endDate1" ng-bind="sli"></p>
-            <p id="obs1" ng-bind="sli"></p>
+            <button ng-click="saveAction()">Submit</button>
+            <p id="sli1">{{surveyRecord.sli}}</p>
+            <p id="startDate1">{{surveyRecord.sdt | date:'longDate'}}</p>
+            <p id="endDate1">{{surveyRecord.edt | date:'longDate'}}</p>
+            <p id="obs1" >{{surveyRecord.obs}}</p>
+            <p>{{surveyRecord}}</p>
         </div>
         
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/angular-resource.min.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
         <script type="text/javascript">
-            var helloApp = angular.module("HelloApp", []);
-            helloApp.controller("HelloCtrl", [ '$scope', function($scope) {
-                $scope.name = "Calvin Hobbes";
+            var t1mApp = angular.module('t1mApp', ['t1mControllers', 't1mAppServices']);
+            var t1mControllers = angular.module('t1mControllers', []);
+            var t1mAppServices = angular.module('t1mAppServices', ['ngResource']);
+            t1mAppServices.factory('RecordSvc', ['$resource', function($resource){
+                return $resource('http://192.168.21.104:6080/rest/event/:sli', {}, {});
             }]);
+            
+            t1mControllers.controller('t1mCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+                $scope.surveyRecord = new RecordSvc();
+                $scope.saveAction = function(){
+                    $scope.surveyRecord.$save();
+                    $scope.surveyRecord = new RecordSvc();
+                };
+            }]);
+            
         </script>
         
     </body>
