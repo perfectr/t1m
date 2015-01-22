@@ -30,6 +30,8 @@ myApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpP
   $routeProvider.when('/contact', {templateUrl: '/partials/ContactUs.html', controller: 'ContactCtrl'});
   $routeProvider.when('/person/search',         {templateUrl: '/partials/PersonSearch.html',  controller: 'PersonSearchCtrl'});
   $routeProvider.when('/person/edit/:personId', {templateUrl: '/partials/PersonEdit.html',    controller: 'PersonEditCtrl'});
+  $routeProvider.when('/event/search',         {templateUrl: '/partials/EventSearch.html',  controller: 'EventSearchCtrl'});
+  $routeProvider.when('/event/edit/:eventId', {templateUrl: '/partials/EventEdit.html',    controller: 'EventEditCtrl'});
   $routeProvider.otherwise({redirectTo: '/landing'});
 }]);
 

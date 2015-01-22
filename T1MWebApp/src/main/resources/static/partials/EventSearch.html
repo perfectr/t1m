@@ -1,24 +1,24 @@
-<h2>Person Search</h2>
+<h2>Event Search</h2>
 
 <div class="row">
     <div class="col-md-8">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>People</h4></div>
+            <div class="panel-heading"><h4>Event</h4></div>
             <div class="panel-body">
                 <form role="form" class="form-inline">
                     <div class="form-group">
-                        <input type="text" class="form-control input-sm" id="nameCriteria" ng-model="personSearchSvc.searchCriteria.nameCriteria">
+                        <input type="text" class="form-control input-sm" id="nameCriteria" ng-model="eventSearchSvc.searchCriteria.nameCriteria">
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm" ng-click="searchAction()">Search</button>
                     <button type="submit" class="btn btn-default btn-sm" ng-click="resetAction()">Clear</button>
-                    <button type="button" class="btn btn-success btn-sm" ng-click="newAction()">New Person</button>
+                    <button type="button" class="btn btn-success btn-sm" ng-click="newAction()">New Event</button>
                 </form>
             </div>
 
             <table class="table table-hover">
                 <tbody>
-                    <tr ng-repeat="person in personSearchSvc.searchResponse.results">
-                        <td><a href="#/person/edit/{{person.personId}}">{{person.firstName}}&nbsp;{{person.familyName}}</a></td>
+                    <tr ng-repeat="event in eventSearchSvc.searchResponse.results">
+                        <td>{{event.observer}}&nbsp;{{event.locationId}}</td>
                     </tr><tr></tr>
                 </tbody>
             </table>
@@ -27,10 +27,10 @@
                     max-size="4"
                     boundary-links="true"
                     ng-change="pageChanged()"
-                    ng-model="personSearchSvc.searchCriteria.pageNumber"
-                    items-per-page="personSearchSvc.searchCriteria.pageSize"
-                    total-items="personSearchSvc.searchResponse.total"
-                    num-pages="personSearchSvc.searchResponse.numPages">
+                    ng-model="eventSearchSvc.searchCriteria.pageNumber"
+                    items-per-page="eventSearchSvc.searchCriteria.pageSize"
+                    total-items="eventSearchSvc.searchResponse.total"
+                    num-pages="eventSearchSvc.searchResponse.numPages">
             </pagination>
         </div>
     </div>

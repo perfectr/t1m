@@ -48,10 +48,11 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li ng-class="{ active: isActive('/landing')}"><a href="#">Overview</a></li>
-                <li ng-class="{ active: isActive('/contact')}"><a href="#/contact">Contact</a></li>
-                <li ng-class="{ active: isActive('/#/person')}"> <a href="#/person/search">People</a></li>
-                <li class=""><a href="{{publicAccessURL}}">Public Access</a></li>
-                <li class=""><a href="{{secureLoginURL}}">Login</a></li>
+                <!--<li ng-class="{ active: isActive('/contact')}"><a href="#/contact">Contact</a></li>-->
+                <li ng-class="{ active: isActive('/#/person')}"><a href="#/person/search">People</a></li>
+                <li ng-class="{ active: isActive('/#/event')}"><a href="#/event/search">Events</a></li>
+                <!--<li class=""><a href="{{publicAccessURL}}">Public Access</a></li>-->
+                <!--<li class=""><a href="{{secureLoginURL}}">Login</a></li>-->
             </ul>
             <div class="version">
                 <p th:text="'Version: ' + ${version}">Version: ${version}</p>
