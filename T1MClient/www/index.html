@@ -79,10 +79,18 @@
                 var startDate = document.getElementById("startDate").value;
                 var endDate = document.getElementById("endDate").value;
                 var obs = document.getElementById("obs").value;
-                document.getElementById("sli1").innerHTML = sli;
-                document.getElementById("startDate1").innerHTML = startDate;
-                document.getElementById("endDate1").innerHTML = endDate;
-                document.getElementById("obs1").innerHTML = obs;
+                
+                var form = {
+                    "sli": sli,
+                    "startDate": startDate,
+                    "endDate": endDate,
+                    "obs": obs
+                };
+                
+                //document.getElementById("sli1").innerHTML = sli;
+                //document.getElementById("startDate1").innerHTML = startDate;
+                //document.getElementById("endDate1").innerHTML = endDate;
+                document.getElementById("obs1").innerHTML = JSON.stringify(form);
             }
         </script>
         
