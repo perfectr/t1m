@@ -26,10 +26,7 @@ public class EventService {
 
     @Transactional
     public Response<EventEntity> saveEvent(EventEntity event) {
-        // validate the eventEntity - is there already a event with this email address (with a different eventId)?
-
         EventEntity eventResponse = eventRepository.save(event);
-
         return new Response<>(eventResponse);
     }
 

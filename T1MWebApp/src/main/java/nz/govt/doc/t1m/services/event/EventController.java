@@ -29,9 +29,7 @@ public class EventController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public Response<EventEntity> saveEvent(@RequestBody DataForm dataForm) {
-        System.out.println(dataForm.details());
-        return null;
-        //return eventService.saveEvent(request.getModel());
+        return eventService.saveEvent(dataForm.getEE());
     }
 
     @RequestMapping(value = "/{eventId}", method = RequestMethod.DELETE)

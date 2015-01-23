@@ -12,6 +12,7 @@ public class EventCriteria extends AbstractCriteria {
     private String locationId;
     private Date startD;
     private Date endD;
+    private Date receivedD;
 
     private String eventCriteria;
 
@@ -23,7 +24,7 @@ public class EventCriteria extends AbstractCriteria {
         return observer;
     }
 
-    public void setObserver(String eventId) {
+    public void setObserver(String observer) {
         this.observer = observer;
     }
 
@@ -31,7 +32,7 @@ public class EventCriteria extends AbstractCriteria {
         return locationId;
     }
 
-    public void setLocationId(String eventId) {
+    public void setLocationId(String locationId) {
         this.locationId = locationId;
     }
 
@@ -39,7 +40,7 @@ public class EventCriteria extends AbstractCriteria {
         return startD;
     }
 
-    public void setStartD(Date eventId) {
+    public void setStartD(Date startD) {
         this.startD = startD;
     }
 
@@ -47,8 +48,16 @@ public class EventCriteria extends AbstractCriteria {
         return endD;
     }
 
-    public void setEndD(Date eventId) {
+    public void setEndD(Date endD) {
         this.endD = endD;
+    }
+
+    public Date getReceivedD() {
+        return receivedD;
+    }
+
+    public void setReceivedD(Date receivedD) {
+        this.receivedD = receivedD;
     }
 
     public String getEventCriteria() {
