@@ -1,7 +1,24 @@
-
-
-<p>Welcome to the T1M - Tier 1 Monitoring application.</p>
-
-
-<p>...landing page text goes here.</p>
-
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Events Received</h4></div>
+            <table class="table table-hover">
+                <tbody>
+                <tr><td>Observer Name</td><td>Location</td><td>Start Date</td><td>End Date</td><td>Received Timestamp</td></tr>
+                <tr ng-repeat="event in eventSearchSvc.searchResponse.results">
+                    <td>{{event.observer}}</td><td>{{event.locationId}}</td><td>{{event.startDString}}</td><td>{{event.endDString}}</td><td>{{event.receivedDString}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <pagination
+                    max-size="4"
+                    boundary-links="true"
+                    ng-change="pageChanged()"
+                    ng-model="eventSearchSvc.searchCriteria.pageNumber"
+                    items-per-page="eventSearchSvc.searchCriteria.pageSize"
+                    total-items="eventSearchSvc.searchResponse.total"
+                    num-pages="eventSearchSvc.searchResponse.numPages">
+            </pagination>
+        </div>
+    </div>
+</div>

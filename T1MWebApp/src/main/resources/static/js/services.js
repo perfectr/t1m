@@ -91,7 +91,7 @@ myAppServices.factory('EventSearchSvc', ['$http', function($http) {
     var service = {
         searchCriteria: {
             pageNumber : 1,
-            pageSize : 6,
+            pageSize : 20,
             nameCriteria : null
         },
 
