@@ -55,27 +55,27 @@ myAppControllers.controller('PersonSearchCtrl', ['$scope', '$window', 'PersonSea
     $scope.pageChanged();
 }]);
 
-myAppControllers.controller('EventSearchCtrl', ['$scope', '$window', 'EventSearchSvc', function($scope, $window, EventSearchSvc) {
+myAppControllers.controller('SurveySearchCtrl', ['$scope', '$window', 'SurveySearchSvc', function($scope, $window, SurveySearchSvc) {
 
-    $scope.eventSearchSvc = EventSearchSvc;
+    $scope.surveySearchSvc = SurveySearchSvc;
 
     $scope.pageChanged = function() {
-        EventSearchSvc.search();
+        SurveySearchSvc.search();
     };
 
     $scope.searchAction = function() {
         // user clicking the search button always resets the pageNumber
-        EventSearchSvc.searchCriteria.pageNumber = 1;
+        SurveySearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
 
     $scope.resetAction = function() {
-        EventSearchSvc.reset();
+        SurveySearchSvc.reset();
         $scope.searchAction();
     }
 
     $scope.newAction = function() {
-        $window.location.href = '#/event/edit/-1';
+        $window.location.href = '#/survey/edit/-1';
     }
 
     $scope.pageChanged();
@@ -137,7 +137,7 @@ myAppControllers.controller('PersonEditCtrl', ['$scope', '$routeParams', '$windo
     $scope.refresh();
 }]);
 
-myAppControllers.controller('EventEditCtrl', ['$scope', '$routeParams', '$window', 'EventSvc', function($scope, $routeParams, $window, EventSvc) {
+myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$window', 'SurveySvc', function($scope, $routeParams, $window, SurveySvc) {
 
     // TODO: replace with proper security
     $scope.currentUser = {};
@@ -147,12 +147,12 @@ myAppControllers.controller('EventEditCtrl', ['$scope', '$routeParams', '$window
 
 
     $scope.refresh = function() {
-        var eventId = $routeParams.eventId;
-        if(eventId > 0) {
-            $scope.selectedEvent = EventSvc.get({eventId: eventId});
+        var surveyId = $routeParams.surveyId;
+        if(surveyId > 0) {
+            $scope.selectedSurvey = SurveySvc.get({surveyId: surveyId});
         }
         else {
-            $scope.selectedEvent = new EventSvc();
+            $scope.selectedSurvey = new SurveySvc();
             $scope.editMode = true;
         }
     }
@@ -166,22 +166,22 @@ myAppControllers.controller('EventEditCtrl', ['$scope', '$routeParams', '$window
         console.log("cancelAction() - clicked");
         $scope.editMode = false;
 
-        if($routeParams.eventId > 0) {
+        if($routeParams.surveyId > 0) {
             // if not new reload the selected report to get rid of any edits
             $scope.refresh();
         }
         else {
-            $window.location.href = '#/event/search';
+            $window.location.href = '#/survey/search';
         }
     }
 
     $scope.saveAction = function() {
-        $scope.selectedEvent.$save(function(data) {
+        $scope.selectedSurvey.$save(function(data) {
             console.log("responseMessages = " + data.responseMessages);
             var hasNoErrors = data.responseMessages.length === 0;
             if(hasNoErrors) {
                 // redirect the browser with the save report's reportId so that new reports get switched to the right url
-                $window.location.href = '#/event/search';
+                $window.location.href = '#/survey/search';
                 $scope.editMode = false;
                 $scope.refresh();
             }

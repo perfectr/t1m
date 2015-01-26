@@ -1,0 +1,80 @@
+
+<h2>Survey Edit</h2>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table width="100%;">
+            <tr>
+                <td><h3>Selected Survey</h3></td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr style="margin-top: 0px;"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-repeat="msg in selectedSurvey.responseMessages">
+            <div class="alert alert-danger" role="alert">{{msg.description}}</div>
+        </div>
+    </div>
+</div>
+
+<!-- View mode -->
+<div ng-hide="editMode">
+    <div class="row" >
+        <dl class="dl-horizontal">
+            <dt>Name</dt>
+            <dd>{{selectedSurvey.model.observer}}&nbsp;{{selectedSurvey.model.locationId}}</dd>
+        </dl>
+    </div>
+</div>
+
+<!-- Edit mode -->
+<div class="row" ng-show="editMode">
+    <div class="col-md-12">
+        <form name="surveyForm" role="form" ng-submit="submitForm(surveyForm.$invalid)" novalidate autocomplete="off">
+            <div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group required" ng-class="{'has-error' : surveyForm.observerTxtFld.$invalid && !surveyForm.observerTxtFld.$pristine}">
+                            <label class="control-label" for="observerTxtFld">Observer</label>
+                            <input type="text" class="form-control" id="observerTxtFld" name="observerTxtFld" ng-model="selectedSurvey.model.observer" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group required" ng-class="{'has-error' : surveyForm.locationIdTxtFld.$invalid && !surveyForm.locationIdTxtFld.$pristine}">
+                            <label class="control-label" for="locationIdTxtFld">Location ID</label>
+                            <input type="text" class="form-control" id="locationIdTxtFld" name="locationIdTxtFld" ng-model="selectedSurvey.model.locationId" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-danger" ng-click="">Deactivate</button>
+                </div>
+                <div class="col-md-8" align="right">
+                    <button type="submit" class="btn btn-primary" ng-click="saveAction(surveyForm.$invalid)" ng-disabled="surveyForm.$invalid">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="cancelAction()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Mode switching controls -->
+<div class="row" ng-hide="editMode">
+    <div class="col-md-12">
+        <hr>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8" align="right">
+            <button type="button" class="btn btn-primary" ng-click="editAction()" ng-disabled="!(currentUser.surveyId == selectedSurvey.model.surveyId || currentUser.administrator)">Edit</button>
+        </div>
+    </div>
+</div>

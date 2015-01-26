@@ -25,12 +25,12 @@ myApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpP
     // disable IE ajax request caching
     $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
 
-  $routeProvider.when('/landing', {templateUrl: '/partials/landing.html',   controller: 'EventSearchCtrl'}); //controller: 'LandingCtrl'});
+  $routeProvider.when('/landing', {templateUrl: '/partials/landing.html',   controller: 'LandingCtrl'}); //controller: 'LandingCtrl'});
   $routeProvider.when('/contact', {templateUrl: '/partials/ContactUs.html', controller: 'ContactCtrl'});
   $routeProvider.when('/person/search',         {templateUrl: '/partials/PersonSearch.html',  controller: 'PersonSearchCtrl'});
   $routeProvider.when('/person/edit/:personId', {templateUrl: '/partials/PersonEdit.html',    controller: 'PersonEditCtrl'});
-  $routeProvider.when('/event/search',         {templateUrl: '/partials/EventSearch.html',  controller: 'EventSearchCtrl'});
-  $routeProvider.when('/event/edit/:eventId', {templateUrl: '/partials/EventEdit.html',    controller: 'EventEditCtrl'});
+  $routeProvider.when('/survey/search',         {templateUrl: '/partials/SurveySearch.html',  controller: 'SurveySearchCtrl'});
+  $routeProvider.when('/survey/edit/:surveyId', {templateUrl: '/partials/SurveyEdit.html',    controller: 'SurveyEditCtrl'});
   $routeProvider.otherwise({redirectTo: '/landing'});
 }]);
 
