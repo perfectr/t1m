@@ -93,6 +93,7 @@ public class DataForm {
             surveyEntity.setEndD(parseDate(this.edt));
             surveyEntity.setSurveyType(this.typ);
             surveyEntity.setReceivedD();
+            System.out.println(surveyEntity.getReceivedDString());
             for(int i = 0 ; i < dst.length ; i++) {
                 System.out.printf("Data Sheet Type: " + this.dst[i]);
                 for (int j = 0; j < fld.length; j++) {
@@ -106,7 +107,7 @@ public class DataForm {
 
     /** to parse formatted strings from JSONs into date objects */
     private Date parseDate(String dateString){
-        DateFormat format = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         Date date = null;
         try {
             date = format.parse(dateString);

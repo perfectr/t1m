@@ -58,7 +58,7 @@ public class SurveyEntity {
     }
 
     public String getStartDString() {
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         return df.format(startD);
     }
 
@@ -71,7 +71,7 @@ public class SurveyEntity {
     }
 
     public String getEndDString() {
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         return df.format(endD);
     }
 
@@ -84,7 +84,7 @@ public class SurveyEntity {
     }
 
     public String getReceivedDString() {
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy @ hh:mm:ss");
         return df.format(receivedD);
     }
 
