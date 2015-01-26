@@ -1,6 +1,6 @@
-package nz.govt.doc.t1m.services.event;
+package nz.govt.doc.t1m.services.survey;
 
-import nz.govt.doc.t1m.domain.event.EventEntity;
+import nz.govt.doc.t1m.domain.survey.SurveyEntity;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * to create various simple query method just by using a method naming convention. See the Spring documentation for
  * further details.
  */
-public interface EventRepository extends PagingAndSortingRepository<EventEntity, Integer>, EventRepositoryCustom {
+public interface SurveyRepository extends PagingAndSortingRepository<SurveyEntity, Integer>, SurveyRepositoryCustom {
 
-    EventEntity findOneByEventId(Integer eventId);
+    SurveyEntity findOneBySurveyId(Integer surveyId);
 }

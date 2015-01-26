@@ -1,4 +1,4 @@
-package nz.govt.doc.t1m.domain.event;
+package nz.govt.doc.t1m.domain.survey;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,26 +11,30 @@ import java.util.Date;
 /**
  */
 @Entity
-public class EventEntity {
+public class SurveyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer eventId;
+    private Integer surveyId;
     @NotNull
     private String observer;
     @NotNull
     private String locationId;
+    @NotNull
     private Date startD;
+    @NotNull
     private Date endD;
     @NotNull
     private Date receivedD;
+    @NotNull
+    private String surveyType;
 
-    public Integer getEventId() {
-        return eventId;
+    public Integer getSurveyId() {
+        return surveyId;
     }
 
-    public void setEventId(Integer eventId) {
-        this.eventId = eventId;
+    public void setSurveyId(Integer surveyId) {
+        this.surveyId = surveyId;
     }
 
     public String getObserver() {
@@ -54,7 +58,7 @@ public class EventEntity {
     }
 
     public String getStartDString() {
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         return df.format(startD);
     }
 
@@ -67,7 +71,7 @@ public class EventEntity {
     }
 
     public String getEndDString() {
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         return df.format(endD);
     }
 
@@ -80,11 +84,19 @@ public class EventEntity {
     }
 
     public String getReceivedDString() {
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy @ hh:mm:ss");
         return df.format(receivedD);
     }
 
     public void setReceivedD() {
         this.receivedD = new Timestamp(Calendar.getInstance().getTime().getTime());
+    }
+
+    public String getSurveyType() {
+        return surveyType;
+    }
+
+    public void setSurveyType(String surveyType) {
+        this.surveyType = surveyType;
     }
 }

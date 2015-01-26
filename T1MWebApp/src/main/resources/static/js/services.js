@@ -49,9 +49,9 @@ myAppServices.factory('PersonSvc', ['$resource', function($resource){
     });
 }]);
 
-myAppServices.factory('EventSvc', ['$resource', function($resource){
-    return $resource('/rest/event/:eventId', {}, {
-      query: {method:'GET', params:{eventId:'search'}, isArray:false}
+myAppServices.factory('SurveySvc', ['$resource', function($resource){
+    return $resource('/rest/survey/:surveyId', {}, {
+      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
     });
 }]);
 
@@ -87,7 +87,7 @@ myAppServices.factory('PersonSearchSvc', ['$http', function($http) {
     return service;
 }]);
 
-myAppServices.factory('EventSearchSvc', ['$http', function($http) {
+myAppServices.factory('SurveySearchSvc', ['$http', function($http) {
     var service = {
         searchCriteria: {
             pageNumber : 1,
@@ -96,7 +96,7 @@ myAppServices.factory('EventSearchSvc', ['$http', function($http) {
         },
 
         search: function(callback) {
-            $http.post('/rest/event/search', service.searchCriteria).success(function(response) {
+            $http.post('/rest/survey/search', service.searchCriteria).success(function(response) {
                 service.searchResponse = response;
                 //service.numPages = Math.floor(response.total / response.pageSize) + 1;
                 if(callback) {

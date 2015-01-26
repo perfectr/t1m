@@ -1,4 +1,4 @@
-package nz.govt.doc.t1m.services.event;
+package nz.govt.doc.t1m.services.survey;
 
 import nz.govt.doc.t1m.domain.criteria.AbstractCriteria;
 
@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  */
-public class EventCriteria extends AbstractCriteria {
+public class SurveyCriteria extends AbstractCriteria {
 
     private String observer;
     private String locationId;
@@ -14,9 +14,9 @@ public class EventCriteria extends AbstractCriteria {
     private Date endD;
     private Date receivedD;
 
-    private String eventCriteria;
+    private String surveyCriteria;
 
-    public EventCriteria() {
+    public SurveyCriteria() {
         super();
     }
 
@@ -60,11 +60,11 @@ public class EventCriteria extends AbstractCriteria {
         this.receivedD = receivedD;
     }
 
-    public String getEventCriteria() {
-        return eventCriteria;
+    public String getSurveyCriteria() {
+        return surveyCriteria;
     }
 
-    public void setEventCriteria(String eventCriteria) {
-        this.eventCriteria = eventCriteria;
+    public void setSurveyCriteria(String surveyCriteria) {
+        this.surveyCriteria = surveyCriteria;
     }
 }
