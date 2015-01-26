@@ -26,33 +26,30 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        
         <title>T1MClient</title>
     </head>
     <body>
         <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mCtrl">
             <h1>T1 Monitoring</h1>
-
-            <form name="form">
+            <form name="form" >
                 <br>
-                Sampling Location Identifier:
+                <h4>Sampling Location Identifier:</h4>
+                <input type="text" class="form-control" id="sli" ng-model="surveyRecord.sli" placeHolder="e.g. AD175">
+                <h4>Start Date:</h4>
+                <input type="date" class="form-control" id="startDate" ng-model="surveyRecord.sdt">
+                <h4>End Date:</h4>
+                <input type="date" class="form-control" id="endDate" ng-model="surveyRecord.edt">
+                <h4>Observer:</h4>
+                <input type="text" class="form-control" id="obs" placeHolder="e.g. John Doe" ng-model="surveyRecord.obs">
                 <br>
-                <input type="text" id="sli" ng-model="surveyRecord.sli" placeHolder="e.g. AD175">
-                <br><br>
-                Start Date:
-                <br>
-                <input type="date" id="startDate" ng-model="surveyRecord.sdt">
-                <br><br>
-                End Date:
-                <br>
-                <input type="date" id="endDate" ng-model="surveyRecord.edt">
-                <br><br>
-                Observer:
-                <br>
-                <input type="text" id="obs" placeHolder="e.g. John Doe" ng-model="surveyRecord.obs">
-                <br><br>
               </form>
-            <button ng-click="saveAction()">Submit</button>
+            <button ng-click="startSurvey('birdSurvey')"  class="btn btn-default">Bird Survey</button>
+            <button ng-click="startSurvey('litterSurvey')"  class="btn btn-default">Litter Survey</button>
             <!--<p id="sli1">{{surveyRecord.sli}}</p>
             <p id="startDate1">{{surveyRecord.sdt | date:'longDate'}}</p>
             <p id="endDate1">{{surveyRecord.edt | date:'longDate'}}</p>
@@ -62,28 +59,14 @@
         
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script type="text/javascript" src="js/angular-resource.min.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-        <script type="text/javascript">
-            var t1mApp = angular.module('t1mApp', ['t1mControllers', 't1mAppServices']);
-            var t1mControllers = angular.module('t1mControllers', []);
-            var t1mAppServices = angular.module('t1mAppServices', ['ngResource']);
-            t1mAppServices.factory('RecordSvc', ['$resource', function($resource){
-                return $resource('http://192.168.21.104:6080/rest/event/:sli', {}, {});
-            }]);
-            
-            t1mControllers.controller('t1mCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
-                $scope.surveyRecord = new RecordSvc();
-                $scope.saveAction = function(){
-                    $scope.surveyRecord.$save();
-                    $scope.surveyRecord = new RecordSvc();
-                };
-            }]);
-            
-        </script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/controllers.js"></script>
+        <script type="text/javascript" src="js/services.js"></script>
+        <script type="text/javascript">app.initialize();</script>
+        <script type="text/javascript" src="js/app.js"></script>
         
     </body>
     
