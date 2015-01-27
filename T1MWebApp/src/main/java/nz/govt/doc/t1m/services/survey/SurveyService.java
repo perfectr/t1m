@@ -3,6 +3,7 @@ package nz.govt.doc.t1m.services.survey;
 import nz.govt.doc.t1m.domain.survey.SurveyEntity;
 import nz.govt.doc.t1m.domain.response.PagedResponse;
 import nz.govt.doc.t1m.domain.response.Response;
+import nz.govt.doc.t1m.services.incoming.DataParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,10 +26,10 @@ public class SurveyService {
     }
 
     @Transactional
-    public Response<SurveyEntity> saveSurvey(SurveyEntity survey) {
-        SurveyEntity surveyResponse = surveyRepository.save(survey);
+    public Response<SurveyEntity> saveSurvey(DataParser dataParser) {
+        SurveyEntity surveyResponse = surveyRepository.save(dataParser.getSurvey());
+        dataParser.saveDataSheets(surveyResponse.getSurveyId());
         Response res = new Response<>(surveyResponse);
-        System.out.println(res);
         return res;
     }
 

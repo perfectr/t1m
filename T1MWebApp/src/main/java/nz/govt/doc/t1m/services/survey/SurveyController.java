@@ -3,6 +3,8 @@ package nz.govt.doc.t1m.services.survey;
 import nz.govt.doc.t1m.domain.survey.SurveyEntity;
 import nz.govt.doc.t1m.domain.response.PagedResponse;
 import nz.govt.doc.t1m.domain.response.Response;
+import nz.govt.doc.t1m.services.incoming.DataForm;
+import nz.govt.doc.t1m.services.incoming.DataParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +31,7 @@ public class SurveyController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public Response<SurveyEntity> saveSurvey(@RequestBody DataForm dataForm) {
-        return surveyService.saveSurvey(dataForm.getEE());
+        return surveyService.saveSurvey(new DataParser(dataForm));
     }
 
     @RequestMapping(value = "/{surveyId}", method = RequestMethod.DELETE)
