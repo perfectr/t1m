@@ -30,19 +30,32 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/phonegap.css" />
+        <link rel="stylesheet" type="text/css" href="../css/birdSurvey.css" />
         
         <title>birdSurvey</title>
     </head>
     <body>
-        <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mBirdCtrl">
-            
+        <div ng-app="t1mApp" class="app" ng-controller="t1mBirdCtrl">
             <tabset>
-                <tab heading='blah'>
-                    <h1>T1 Monitoring</h1>
-                    <button ng-click="loadData('birdSurvey')"  class="btn btn-default">Load</button>
+                <tab heading='Site' class="col-xs-4">
+                    <h3>Choose count station</h3>
+                    <div class="btn-toolbar">
+                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'X'">X</label>
+                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'A'">A</label>
+                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'D'">D</label>
+                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'M'">M</label>
+                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'P'">P</label>
+                    </div>
+                    
                     <p>{{surveyRecord}}</p>
+                    <p>{{birdSurvey.rad}}</p>
+                    
+                    <button ng-click="intoJson()">blah</button>
                 </tab>
-                <tab heading='blahblah'>cool</tab>
+                <tab heading='Sightings' class="col-xs-4"></tab>
+                <tab heading='Incidental' class="col-xs-4">
+                    <h1>T1 Monitoring</h1>
+                </tab>
             </tabset>
         </div>
         
