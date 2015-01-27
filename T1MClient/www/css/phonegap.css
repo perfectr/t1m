@@ -56,7 +56,7 @@ body {
 
 
 .inner {
-    position:absolute;             /* position in the center of the screen */
+    position:relative;             /* position in the center of the screen */
     left:10%;
     top:10%;
     height:80%;                    /*text area height */

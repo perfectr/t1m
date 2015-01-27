@@ -32,14 +32,16 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc',function($scope
 
 t1mControllers.controller('t1mLitterCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
                 $scope.surveyRecord = new RecordSvc();
-
+                $scope.litterSurvey = {};
+                var stuff = window.localStorage.getItem("litterSurvey");
+                $scope.surveyRecord = angular.fromJson(stuff);     
+                
+                $scope.saveTab = function(){
+                      $scope.surveyRecord.dst[0] = "beachLitter";
+                };
+    
                 $scope.saveAction = function(){
                     $scope.surveyRecord.$save();
                     $scope.surveyRecord = new RecordSvc();
-                };
-                $scope.loadData = function(surveyType){
-                    var stuff = window.localStorage.getItem(surveyType);
-                    $scope.surveyRecord = angular.fromJson(stuff);
-                        
                 };
             }]);
