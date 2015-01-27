@@ -35,26 +35,28 @@
     </head>
     <body>
         <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mCtrl">
-            <h1>T1 Monitoring</h1>
-            <form name="form" >
-                <br>
-                <h4>Sampling Location Identifier:</h4>
-                <input type="text" class="form-control" id="sli" ng-model="surveyRecord.sli" placeHolder="e.g. AD175">
-                <h4>Start Date:</h4>
-                <input type="date" class="form-control" id="startDate" ng-model="surveyRecord.sdt">
-                <h4>End Date:</h4>
-                <input type="date" class="form-control" id="endDate" ng-model="surveyRecord.edt">
-                <h4>Observer:</h4>
-                <input type="text" class="form-control" id="obs" placeHolder="e.g. John Doe" ng-model="surveyRecord.obs">
-                <br>
-              </form>
-            <button ng-click="startSurvey('birdSurvey')"  class="btn btn-default">Bird Survey</button>
-            <button ng-click="startSurvey('litterSurvey')"  class="btn btn-default">Litter Survey</button>
-            <!--<p id="sli1">{{surveyRecord.sli}}</p>
-            <p id="startDate1">{{surveyRecord.sdt | date:'longDate'}}</p>
-            <p id="endDate1">{{surveyRecord.edt | date:'longDate'}}</p>
-            <p id="obs1" >{{surveyRecord.obs}}</p>-->
-            <p>{{surveyRecord}}</p>
+            <div class="inner">
+                <h1>T1 Monitoring</h1>
+                <form name="form" >
+                    <br>
+                    <h4>Sampling Location Identifier:</h4>
+                    <input type="text" class="form-control" id="sli" ng-model="surveyRecord.sli" placeHolder="e.g. AD175">
+                    <h4>Start Date:</h4>
+                    <input type="date" class="form-control" id="startDate" ng-model="surveyRecord.sdt">
+                    <h4>End Date:</h4>
+                    <input type="date" class="form-control" id="endDate" ng-model="surveyRecord.edt">
+                    <h4>Observer:</h4>
+                    <input type="text" class="form-control" id="obs" placeHolder="e.g. John Doe" ng-model="surveyRecord.obs">
+                    <br>
+                  </form>
+                <button ng-click="startSurvey('birdSurvey')"  class="btn btn-default">Bird Survey</button>
+                <button ng-click="startSurvey('litterSurvey')"  class="btn btn-default">Litter Survey</button>
+                <!--<p id="sli1">{{surveyRecord.sli}}</p>
+                <p id="startDate1">{{surveyRecord.sdt | date:'longDate'}}</p>
+                <p id="endDate1">{{surveyRecord.edt | date:'longDate'}}</p>
+                <p id="obs1" >{{surveyRecord.obs}}</p>-->
+                <p>{{surveyRecord}}</p>
+            </div>
         </div>
         
         <script type="text/javascript" src="cordova.js"></script>

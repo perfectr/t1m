@@ -47,14 +47,22 @@ body {
 /* Portrait layout (default) */
 .app {
     position:absolute;             /* position in the center of the screen */
-    left:10%;
-    top:10%;
-    height:80%;                    /*text area height */
-    width:80%;                   /* text area width */
+    height:100%;                    /*text area height */
+    width:100%;                   /* text area width */
     text-align:center;
       /* offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
 }
+
+
+.inner {
+    position:absolute;             /* position in the center of the screen */
+    left:10%;
+    top:10%;
+    height:80%;                    /*text area height */
+    width:80%;                   /* text area width */ 
+}
+
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
