@@ -90,6 +90,7 @@ public class SurveyEntity {
 
     public void setReceivedD() {
         this.receivedD = new Timestamp(Calendar.getInstance().getTime().getTime());
+        System.out.println("Incoming package logged on " + getReceivedDString());
     }
 
     public String getSurveyType() {
@@ -99,4 +100,5 @@ public class SurveyEntity {
     public void setSurveyType(String surveyType) {
         this.surveyType = surveyType;
     }
+
 }
