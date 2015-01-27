@@ -38,6 +38,7 @@
         <div ng-app="t1mApp" class="app" ng-controller="t1mBirdCtrl">
             <tabset>
                 <tab heading='Site' class="col-xs-4">
+                    <div class="inner">
                     <h3>Choose count station</h3>
                     <div class="btn-toolbar">
                         <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'X'">X</label>
@@ -46,11 +47,15 @@
                         <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'M'">M</label>
                         <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'P'">P</label>
                     </div>
-                    
+                    <input type="time" class="form-control" ng-model="birdSurvey.time">
+                    <!--<div>
+                        <timepicker  ng-model="birdSurvey.time" hour-step="1" minute-step="1" show-meridian="true"></timepicker>
+                    </div>-->
                     <p>{{surveyRecord}}</p>
                     <p>{{birdSurvey.rad}}</p>
                     
                     <button ng-click="intoJson()">blah</button>
+                        </div>
                 </tab>
                 <tab heading='Sightings' class="col-xs-4"></tab>
                 <tab heading='Incidental' class="col-xs-4">
