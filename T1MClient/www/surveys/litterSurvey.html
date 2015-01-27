@@ -40,83 +40,96 @@
             <h1>T1 Monitoring</h1>
             <tabset>
                 <tab heading="Metadata" select="saveTab()" class="col-xs-6">
-                    <div>
+                    <div class="inner">
+                        <div class="row">
                             <div class="col-xs-4">
                                 <h4>Beach ID</h4>
-                                <input class="form-control" type="text" placeHolder="ID"><br>
+                                <input class="form-control" type="text" placeHolder="ID">
                             </div>
                             <div class="col-xs-8">
                                 <h4>Beach Name</h4>
-                                <input class="form-control" type="text" placeHolder="Name"><br>
+                                <input class="form-control" type="text" placeHolder="Name">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-xs-12">
                                 <h4>Region Name</h4>
-                                <input class="form-control" type="text" placeHolder="Name"><br>
+                                <input class="form-control" type="text" placeHolder="Name">
                             </div>
+                        </div>
+                        <div class="row">
+                            <h4>Start</h4>
+                            <div class="col-xs-6">
+                                <h4>Latitude</h4>
+                                <input class="form-control " type="text" placeHolder="Lat">
+                            </div>
+                            <div class="col-xs-6">
+                                <h4>Longitude</h4>
+                                <input class="form-control " type="text" placeHolder="Lon">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4>End</h4>
+                            <div class="col-xs-6">
+                                <h4>Latitude</h4>
+                                <input class="form-control" type="text" placeHolder="Lat">
+                            </div>
+                            <div class="col-xs-6">
+                                <h4>Longitude</h4>
+                                <input class="form-control" type="text" placeHolder="Lon">
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-xs-12">
                                 <h4>Coordiante System</h4>
-                                <input class="form-control" type="text" placeHolder="System"><br>
+                                <input class="form-control" type="text" placeHolder="System">
                             </div>
-                    </div>                        
+                        </div>  
+                        <br>  
+                    </div>
                 </tab>
                 <tab heading="beach info" select="saveTab()" class="col-xs-6">
-                    <div>
-                        <form >
-                            <div class="form-group">
-                                <h4>Latitude / Longitude Start</h4>
-                                <div class="col-xs-6">
-                                    <input class="form-control col-xs-6" type="text" placeHolder="Lat">
-                                </div>
-                                <div class="col-xs-6">
-                                    <input class="form-control col-xs-6" type="text" placeHolder="Lon">
-                                </div>
+                    <div class="inner">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>Total Beach Length</h4>
+                                <input class="form-control" type="number">
                             </div>
-                            <br><br>
-                            <div class="form-group">
-                                <h4>Latitude / Longitude End</h4>
-                                <div class="col-xs-6">
-                                    <input class="form-control col-xs-6" type="text" placeHolder="Lat">
-                                </div>
-                                <div class="col-xs-6">
-                                    <input class="form-control col-xs-6" type="text" placeHolder="Lon">
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>Substratum Type</h4>
+                                <input class="form-control" type="text">
                             </div>
-                            <br><br>
-                            <div class="form-group">
-                                <h4>Season</h4>
-                                <div class="col-xs-12">
-                                    <select class="form-control">
-                                        <option>Summer</option>
-                                        <option>Autumn</option>
-                                        <option>Winter</option>
-                                        <option>Spring</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>Substratum Uniformity</h4>
+                                <input class="form-control" type="text">
                             </div>
-                            <br><br>
-                            <div class="form-group">
-                                <h4>Date of Last Survey</h4>
-                                <div class="col-xs-12">
-                                    <input class="form-control" type="date">
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>Tidal Range</h4>
+                                <input class="form-control" type="number">
                             </div>
-                            <br><br>
-                            <div class="form-group">
-                                <h4>Storm Activity</h4>
-                                <div class="col-xs-12">
-                                    <input class="form-control" type="text">
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>Tidal Distance</h4>
+                                <input class="form-control" type="number">
                             </div>
-                        </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>Back of Beach</h4>
+                                <input class="form-control" type="text">
+                            </div>
+                        </div>
                     </div>  
                 </tab>
             </tabset>
-          
-            
-            
-            
-            <button ng-click="loadData('litterSurvey')"  class="btn btn-default">Load</button>
-            
+             
             <p>{{surveyRecord}}</p>
                 
             </div>
