@@ -1,15 +1,18 @@
-package nz.govt.doc.t1m.domain.dataSheets.birdCount;
+package nz.govt.doc.t1m.domain.dataSheet.beachCharacterization;
 
-import nz.govt.doc.t1m.domain.dataSheets.DataSheetEntity;
+import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by McCaulC on 27/01/2015.
  */
 @Entity
-public class BirdCountEntity extends DataSheetEntity {
+public class BeachCharacterizationEntity extends DataSheetEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +20,7 @@ public class BirdCountEntity extends DataSheetEntity {
     @NotNull
     private Integer surveyId;
 
-    public BirdCountEntity(Integer surveyId) {
+    public BeachCharacterizationEntity(Integer surveyId) {
         this.surveyId = surveyId;
     }
 

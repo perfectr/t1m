@@ -1,9 +1,11 @@
-package nz.govt.doc.t1m.services.survey;
+package nz.govt.doc.t1m.services.dataSheet;
 
 import com.mysema.query.jpa.impl.JPAQuery;
-import nz.govt.doc.t1m.domain.survey.SurveyEntity;
-import nz.govt.doc.t1m.domain.survey.QSurveyEntity;
 import nz.govt.doc.t1m.domain.response.PagedResponse;
+import nz.govt.doc.t1m.domain.survey.QSurveyEntity;
+import nz.govt.doc.t1m.domain.survey.SurveyEntity;
+import nz.govt.doc.t1m.services.survey.SurveyCriteria;
+import nz.govt.doc.t1m.services.survey.SurveyRepositoryCustom;
 import nz.govt.doc.t1m.utils.JPAUtils;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * can vary for each request.
  */
 @Component
-public class SurveyRepositoryImpl implements SurveyRepositoryCustom {
+public class DataSheetRepositoryImpl implements SurveyRepositoryCustom {
 
     @PersistenceContext
     protected EntityManager em;
@@ -42,7 +44,7 @@ public class SurveyRepositoryImpl implements SurveyRepositoryCustom {
             query.where(surveyEntity.observer.like(surveyCriteria).or(surveyEntity.locationId.like(surveyCriteria)));
         }
 
-        query.orderBy(surveyEntity.receivedD.asc());
+        query.orderBy(surveyEntity.locationId.asc(), surveyEntity.observer.asc());
 
         PagedResponse<SurveyEntity> response = JPAUtils.listResults(query, criteria, surveyEntity);
         return response;

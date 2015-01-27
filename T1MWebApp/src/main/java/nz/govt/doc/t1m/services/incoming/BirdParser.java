@@ -1,9 +1,9 @@
 package nz.govt.doc.t1m.services.incoming;
 
-import nz.govt.doc.t1m.domain.dataSheets.DataSheetEntity;
-import nz.govt.doc.t1m.domain.dataSheets.incidentalBird.IncidentalBirdEntity;
-import nz.govt.doc.t1m.domain.dataSheets.birdCount.BirdCountEntity;
-import nz.govt.doc.t1m.domain.dataSheets.birdDistance.BirdDistanceEntity;
+import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
+import nz.govt.doc.t1m.domain.dataSheet.incidentalBird.IncidentalBirdEntity;
+import nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity;
+import nz.govt.doc.t1m.domain.dataSheet.birdDistance.BirdDistanceEntity;
 
 /**
  * Created by McCaulC on 27/01/2015.
@@ -38,7 +38,7 @@ public class BirdParser {
     }
 
     private BirdDistanceEntity BirdDistance(Integer surveyId) {
-        System.out.println("New 5 minute bird distance found");
+        System.out.println("New 5 minute bird distance data sheet found");
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
@@ -47,7 +47,7 @@ public class BirdParser {
     }
 
     private IncidentalBirdEntity IncidentalBird(Integer surveyId) {
-        System.out.println("New incidental bird sighting found");
+        System.out.println("New incidental bird sighting data sheet found");
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }

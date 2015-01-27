@@ -1,6 +1,6 @@
-package nz.govt.doc.t1m.domain.dataSheets.litterLarge;
+package nz.govt.doc.t1m.domain.dataSheet.litterBeach;
 
-import nz.govt.doc.t1m.domain.dataSheets.DataSheetEntity;
+import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * Created by McCaulC on 27/01/2015.
  */
 @Entity
-public class LitterLargeEntity extends DataSheetEntity {
+public class LitterBeachEntity extends DataSheetEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class LitterLargeEntity extends DataSheetEntity {
     @NotNull
     private Integer surveyId;
 
-    public LitterLargeEntity(Integer surveyId) {
+    public LitterBeachEntity(Integer surveyId) {
         this.surveyId = surveyId;
     }
 

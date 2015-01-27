@@ -1,6 +1,6 @@
-package nz.govt.doc.t1m.domain.dataSheets.birdDistance;
+package nz.govt.doc.t1m.domain.dataSheet.birdDistance;
 
-import nz.govt.doc.t1m.domain.dataSheets.DataSheetEntity;
+import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
