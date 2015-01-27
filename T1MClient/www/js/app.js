@@ -1,1 +1,1 @@
-var t1mApp = angular.module('t1mApp', ['t1mControllers', 't1mAppServices']);
+var t1mApp = angular.module('t1mApp', ['t1mControllers', 't1mAppServices','ui.bootstrap']);

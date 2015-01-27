@@ -35,11 +35,15 @@
     </head>
     <body>
         <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mBirdCtrl">
-            <h1>T1 Monitoring</h1>
             
-            <button ng-click="loadData('birdSurvey')"  class="btn btn-default">Load</button>
-            
-            <p>{{surveyRecord}}</p>
+            <tabset>
+                <tab heading='blah'>
+                    <h1>T1 Monitoring</h1>
+                    <button ng-click="loadData('birdSurvey')"  class="btn btn-default">Load</button>
+                    <p>{{surveyRecord}}</p>
+                </tab>
+                <tab heading='blahblah'>cool</tab>
+            </tabset>
         </div>
         
         <script type="text/javascript" src="../cordova.js"></script>
