@@ -38,8 +38,8 @@
         <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mLitterCtrl">
            <div>
             <h1>T1 Monitoring</h1>
-            <tabset>
-                <tab heading="Metadata" select="saveTab()" class="col-xs-6">
+            <tabset class="row" justified="true">
+                <tab heading="Sampling Area" select="saveTab()" class="">
                     <div class="inner">
                         <div class="row">
                             <div class="col-xs-4">
@@ -88,7 +88,7 @@
                         <br>  
                     </div>
                 </tab>
-                <tab heading="beach info" select="saveTab()" class="col-xs-6">
+                <tab heading="Beach Char." select="saveTab()" class="">
                     <div class="inner">
                         <div class="row">
                             <div class="col-xs-12">
@@ -127,6 +127,8 @@
                             </div>
                         </div>
                     </div>  
+                </tab>
+                <tab heading="Source Char." select="saveTab()" class="">
                 </tab>
             </tabset>
              
