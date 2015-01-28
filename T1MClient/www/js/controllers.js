@@ -52,6 +52,10 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
                       $scope.surveyRecord.dst[0] = "beachLitter";
                 };
     
+                $scope.selectTab = function(index){
+                      window.mySwipe.slide(index, 500);
+                };
+    
                 $scope.saveAction = function(){
                     $scope.surveyRecord.$save();
                     $scope.surveyRecord = new RecordSvc();
