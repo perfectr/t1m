@@ -12,24 +12,60 @@ t1mControllers.controller('t1mCtrl', [ '$scope', 'RecordSvc',function($scope, Re
                 };
             }]);
 
-t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', function($scope, RecordSvc, $modal) {
                 $scope.surveyRecord = new RecordSvc();
                 $scope.birdSurvey = {};
-                var stuff = window.localStorage.getItem('birdSurvey');
-                $scope.surveyRecord = angular.fromJson(stuff);
+                $scope.birdSurvey.skipButton = 'Skip station';
+                $scope.birdSurvey.skip = false;
+                $scope.birdSurvey.reasonSkip = '';
+                var storageData = window.localStorage.getItem('birdSurvey');
+                $scope.surveyRecord = angular.fromJson(storageData);
                 
                 $scope.surveyRecord.dst[$scope.surveyRecord.dst.length] = 'birdCount';
                 
+                
+    
     
                 $scope.intoJson = function(){
-                    $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['stationId','startTime'];
-                    $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [$scope.birdSurvey.rad,$scope.birdSurvey.time];
+                    $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['stationId','startTime','stationSkipped','reasonSkipped','sun'];
+                    $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [$scope.birdSurvey.rad,$scope.birdSurvey.time,$scope.birdSurvey.skip,$scope.birdSurvey.reasonSkip,$scope.birdSurvey.sun];
+                }
+                $scope.skip = function () {
+                    if(!($scope.birdSurvey.skip)){
+                        $scope.birdSurvey.skipButton = 'Un-skip station';
+                        var modalInstance = $modal.open({
+                              templateUrl: 'skipStationModalContent.html',
+                              controller: 'skipModalInstanceCtrl'
+                            });
+                    }else{
+                        $scope.birdSurvey.skipButton = 'Skip station';
+                    }
+                    modalInstance.result.then(function (reaSkip) {                            
+                            if(reaSkip[1]=='false'){
+                                $scope.birdSurvey.reasonSkip = reaSkip[0];
+                                $scope.scope.isDisabled = true;
+                            }else{
+                                $scope.birdSurvey.skip = false;
+                                $scope.birdSurvey.skipButton = 'Skip station';
+                            }
+                        });
                 }
                 $scope.saveAction = function(){
                     $scope.surveyRecord.$save();
                     $scope.surveyRecord = new RecordSvc();
                 };
             }]);
+t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInstance) {
+
+              $scope.ok = function () {
+                $modalInstance.close([$scope.reasonSkip,'false']);
+              };
+
+              $scope.cancel = function () {
+                $modalInstance.close(['','true']);
+              };
+            });
+
 
 t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
                 $scope.surveyRecord = new RecordSvc();
