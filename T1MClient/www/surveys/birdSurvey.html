@@ -68,10 +68,15 @@
                     <h4>Enter Start Time:</h4>
                     <input type="time" class="form-control" ng-model="birdSurvey.time" ng-disabled="birdSurvey.skip">
                     <h4>Sun</h4>
-                    <input type="number" class="form-control" ng-model="birdSurvey.sun" ng-disabled="birdSurvey.skip">  
+                    <select class="form-control" ng-model="birdSurvey.sun" ng-options="opt.value as opt.name for opt in options.sun" ng-disabled="birdSurvey.skip">
+                        <option value="" disabled selected>Bright sun immediately overhead in minutes</option>
+                    </select>  
                     <h4>Temperature</h4>
-                    <input type="number" class="form-control" ng-model="birdSurvey.temp" ng-disabled="birdSurvey.skip">
+                    <select class="form-control" ng-model="birdSurvey.temp" ng-options="opt.value as opt.name for opt in options.temp" ng-disabled="birdSurvey.skip">
+                        <option value="" disabled selected>Temperature</option>
+                    </select>
                     </div>
+                    <p>{{birdSurvey.sun}}</p>
                 </tab>
                 
                 <tab heading='Sightings' select="intoJson()"><p>{{surveyRecord}}</p></tab>

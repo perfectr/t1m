@@ -23,12 +23,28 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', func
                 
                 $scope.surveyRecord.dst[$scope.surveyRecord.dst.length] = 'birdCount';
                 
-                
-    
+                $scope.options = {
+                     sun: [
+                        {name: "0", value: "0"}, 
+                        {name: "1", value: "1"},
+                        {name: "2", value: "2"},
+                        {name: "3", value: "3"},
+                        {name: "4", value: "4"},
+                        {name: "5", value: "5"}],
+                    
+                    temp: [
+                        {name: "0", value: "0"}, 
+                        {name: "1", value: "1"},
+                        {name: "2", value: "2"},
+                        {name: "3", value: "3"},
+                        {name: "4", value: "4"},
+                        {name: "5", value: "5"}]
+                        
+                };
     
                 $scope.intoJson = function(){
-                    $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['stationId','startTime','stationSkipped','reasonSkipped','sun'];
-                    $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [$scope.birdSurvey.rad,$scope.birdSurvey.time,$scope.birdSurvey.skip,$scope.birdSurvey.reasonSkip,$scope.birdSurvey.sun];
+                    $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['stationId','startTime','stationSkipped','reasonSkipped','sun','temp'];
+                    $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [$scope.birdSurvey.rad,$scope.birdSurvey.time,$scope.birdSurvey.skip,$scope.birdSurvey.reasonSkip,$scope.birdSurvey.sun,$scope.birdSurvey.temp];
                 }
                 $scope.skip = function () {
                     if(!($scope.birdSurvey.skip)){
