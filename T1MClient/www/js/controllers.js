@@ -83,6 +83,20 @@ t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInsta
             });
 
 
+
+t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+                $scope.surveyRecord = new RecordSvc();
+                $scope.startSurvey = function(surveyType){
+                    $scope.surveyRecord.typ = surveyType;
+                    $scope.surveyRecord.dst = [];
+                    $scope.surveyRecord.fld = [[]];
+                    $scope.surveyRecord.dat = [[]];
+                    window.localStorage.setItem(surveyType,angular.toJson($scope.surveyRecord,false));
+                    window.location = "surveys/"+surveyType+".html";
+                };
+            }]);
+
+
 t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
                 $scope.surveyRecord = new RecordSvc();
                 $scope.beachCharacterization = {};
