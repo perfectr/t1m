@@ -19,10 +19,11 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc',function($scope
                 $scope.surveyRecord = angular.fromJson(stuff);
                 
                 $scope.surveyRecord.dst[$scope.surveyRecord.dst.length] = 'birdCount';
-                $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['stationId'];
+                
     
                 $scope.intoJson = function(){
-                    $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [$scope.birdSurvey.rad];
+                    $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['stationId','startTime'];
+                    $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [$scope.birdSurvey.rad,$scope.birdSurvey.time];
                 }
                 $scope.saveAction = function(){
                     $scope.surveyRecord.$save();

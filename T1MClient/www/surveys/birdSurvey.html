@@ -37,7 +37,7 @@
     <body>
         <div ng-app="t1mApp" class="app" ng-controller="t1mBirdCtrl">
             <tabset>
-                <tab heading='Site' class="col-xs-4">
+                <tab heading='Site' class="col-xs-4" select="intoJson">
                     <div class="inner">
                     <h3>Choose count station</h3>
                     <div class="btn-toolbar">
@@ -47,20 +47,23 @@
                         <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'M'">M</label>
                         <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'P'">P</label>
                     </div>
+                    <br><br>
+                    <h3>Enter Start Time:</h3>
                     <input type="time" class="form-control" ng-model="birdSurvey.time">
                     <!--<div>
                         <timepicker  ng-model="birdSurvey.time" hour-step="1" minute-step="1" show-meridian="true"></timepicker>
                     </div>-->
+                    <br><br><br><br>
                     <p>{{surveyRecord}}</p>
                     <p>{{birdSurvey.rad}}</p>
-                    
-                    <button ng-click="intoJson()">blah</button>
-                        </div>
+                    <p>{{birdSurvey.time}}</p>
+                    </div>
                 </tab>
-                <tab heading='Sightings' class="col-xs-4"></tab>
-                <tab heading='Incidental' class="col-xs-4">
-                    <h1>T1 Monitoring</h1>
-                </tab>
+                
+                <tab heading='Sightings' class="col-xs-4" select="intoJson()"><p>{{surveyRecord}}</p></tab>
+                
+                <tab heading='Incidental' class="col-xs-4" select="intoJson()"><p>{{surveyRecord}}</p></tab>
+                
             </tabset>
         </div>
         

@@ -1,7 +1,6 @@
-package nz.govt.doc.t1m.services.dataSheet;
+package nz.govt.doc.t1m.services.dataSheet.birdCount;
 
-import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
-import nz.govt.doc.t1m.services.dataSheet.DataSheetRepositoryCustom;
+import nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -10,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * to create various simple query method just by using a method naming convention. See the Spring documentation for
  * further details.
  */
-public interface DataSheetRepository extends PagingAndSortingRepository<DataSheetEntity, Integer>, DataSheetRepositoryCustom {
+public interface BirdCountRepository extends PagingAndSortingRepository<BirdCountEntity, Integer>, BirdCountRepositoryCustom {
 
-    DataSheetEntity findOneByDataSheetId(Integer dataSheetId);
+    BirdCountEntity findOneByDataSheetId(Integer dataSheetId);
 }
