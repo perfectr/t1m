@@ -49,12 +49,6 @@ myAppServices.factory('PersonSvc', ['$resource', function($resource){
     });
 }]);
 
-myAppServices.factory('SurveySvc', ['$resource', function($resource){
-    return $resource('/rest/survey/:surveyId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
-    });
-}]);
-
 myAppServices.factory('PersonSearchSvc', ['$http', function($http) {
     var service = {
         searchCriteria: {
@@ -87,6 +81,12 @@ myAppServices.factory('PersonSearchSvc', ['$http', function($http) {
     return service;
 }]);
 
+myAppServices.factory('SurveySvc', ['$resource', function($resource){
+    return $resource('/rest/survey/:surveyId', {}, {
+      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+    });
+}]);
+
 myAppServices.factory('SurveySearchSvc', ['$http', function($http) {
     var service = {
         searchCriteria: {
@@ -97,6 +97,44 @@ myAppServices.factory('SurveySearchSvc', ['$http', function($http) {
 
         search: function(callback) {
             $http.post('/rest/survey/search', service.searchCriteria).success(function(response) {
+                service.searchResponse = response;
+                //service.numPages = Math.floor(response.total / response.pageSize) + 1;
+                if(callback) {
+                    callback(response);
+                }
+            });
+        },
+
+        reset: function() {
+            // For various UI databinding reasons we can just blow away service.searchCriteria because that
+            // causes problems, so we need to reset the fields separately.
+            service.searchCriteria.nameCriteria = null;
+            service.searchResponse = {};
+            //service.numPages = 0;
+        }
+    };
+
+    service.reset();
+
+    return service;
+}]);
+
+myAppServices.factory('BirdCountSvc', ['$resource', function($resource){
+    return $resource('/rest/dataSheet/birdCount/:dataSheetId', {}, {
+      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+    });
+}]);
+
+myAppServices.factory('BirdCountSearchSvc', ['$http', function($http) {
+    var service = {
+        searchCriteria: {
+            pageNumber : 1,
+            pageSize : 20,
+            nameCriteria : null
+        },
+
+        search: function(callback) {
+            $http.post('/rest/dataSheet/birdCount/search', service.searchCriteria).success(function(response) {
                 service.searchResponse = response;
                 //service.numPages = Math.floor(response.total / response.pageSize) + 1;
                 if(callback) {

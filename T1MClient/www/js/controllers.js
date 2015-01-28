@@ -67,11 +67,22 @@ t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInsta
             });
 
 
-t1mControllers.controller('t1mLitterCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
                 $scope.surveyRecord = new RecordSvc();
-                $scope.litterSurvey = {};
+                $scope.beachCharacterization = {};
+                    
+                $scope.options = {
+                    location: [
+                        {name: "Urban", value: "Urban"}, 
+                        {name: "Peri-urban", value: "Peri-urban"},
+                        {name: "Rural", value: "Rural"}]
+                };
+    
+                $scope.beachCharacterization.location = $scope.options.location[0].value;
+    
                 var stuff = window.localStorage.getItem("litterSurvey");
-                $scope.surveyRecord = angular.fromJson(stuff);     
+                $scope.surveyRecord = angular.fromJson(stuff);  
+    
                 
                 $scope.saveTab = function(){
                       $scope.surveyRecord.dst[0] = "beachLitter";
