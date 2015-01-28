@@ -1,9 +1,9 @@
 package nz.govt.doc.t1m.services.incoming;
 
-import nz.govt.doc.t1m.domain.dataSheets.DataSheetEntity;
-import nz.govt.doc.t1m.domain.dataSheets.litterBeach.LitterBeachEntity;
-import nz.govt.doc.t1m.domain.dataSheets.litterLarge.LitterLargeEntity;
-import nz.govt.doc.t1m.domain.dataSheets.beachCharacterization.BeachCharacterizationEntity;
+import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
+import nz.govt.doc.t1m.domain.dataSheet.litterBeach.LitterBeachEntity;
+import nz.govt.doc.t1m.domain.dataSheet.litterLarge.LitterLargeEntity;
+import nz.govt.doc.t1m.domain.dataSheet.beachCharacterization.BeachCharacterizationEntity;
 
 /**
  * Created by McCaulC on 27/01/2015.
