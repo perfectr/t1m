@@ -23,8 +23,8 @@ public class BirdCountRepositoryImpl implements BirdCountRepositoryCustom {
     @Override
     public PagedResponse<BirdCountEntity> findByCriteria(BirdCountCriteria criteria) {
 
-        String dataSheetId = JPAUtils.appendWildcard(criteria.getDataSheetId().toString());
-        String surveyId = JPAUtils.appendWildcard(criteria.getSurveyId().toString());
+        String dataSheetId = JPAUtils.appendWildcard(getString(criteria.getDataSheetId()));
+        String surveyId = JPAUtils.appendWildcard(getString(criteria.getSurveyId()));
         String birdCountCriteria = JPAUtils.appendWildcard(criteria.getBirdCountCriteria());
 
         QBirdCountEntity birdCountEntity = QBirdCountEntity.birdCountEntity;
@@ -46,5 +46,13 @@ public class BirdCountRepositoryImpl implements BirdCountRepositoryCustom {
 
         PagedResponse<BirdCountEntity> response = JPAUtils.listResults(query, criteria, birdCountEntity);
         return response;
+    }
+
+    private String getString(Integer id) {
+        try {
+            return id.toString();
+        } catch (java.lang.NullPointerException n) {
+            return "0";
+        }
     }
 }
