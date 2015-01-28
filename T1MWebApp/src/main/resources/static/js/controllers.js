@@ -1,6 +1,5 @@
 'use strict';
 
-
 var myAppControllers = angular.module('myAppControllers', []);
 
 myAppControllers.controller('MenuCtrl', ['$scope', '$location', 'LandingSvc', function($scope, $location, LandingSvc) {
@@ -15,14 +14,12 @@ myAppControllers.controller('MenuCtrl', ['$scope', '$location', 'LandingSvc', fu
     $scope.secureLoginURL  = LandingSvc.secureLoginURL();
 }]);
 
-
 myAppControllers.controller('LandingCtrl', ['$scope', 'LandingSvc', function($scope, LandingSvc) {
 
     console.log('LandingCtrl - loaded.');
     $scope.publicAccessURL = LandingSvc.publicAccessURL();
     $scope.secureLoginURL  = LandingSvc.secureLoginURL();
 }]);
-
 
 
 myAppControllers.controller('ContactCtrl', ['$scope', function($scope) {
@@ -54,34 +51,6 @@ myAppControllers.controller('PersonSearchCtrl', ['$scope', '$window', 'PersonSea
 
     $scope.pageChanged();
 }]);
-
-myAppControllers.controller('SurveySearchCtrl', ['$scope', '$window', 'SurveySearchSvc', function($scope, $window, SurveySearchSvc) {
-
-    $scope.surveySearchSvc = SurveySearchSvc;
-
-    $scope.pageChanged = function() {
-        SurveySearchSvc.search();
-    };
-
-    $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
-        SurveySearchSvc.searchCriteria.pageNumber = 1;
-        $scope.pageChanged();
-    }
-
-    $scope.resetAction = function() {
-        SurveySearchSvc.reset();
-        $scope.searchAction();
-    }
-
-    $scope.newAction = function() {
-        $window.location.href = '#/survey/edit/-1';
-    }
-
-    $scope.pageChanged();
-}]);
-
-
 
 myAppControllers.controller('PersonEditCtrl', ['$scope', '$routeParams', '$window', 'PersonSvc', function($scope, $routeParams, $window, PersonSvc) {
 
@@ -137,6 +106,32 @@ myAppControllers.controller('PersonEditCtrl', ['$scope', '$routeParams', '$windo
     $scope.refresh();
 }]);
 
+myAppControllers.controller('SurveySearchCtrl', ['$scope', '$window', 'SurveySearchSvc', function($scope, $window, SurveySearchSvc) {
+
+    $scope.surveySearchSvc = SurveySearchSvc;
+
+    $scope.pageChanged = function() {
+        SurveySearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        SurveySearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        SurveySearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/survey/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
 myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$window', 'SurveySvc', function($scope, $routeParams, $window, SurveySvc) {
 
     // TODO: replace with proper security
@@ -189,4 +184,30 @@ myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$windo
     }
 
     $scope.refresh();
+}]);
+
+myAppControllers.controller('BirdCountSearchCtrl', ['$scope', '$window', 'BirdCountSearchSvc', function($scope, $window, BirdCountSearchSvc) {
+
+    $scope.birdCountSearchSvc = BirdCountSearchSvc;
+
+    $scope.pageChanged = function() {
+        BirdCountSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        BirdCountSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        BirdCountSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/dataSheet/birdCount/edit/-1';
+    }
+
+    $scope.pageChanged();
 }]);
