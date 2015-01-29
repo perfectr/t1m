@@ -3,6 +3,7 @@ package nz.govt.doc.t1m.services.survey;
 import nz.govt.doc.t1m.domain.survey.SurveyEntity;
 import nz.govt.doc.t1m.domain.response.PagedResponse;
 import nz.govt.doc.t1m.domain.response.Response;
+import nz.govt.doc.t1m.services.incoming.DataForm;
 import nz.govt.doc.t1m.services.incoming.DataParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,9 @@ public class SurveyService {
     @Autowired
     protected SurveyRepository surveyRepository;
 
+    @Autowired
+    protected DataParser dataParser;
+
     public PagedResponse<SurveyEntity> findByCriteria(SurveyCriteria criteria) {
         return surveyRepository.findByCriteria(criteria);
     }
@@ -26,7 +30,8 @@ public class SurveyService {
     }
 
     @Transactional
-    public Response<SurveyEntity> saveSurvey(DataParser dataParser) {
+    public Response<SurveyEntity> saveSurvey(DataForm dataForm) {
+        dataParser.initialize(dataForm);
         SurveyEntity surveyResponse = surveyRepository.save(dataParser.getSurvey());
         dataParser.saveDataSheets(surveyResponse.getSurveyId());
         Response res = new Response<>(surveyResponse);

@@ -134,7 +134,7 @@ myAppServices.factory('BirdCountSearchSvc', ['$http', function($http) {
         },
 
         search: function(callback) {
-            $http.post('/rest/dataSheet/birdCount/search', service.searchCriteria).success(function(response) {
+            $http.post('/rest/birdCount/search', service.searchCriteria).success(function(response) {
                 service.searchResponse = response;
                 //service.numPages = Math.floor(response.total / response.pageSize) + 1;
                 if(callback) {

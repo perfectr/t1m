@@ -52,7 +52,7 @@ public class BirdCountRepositoryImpl implements BirdCountRepositoryCustom {
         try {
             return id.toString();
         } catch (java.lang.NullPointerException n) {
-            return "0";
+            return "-2";
         }
     }
 }

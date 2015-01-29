@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  */
 @RestController
-@RequestMapping("/rest/dataSheet/birdCount")
+@RequestMapping("/rest/birdCount")
 public class BirdCountController {
 
     @Autowired
