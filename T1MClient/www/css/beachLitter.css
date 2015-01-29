@@ -6,12 +6,11 @@
   }
   .nav-justified > li > a  {
     border-bottom: 1px solid #ddd !important;
-    border-radius: 4px 4px 0 0 !important;
-    margin-bottom: 0 !important;
+    border-radius: 0px 0px 0 0 !important;
+    margin-bottom: 1 !important;
   }
       .nav-tabs.nav-justified > .active > a,
   .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #fff !important;
+    border-bottom-color: #ffffff !important;
   }
-}
