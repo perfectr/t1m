@@ -4,11 +4,17 @@
             <div class="panel-heading"><h4>Bird Count Data Sheets Received</h4></div>
             <table class="table table-hover">
                 <tbody>
-                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td></tr>
+                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Station ID</h5></td><td><h5>Start Time</h5></td><td><h5>Temperature</h5></td><td><h5>Precipitation</h5></td><td><h5>Wind</h5></td><td><h5>Notes</h5></td></tr>
                 <tr ng-repeat="birdCount in birdCountSearchSvc.searchResponse.results">
                     <td>{{birdCount.dataSheetId}}</td>
                     <td>{{birdCount.surveyId}}</td>
-                </tr><tr><td> </td><td> </td></tr>
+                    <td>{{birdCount.stationId}}</td>
+                    <td>{{birdCount.startTime}}</td>
+                    <td>{{birdCount.temp}}</td>
+                    <td>{{birdCount.precipitation}}</td>
+                    <td>{{birdCount.wind}}</td>
+                    <td>{{birdCount.notes}}</td>
+                </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
                 </tbody>
             </table>
             <pagination

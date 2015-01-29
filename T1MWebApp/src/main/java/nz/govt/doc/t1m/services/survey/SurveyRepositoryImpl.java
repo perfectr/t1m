@@ -42,7 +42,7 @@ public class SurveyRepositoryImpl implements SurveyRepositoryCustom {
             query.where(surveyEntity.observer.like(surveyCriteria).or(surveyEntity.locationId.like(surveyCriteria)));
         }
 
-        query.orderBy(surveyEntity.receivedD.asc());
+        query.orderBy(surveyEntity.receivedD.desc());
 
         PagedResponse<SurveyEntity> response = JPAUtils.listResults(query, criteria, surveyEntity);
         return response;

@@ -91,7 +91,7 @@ myAppServices.factory('SurveySearchSvc', ['$http', function($http) {
     var service = {
         searchCriteria: {
             pageNumber : 1,
-            pageSize : 20,
+            pageSize : 18,
             nameCriteria : null
         },
 
@@ -129,7 +129,7 @@ myAppServices.factory('BirdCountSearchSvc', ['$http', function($http) {
     var service = {
         searchCriteria: {
             pageNumber : 1,
-            pageSize : 20,
+            pageSize : 18,
             nameCriteria : null
         },
 

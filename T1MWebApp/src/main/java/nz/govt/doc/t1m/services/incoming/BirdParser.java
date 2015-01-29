@@ -8,6 +8,8 @@ import nz.govt.doc.t1m.services.dataSheet.birdCount.BirdCountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
+
 /**
  * Created by McCaulC on 27/01/2015.
  */
@@ -41,6 +43,15 @@ public class BirdParser {
         birdCountEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
+            try {
+                Class[] paramString = new Class[1];
+                paramString[0] = String.class;
+                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity");
+                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
+                set.invoke(birdCountEntity,data[i]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         birdCountService.saveBirdCount(birdCountEntity);
         return birdCountEntity;

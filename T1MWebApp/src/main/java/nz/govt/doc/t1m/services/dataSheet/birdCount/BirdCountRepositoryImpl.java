@@ -45,7 +45,7 @@ public class BirdCountRepositoryImpl implements BirdCountRepositoryCustom {
             System.out.println("z");
         }
 
-        query.orderBy(birdCountEntity.dataSheetId.asc());
+        query.orderBy(birdCountEntity.dataSheetId.desc());
 
         PagedResponse<BirdCountEntity> response = JPAUtils.listResults(query, criteria, birdCountEntity);
         return response;
