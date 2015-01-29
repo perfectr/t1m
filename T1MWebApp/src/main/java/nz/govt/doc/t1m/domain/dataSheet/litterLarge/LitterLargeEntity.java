@@ -20,7 +20,7 @@ public class LitterLargeEntity extends DataSheetEntity {
     @NotNull
     private Integer surveyId;
 
-    public LitterLargeEntity(Integer surveyId) {
+    public void setSurveyId(Integer surveyId) {
         this.surveyId = surveyId;
     }
 

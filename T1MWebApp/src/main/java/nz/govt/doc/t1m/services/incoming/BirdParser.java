@@ -37,7 +37,8 @@ public class BirdParser {
 
     private BirdCountEntity BirdCount(Integer surveyId) {
         System.out.println("New 5 minute bird count data sheet found");
-        BirdCountEntity birdCountEntity = new BirdCountEntity(surveyId);
+        BirdCountEntity birdCountEntity = new BirdCountEntity();
+        birdCountEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
@@ -47,19 +48,21 @@ public class BirdParser {
 
     private BirdDistanceEntity BirdDistance(Integer surveyId) {
         System.out.println("New 5 minute bird distance data sheet found");
+        BirdDistanceEntity birdDistanceEntity = new BirdDistanceEntity();
+        birdDistanceEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
-        BirdDistanceEntity birdDistanceEntity = new BirdDistanceEntity(surveyId);
         return birdDistanceEntity;
     }
 
     private IncidentalBirdEntity IncidentalBird(Integer surveyId) {
         System.out.println("New incidental bird sighting data sheet found");
+        IncidentalBirdEntity incidentalBirdEntity = new IncidentalBirdEntity();
+        incidentalBirdEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
-        IncidentalBirdEntity incidentalBirdEntity = new IncidentalBirdEntity(surveyId);
         return incidentalBirdEntity;
     }
 

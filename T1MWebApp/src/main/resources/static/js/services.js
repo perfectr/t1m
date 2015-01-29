@@ -120,7 +120,7 @@ myAppServices.factory('SurveySearchSvc', ['$http', function($http) {
 }]);
 
 myAppServices.factory('BirdCountSvc', ['$resource', function($resource){
-    return $resource('/rest/dataSheet/birdCount/:dataSheetId', {}, {
+    return $resource('/rest/birdCount/:dataSheetId', {}, {
       query: {method:'GET', params:{surveyId:'search'}, isArray:false}
     });
 }]);

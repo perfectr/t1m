@@ -26,9 +26,7 @@ public class BirdCountService {
 
     @Transactional
     public Response<BirdCountEntity> saveBirdCount(BirdCountEntity birdCountEntity) {
-        System.out.println("Saving bird count attached to survey: " + birdCountEntity.getSurveyId());
         BirdCountEntity birdCountResponse = birdCountRepository.save(birdCountEntity);
-        System.out.println("Saved bird count with ID: " + birdCountResponse.getDataSheetId());
         Response res = new Response<>(birdCountResponse);
         return res;
     }

@@ -18,7 +18,7 @@ apply plugin: 'spring-boot'
 apply plugin: "com.ewerk.gradle.plugins.querydsl"
 
 jar {
-    baseName = 'AngularSpring'
+    baseName = 'T1M'
     version = '0.0.1-SNAPSHOT'
 }
 

@@ -20,7 +20,7 @@ public class BirdDistanceEntity extends DataSheetEntity {
     @NotNull
     private Integer surveyId;
 
-    public BirdDistanceEntity(Integer surveyId) {
+    public void setSurveyId(Integer surveyId) {
         this.surveyId = surveyId;
     }
 
