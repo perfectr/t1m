@@ -4,16 +4,23 @@ import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
 import nz.govt.doc.t1m.domain.dataSheet.incidentalBird.IncidentalBirdEntity;
 import nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity;
 import nz.govt.doc.t1m.domain.dataSheet.birdDistance.BirdDistanceEntity;
+import nz.govt.doc.t1m.services.dataSheet.birdCount.BirdCountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by McCaulC on 27/01/2015.
  */
+@Component
 public class BirdParser {
+
+    @Autowired
+    protected BirdCountService birdCountService;
 
     private String[] field;
     private String[] data;
 
-    public BirdParser(String[] field, String[] data) {
+    public void initialize(String[] field, String[] data) {
         this.field = field;
         this.data = data;
     }
@@ -30,28 +37,32 @@ public class BirdParser {
 
     private BirdCountEntity BirdCount(Integer surveyId) {
         System.out.println("New 5 minute bird count data sheet found");
+        BirdCountEntity birdCountEntity = new BirdCountEntity();
+        birdCountEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
-        BirdCountEntity birdCountEntity = new BirdCountEntity(surveyId);
+        birdCountService.saveBirdCount(birdCountEntity);
         return birdCountEntity;
     }
 
     private BirdDistanceEntity BirdDistance(Integer surveyId) {
         System.out.println("New 5 minute bird distance data sheet found");
+        BirdDistanceEntity birdDistanceEntity = new BirdDistanceEntity();
+        birdDistanceEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
-        BirdDistanceEntity birdDistanceEntity = new BirdDistanceEntity(surveyId);
         return birdDistanceEntity;
     }
 
     private IncidentalBirdEntity IncidentalBird(Integer surveyId) {
         System.out.println("New incidental bird sighting data sheet found");
+        IncidentalBirdEntity incidentalBirdEntity = new IncidentalBirdEntity();
+        incidentalBirdEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
-        IncidentalBirdEntity incidentalBirdEntity = new IncidentalBirdEntity(surveyId);
         return incidentalBirdEntity;
     }
 

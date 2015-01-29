@@ -206,7 +206,7 @@ myAppControllers.controller('BirdCountSearchCtrl', ['$scope', '$window', 'BirdCo
     }
 
     $scope.newAction = function() {
-        $window.location.href = '#/dataSheet/birdCount/edit/-1';
+        $window.location.href = '#/birdCount/edit/-1';
     }
 
     $scope.pageChanged();

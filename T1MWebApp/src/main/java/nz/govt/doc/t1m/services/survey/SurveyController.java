@@ -17,6 +17,9 @@ public class SurveyController {
     @Autowired
     protected SurveyService surveyService;
 
+    @Autowired
+    protected DataParser dataParser;
+
     @RequestMapping(value = "/{surveyId}", method = RequestMethod.GET)
     public Response<SurveyEntity> getSurvey(@PathVariable(value = "surveyId") Integer surveyId) {
         return surveyService.findSurveyById(surveyId);
@@ -31,7 +34,7 @@ public class SurveyController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public Response<SurveyEntity> saveSurvey(@RequestBody DataForm dataForm) {
-        return surveyService.saveSurvey(new DataParser(dataForm));
+        return surveyService.saveSurvey(dataForm);
     }
 
     @RequestMapping(value = "/{surveyId}", method = RequestMethod.DELETE)

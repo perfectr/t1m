@@ -30,28 +30,31 @@ public class LitterParser {
 
     private LitterBeachEntity litterBeach(Integer surveyId) {
         System.out.println("New beach litter data sheet found");
+        LitterBeachEntity litterBeachEntity = new LitterBeachEntity();
+        litterBeachEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
-        LitterBeachEntity litterBeachEntity = new LitterBeachEntity(surveyId);
         return litterBeachEntity;
     }
 
     private LitterLargeEntity litterLarge(Integer surveyId) {
         System.out.println("New large litter data sheet found");
+        LitterLargeEntity litterLargeEntity = new LitterLargeEntity();
+        litterLargeEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
-        LitterLargeEntity litterLargeEntity = new LitterLargeEntity(surveyId);
         return litterLargeEntity;
     }
 
     private BeachCharacterizationEntity beachCharacterization(Integer surveyId) {
         System.out.println("New beach characterization data sheet found");
+        BeachCharacterizationEntity beachCharacterizationEntity = new BeachCharacterizationEntity();
+        beachCharacterizationEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
         }
-        BeachCharacterizationEntity beachCharacterizationEntity = new BeachCharacterizationEntity(surveyId);
         return beachCharacterizationEntity;
     }
 

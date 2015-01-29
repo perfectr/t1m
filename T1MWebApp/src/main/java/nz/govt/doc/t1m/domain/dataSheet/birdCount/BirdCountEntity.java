@@ -17,7 +17,7 @@ public class BirdCountEntity extends DataSheetEntity {
     @NotNull
     private Integer surveyId;
 
-    public BirdCountEntity(Integer surveyId) {
+    public void setSurveyId(Integer surveyId) {
         this.surveyId = surveyId;
     }
 
