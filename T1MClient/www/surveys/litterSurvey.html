@@ -30,15 +30,138 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/phonegap.css" />
+        <link rel="stylesheet" type="text/css" href="../css/beachLitter.css" />
         
         <title>T1MClient</title>
     </head>
     <body>
         <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mLitterSurveyCtrl">
                 <h1>T1 Monitoring</h1>
-            <div class="inner">
-                <p>There is nothing here yet</p>
-            </div>
+            <tabset class="row" justified="true">
+                <tab heading="{{tabs[0].title}}"  active="tabs[0].active"> 
+                    <div class="inner">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Start Time</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="time" class="form-control" ng-model="litterBeach.TimeStart">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>End Time</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="time" class="form-control" ng-model="litterBeach.TimeEnd">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4><b>Start Location</b></h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-default" >Retrive GPS Location</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-xs-4">
+                                <h4>Latitude</h4>
+                                <h4>Longitude</h4>
+                        </div>
+                        <div class="col-xs-8">
+                                <input ng-model="litterBeach.LatitudeStart" class="form-control " type="number" placeHolder="Lat">
+                                <input ng-model="litterBeach.LongitudeStart" class="form-control " type="number" placeHolder="Lon">
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4><b>End Location </b></h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-default">Retrive GPS Location</button>
+                            </div>
+                        </div>
+                            <div class="row">
+                            <div class="col-xs-4">
+                                <h4>Latitude</h4>
+                                <h4>Longitude</h4>
+                            </div>
+                            <div class="col-xs-8">
+                                <input ng-model="litterBeach.LatitudeEnd" class="form-control " type="number" placeHolder="Lat">
+                                <input ng-model="litterBeach.LongitudeEnd" class="form-control " type="number" placeHolder="Lon">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Coordiante System</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <input ng-model="litterBeach.CoordSystem" class="form-control" type="text" placeHolder="System">
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Season</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <select class="form-control" ng-model="litterBeach.Season" 
+                                        ng-options="opt.value as opt.name for opt in options.seasons">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Date of last survey</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="date" class="form-control" ng-model="litterBeach.Date">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h4>Storm Activity</h4>
+                            </div>                         
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <input type="text" class="form-control" ng-model="litterBeach.StormActivity">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Number of People</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="number" class="form-control"  ng-model="litterBeach.PersonsSurveying">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Length of beach</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="number" class="form-control"  ng-model="litterBeach.BeachLength">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Width of Beach</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="number" class="form-control"  ng-model="litterBeach.BeachWidth">
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+   <!-- new tab  starting litter data-->
+                <tab heading="{{tabs[1].title}}"  active="tabs[1].active"> 
+                    <div class="inner">
+                        <h4>Not implemented</h4>
+                    </div>
+                </tab>
+            </tabset>
         </div>
         
         <script type="text/javascript" src="../cordova.js"></script>
