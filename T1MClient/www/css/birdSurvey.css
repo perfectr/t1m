@@ -1,7 +1,8 @@
-@media (max-width: 768px) {
+@media (min-width: 0px) {
   .nav-justified > li {
     display: table-cell;
-    width: 1%;
+    width: 50%;
+    white-space: nowrap;
   }
   .nav-justified > li > a  {
     border-bottom: 1px solid #ddd !important;

@@ -39,12 +39,7 @@
            <div>
             <h1>T1 Monitoring</h1>
             <tabset class="row" justified="true">
-                <tab heading="Sampling Area" select="selectTab(0)" class="">
-                </tab>
-                <tab heading="Beach Char." select="selectTab(1)" class="">
-                </tab>
-                <tab heading="Source Char." select="selectTab(2)" class="">
-                </tab>
+                <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="selectTab(tab.index)"  active="tab.active"> </tab>
             </tabset>
             <div id="slider" class="swipe">
                 <div class="swipe-wrap">
@@ -76,39 +71,39 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-4">
-                                <h4>Start</h4>
+                            <div class="col-xs-6">
+                                <h4><b>Start Location</b></h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-default" >Retrive GPS Location</button>
                             </div>
                         </div>
                         <div class="row">
-                        <div class="col-xs-3">
+                        <div class="col-xs-4">
                                 <h4>Latitude</h4>
                                 <h4>Longitude</h4>
                         </div>
-                        <div class="col-xs-5">
+                        <div class="col-xs-8">
                                 <input ng-model="beachCharacterization.latitudeStart" class="form-control " type="number" placeHolder="Lat">
                                 <input ng-model="beachCharacterization.longitudeStart" class="form-control " type="number" placeHolder="Lon">
                         </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-default" >Retrive GPS<br/>Location</button>
-                        </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-2">
-                                <h4>End</h4>
+                            <div class="col-xs-6">
+                                <h4><b>End Location </b></h4>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-default">Retrive GPS Location</button>
                             </div>
                         </div>
                             <div class="row">
-                            <div class="col-xs-3">
+                            <div class="col-xs-4">
                                 <h4>Latitude</h4>
                                 <h4>Longitude</h4>
                             </div>
-                            <div class="col-xs-5">
+                            <div class="col-xs-8">
                                 <input ng-model="beachCharacterization.latitudeEnd" class="form-control " type="number" placeHolder="Lat">
                                 <input ng-model="beachCharacterization.longitudeEnd" class="form-control " type="number" placeHolder="Lon">
-                            </div>
-                            <div class="col-xs-4">
-                                <button class="btn btn-default">Retrive GPS<br/>Location</button>
                             </div>
                         </div>
                         <br/>
@@ -129,53 +124,66 @@
                     <div>
                     <div class="inner">
                         <div class="row">
-                            <div class="col-xs-5">
+                            <div class="col-xs-6">
                                 <h4>Total Beach Length</h4>
                             </div>
-                            <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.beachLength" class="form-control" type="number">
+                            <div class="col-xs-6">
+                                <input ng-model="beachCharacterization.beachLength" class="form-control" type="number" 
+                                       tooltip="Length measured along the mid point of the beach (km)" 
+                                       tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-5">
+                            <div class="col-xs-6">
                                 <h4>Substratum Type</h4>
                             </div>
-                            <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.substratumType" class="form-control" type="text">
+                            <div class="col-xs-6">
+                                <input ng-model="beachCharacterization.substratumType" class="form-control" type="text" 
+                                       tooltip="Defines predominant beach type (pebble, rock, sand etc)" 
+                                       tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-5">
+                            <div class="col-xs-6">
                                 <h4>Substratum Uniformity</h4>
                             </div>
-                            <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.substratumUniformity" class="form-control" type="text">
+                            <div class="col-xs-6">
+                                <input ng-model="beachCharacterization.substratumUniformity" class="form-control" type="text" 
+                                       tooltip="Coverage by the predominant substrate type (Percent)" 
+                                       tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-5">
+                            <div class="col-xs-6">
                                 <h4>Tidal Range</h4>
                             </div>
-                            <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.tidalRange" class="form-control" type="number">
+                            <div class="col-xs-6">
+                                <input ng-model="beachCharacterization.tidalRange" class="form-control" type="number" 
+                                       tooltip="Max – min vertical tidal range from tide tables (m)" 
+                                       tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-5">
+                            <div class="col-xs-6">
                                 <h4>Tidal Distance</h4>
                             </div>
-                            <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.tidalDistance" class="form-control" type="number">
+                            <div class="col-xs-6">
+                                <input ng-model="beachCharacterization.tidalDistance" class="form-control" type="number" 
+                                       tooltip="Distance (m) from low tide to back of the beach" 
+                                       tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-5">
+                            <div class="col-xs-6">
                                 <h4>Back of Beach</h4>
                             </div>
-                            <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.beachBacking" class="form-control" type="text">
+                            <div class="col-xs-6">
+                                <input ng-model="beachCharacterization.beachBacking" class="form-control" type="text" 
+                                       tooltip="Describe the landward limit (Rock wall, Cliff, Dune etc)" 
+                                       tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
                         </div>
+                        <div class="row"> <br> <br> <br></div>
                     </div>  
                     </div>
                 <!--</tab>-->
@@ -185,12 +193,19 @@
                     <div class="inner">
                         <div class="row">
                             <div class="col-xs-6">
-                                <h4>Location & Major Beach Usage</h4>
+                                <h4>Location</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                  <select class="form-control" ng-model="beachCharacterization.location" ng-options="opt.value as opt.name for opt in options.location">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>Major Usage</h4>
                             </div>
                             <div class="col-xs-6">
                                 <input ng-model="beachCharacterization.majorUsage" class="form-control" type="text">
-                                <select class="form-control" ng-model="beachCharacterization.location" ng-options="opt.value as opt.name for opt in options.location">
-                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -203,45 +218,49 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-5">
-                                <h4>Nearest Town</h4>
+                                <h4><b>Nearest Town</b></h4>
                             </div>
                             <div class="col-xs-7">
                                 <input ng-model="beachCharacterization.nearestTown" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-3">
-                                <h4>Nearest Town Distance</h4>
+                            <div class="col-xs-5">
+                                <h4>Distance</h4>
                             </div>
-                            <div class="col-xs-3">
+                            <div class="col-xs-7">
                                 <input ng-model="beachCharacterization.nearestTownDistance" class="form-control" type="number">
                             </div>
-                            <div class="col-xs-3">
-                                <h4>Nearest Town Direction</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h4>Direction</h4>
                             </div>
-                            <div class="col-xs-3">
+                            <div class="col-xs-7">
                                 <input ng-model="beachCharacterization.nearestTownDirection" class="form-control" type="number">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-5">
-                                <h4>Nearest River</h4>
+                                <h4><b>Nearest River</b></h4>
                             </div>
                             <div class="col-xs-7">
                                 <input ng-model="beachCharacterization.nearestRiver" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-3">
-                                <h4>Nearest River Distance</h4>
+                            <div class="col-xs-7">
+                                <h4>Distance</h4>
                             </div>
-                            <div class="col-xs-3">
+                            <div class="col-xs-5">
                                 <input ng-model="beachCharacterization.nearestRiverDistance" class="form-control" type="number">
                             </div>
-                            <div class="col-xs-3">
-                                <h4>Nearest River Direction</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <h4>Direction</h4>
                             </div>
-                            <div class="col-xs-3">
+                            <div class="col-xs-5">
                                 <input ng-model="beachCharacterization.nearestRiverDirection" class="form-control" type="number">
                             </div>
                         </div> 
@@ -298,7 +317,18 @@
         <script type="text/javascript" src="../js/app.js"></script>
         <script type="text/javascript" src="../js/ui-bootstrap-tpls-0.12.0.min.js"></script>
         <script type="text/javascript" src="../js/swipe.js"></script>
-        <script type="text/javascript">window.mySwipe = Swipe(document.getElementById('slider'));</script>
+        <script type="text/javascript">
+            window.mySwipe = Swipe(document.getElementById('slider'),{
+                continuous: false,
+                callback: function(index, elem) {
+                    var scope = angular.element($("#main")).scope();
+                    scope.$apply(function(){
+                        scope.tabs[index].active = true;     
+                    })
+                }   
+            });
+        
+        </script>
         
     </body>
     

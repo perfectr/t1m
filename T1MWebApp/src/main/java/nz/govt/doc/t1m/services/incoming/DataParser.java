@@ -1,6 +1,9 @@
 package nz.govt.doc.t1m.services.incoming;
 
+import nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity;
 import nz.govt.doc.t1m.domain.survey.SurveyEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,7 +14,11 @@ import java.util.Locale;
 /**
  * Created by McCaulC on 27/01/2015.
  */
+@Component
 public class DataParser {
+
+    @Autowired
+    protected BirdParser birdParser;
 
     private DataForm dataForm;
 
@@ -19,7 +26,7 @@ public class DataParser {
     private String[][] field;
     private String[][] data;
 
-    public DataParser(DataForm dataForm) {
+    public void initialize(DataForm dataForm) {
         this.dataForm = dataForm;
         this.dataSheetType = dataForm.getDst();
         this.field = dataForm.getFld();
@@ -46,14 +53,13 @@ public class DataParser {
         if (dataForm.getTyp().equals("bird")) {
             System.out.println("New bird survey found");
             for (int i = 0 ; i < dataSheetType.length ; i++) {
-                BirdParser birdParser = new BirdParser(field[i], data[i]);
+                birdParser.initialize(field[i], data[i]);
                 birdParser.saveEntity(dataSheetType[i], surveyId);
             }
         } else if (dataForm.getTyp().equals("litter")) {
             System.out.println("New litter survey found");
             for (int i = 0 ; i < dataSheetType.length ; i++) {
-                LitterParser litterParser = new LitterParser(field[i], data[i]);
-                litterParser.saveEntity(dataSheetType[i], surveyId);
+                //TODO
             }
         } else System.out.println("Bad survey type received");
     }

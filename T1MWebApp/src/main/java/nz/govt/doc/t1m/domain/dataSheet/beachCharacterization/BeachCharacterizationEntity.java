@@ -20,7 +20,7 @@ public class BeachCharacterizationEntity extends DataSheetEntity {
     @NotNull
     private Integer surveyId;
 
-    public BeachCharacterizationEntity(Integer surveyId) {
+    public void setSurveyId(Integer surveyId) {
         this.surveyId = surveyId;
     }
 

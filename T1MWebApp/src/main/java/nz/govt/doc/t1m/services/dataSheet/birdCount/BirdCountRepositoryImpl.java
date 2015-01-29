@@ -23,26 +23,29 @@ public class BirdCountRepositoryImpl implements BirdCountRepositoryCustom {
     @Override
     public PagedResponse<BirdCountEntity> findByCriteria(BirdCountCriteria criteria) {
 
-        String dataSheetId = JPAUtils.appendWildcard(getString(criteria.getDataSheetId()));
-        String surveyId = JPAUtils.appendWildcard(getString(criteria.getSurveyId()));
+//        String dataSheetId = JPAUtils.appendWildcard(getString(criteria.getDataSheetId()));
+//        String surveyId = JPAUtils.appendWildcard(getString(criteria.getSurveyId()));
         String birdCountCriteria = JPAUtils.appendWildcard(criteria.getBirdCountCriteria());
 
         QBirdCountEntity birdCountEntity = QBirdCountEntity.birdCountEntity;
         JPAQuery query = new JPAQuery(em).from(birdCountEntity);
 
-        if(dataSheetId != null) {
-            query.where(birdCountEntity.dataSheetId.like(dataSheetId));
-        }
-
-        if(surveyId != null) {
-            query.where(birdCountEntity.surveyId.like(surveyId));
-        }
+//        if(dataSheetId != null) {
+//            query.where(birdCountEntity.dataSheetId.like(dataSheetId));
+//            System.out.println("x");
+//        }
+//
+//        if(surveyId != null) {
+//            query.where(birdCountEntity.surveyId.like(surveyId));
+//            System.out.println("y");
+//        }
 
         if(birdCountCriteria != null) {
             query.where(birdCountEntity.dataSheetId.like(birdCountCriteria).or(birdCountEntity.surveyId.like(birdCountCriteria)));
+            System.out.println("z");
         }
 
-        query.orderBy(birdCountEntity.dataSheetId.asc());
+        query.orderBy(birdCountEntity.dataSheetId.desc());
 
         PagedResponse<BirdCountEntity> response = JPAUtils.listResults(query, criteria, birdCountEntity);
         return response;
@@ -51,8 +54,7 @@ public class BirdCountRepositoryImpl implements BirdCountRepositoryCustom {
     private String getString(Integer id) {
         try {
             return id.toString();
-        } catch (java.lang.NullPointerException n) {
-            return "0";
-        }
+        } catch (java.lang.NullPointerException n) {}
+        return new String();
     }
 }

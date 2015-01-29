@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  */
 @RestController
-@RequestMapping("/rest/dataSheet/birdCount")
+@RequestMapping("/rest/birdCount")
 public class BirdCountController {
 
     @Autowired
@@ -29,8 +29,10 @@ public class BirdCountController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public Response<BirdCountEntity> saveBirdCount(@RequestBody DataForm dataForm) {
-        return birdCountService.saveBirdCount(new BirdCountEntity(-2));
+    public Response<BirdCountEntity> saveBirdCount(@RequestBody String json) {
+        //return birdCountService.saveBirdCount(new BirdCountEntity());
+        System.out.println(json);
+        return null;
     }
 
     @RequestMapping(value = "/{birdCountId}", method = RequestMethod.DELETE)

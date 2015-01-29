@@ -20,7 +20,7 @@ public class IncidentalBirdEntity extends DataSheetEntity {
     @NotNull
     private Integer surveyId;
 
-    public IncidentalBirdEntity(Integer surveyId) {
+    public void setSurveyId(Integer surveyId) {
         this.surveyId = surveyId;
     }
 

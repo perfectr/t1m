@@ -21,7 +21,7 @@ public class BCBirdEntity extends InstanceEntity {
     @NotNull
     private Integer dataSheetId;
 
-    public BCBirdEntity(Integer dataSheetId) {
+    public void setDataSheetId(Integer dataSheetId) {
         this.dataSheetId = dataSheetId;
     }
 

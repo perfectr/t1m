@@ -21,7 +21,7 @@ public class LBItemEntity extends InstanceEntity {
     @NotNull
     private Integer dataSheetId;
 
-    public LBItemEntity(Integer dataSheetId) {
+    public void setDataSheetId(Integer dataSheetId) {
         this.dataSheetId = dataSheetId;
     }
 
