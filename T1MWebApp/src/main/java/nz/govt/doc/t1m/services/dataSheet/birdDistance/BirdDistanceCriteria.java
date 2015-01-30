@@ -1,24 +1,24 @@
-package nz.govt.doc.t1m.services.dataSheet.birdCount;
+package nz.govt.doc.t1m.services.dataSheet.birdDistance;
 
 import nz.govt.doc.t1m.domain.criteria.AbstractCriteria;
 
 /**
  * Created by McCaulC on 28/01/2015.
  */
-public class BirdCountCriteria extends AbstractCriteria {
+public class BirdDistanceCriteria extends AbstractCriteria {
 
-    private String birdCountCriteria;
+    private String birdDistanceCriteria;
 
-    public BirdCountCriteria() {
+    public BirdDistanceCriteria() {
         super();
     }
 
-    public String getBirdCountCriteria() {
-        return birdCountCriteria;
+    public String getBirdDistanceCriteria() {
+        return birdDistanceCriteria;
     }
 
-    public void setBirdCountCriteria(String birdCountCriteria) {
-        this.birdCountCriteria = birdCountCriteria;
+    public void setBirdDistanceCriteria(String birdDistanceCriteria) {
+        this.birdDistanceCriteria = birdDistanceCriteria;
     }
 
     private Integer dataSheetId;
