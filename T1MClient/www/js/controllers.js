@@ -18,21 +18,34 @@ t1mControllers.controller('t1mCtrl', [ '$scope', 'RecordSvc',function($scope, Re
 
 t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', function($scope, RecordSvc, $modal) {
                 $scope.surveyRecord = new RecordSvc();
-                $scope.surveyRecord.typ = 'bird';
-                $scope.surveyRecord.dst = [];
-                $scope.surveyRecord.fld = [[]];
-                $scope.surveyRecord.dat = [[]];
+
+                var s = $scope.surveyRecord;
+                var b = $scope.birdSurvey;
+                
+                $scope.initializeRecord = function(){
+                    $scope.surveyRecord.typ = 'bird';
+                    $scope.surveyRecord.dst = [];
+                    $scope.surveyRecord.fld = [[]];
+                    $scope.surveyRecord.dat = [[]];
+                    $scope.surveyRecord.dst[$scope.surveyRecord.dst.length] = 'birdCount';
                     
-    
-                var storageData = window.localStorage.getItem('birdSurvey');
-                //$scope.surveyRecord = $scope.surveyRecord.concat(angular.fromJson(storageData));
-    
-                $scope.birdSurvey = angular.fromJson(storageData);
-                $scope.birdSurvey.skipButton = 'Skip station';
-                $scope.birdSurvey.skip = false;
-                $scope.birdSurvey.reasonSkip = '';
-                $scope.surveyRecord.dst[$scope.surveyRecord.dst.length] = 'birdCount';
-                //$scope.surveyRecord.dst = 'birdCount';
+                    var storageData = window.localStorage.getItem('birdSurvey');
+                    //$scope.surveyRecord = $scope.surveyRecord.concat(angular.fromJson(storageData));
+
+                    $scope.birdSurvey = angular.fromJson(storageData);
+                    $scope.birdSurvey.skipButton = 'Skip station';
+                    $scope.birdSurvey.skip = false;
+                    $scope.birdSurvey.reasonSkip = '';
+                    //$scope.surveyRecord.dst = 'birdCount';
+                    s = $scope.surveyRecord;
+                    b = $scope.birdSurvey;
+                    s.sli = b.sli;
+                    s.sdt = b.sdt;
+                    s.edt = b.edt;
+                    s.obs = b.obs;
+                }
+                $scope.initializeRecord();            
+
                 $scope.options = {
                      sun: [
                         {name: "0", value: "0"}, 
@@ -79,15 +92,12 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', func
                 };
                 
                 $scope.intoJson = function(){
-                    s.sli = b.sli;
-                    s.sdt = b.sdt;
-                    s.edt = b.edt;
-                    s.obs = b.obs;
-                    
+
                     $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['StationId','StartTime','StationSkipped','ReasonSkipped','Sun','Temp','Precipitation','Wind','OtherNoise','Easting','Northing','Elevation','Position','Notes'];
                     $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [b.rad,b.time,b.skip,b.reasonSkip,b.sun,b.temp,b.prec,b.wind,b.othNoi,b.east,b.north,b.elev,b.pos,b.notes];
                     /*window.localStorage.setItem(b.typ,angular.toJson($scope.surveyRecord,false));*/
                 }
+                
                 $scope.skip = function () {
                     if(!($scope.birdSurvey.skip)){
                         $scope.birdSurvey.skipButton = 'Un-skip station';
@@ -101,19 +111,23 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', func
                     modalInstance.result.then(function (reaSkip) {                            
                             if(reaSkip[1]=='false'){
                                 $scope.birdSurvey.reasonSkip = reaSkip[0];
-                                $scope.scope.isDisabled = true;
+                                /*$scope.scope.isDisabled = true;*/
                             }else{
                                 $scope.birdSurvey.skip = false;
                                 $scope.birdSurvey.skipButton = 'Skip station';
                             }
                         });
                 }
+                
                 $scope.saveAction = function(){
                     $scope.intoJson();
                     $scope.surveyRecord.$save();
                     $scope.surveyRecord = new RecordSvc();
+                    $scope.initializeRecord();
                 };
             }]);
+
+
 t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInstance) {
 
               $scope.ok = function () {
