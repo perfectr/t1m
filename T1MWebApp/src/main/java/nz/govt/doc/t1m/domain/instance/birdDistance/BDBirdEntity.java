@@ -1,6 +1,5 @@
 package nz.govt.doc.t1m.domain.instance.birdDistance;
 
-import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
 import nz.govt.doc.t1m.domain.instance.InstanceEntity;
 
 import javax.persistence.Entity;
@@ -31,5 +30,51 @@ public class BDBirdEntity extends InstanceEntity {
 
     public Integer getDataSheetId() {
         return dataSheetId;
+    }
+
+    private String species;
+    private String distance;
+    private String clusterSize;
+    private String clusterAccuracy;
+    private String notes;
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String getClusterSize() {
+        return clusterSize;
+    }
+
+    public void setClusterSize(String clusterSize) {
+        this.clusterSize = clusterSize;
+    }
+
+    public String getClusterAccuracy() {
+        return clusterAccuracy;
+    }
+
+    public void setClusterAccuracy(String clusterAccuracy) {
+        this.clusterAccuracy = clusterAccuracy;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

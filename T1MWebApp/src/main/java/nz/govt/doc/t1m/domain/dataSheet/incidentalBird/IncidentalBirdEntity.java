@@ -31,4 +31,32 @@ public class IncidentalBirdEntity extends DataSheetEntity {
     public Integer getSurveyId() {
         return surveyId;
     }
+
+    private String species;
+    private String numberObserved;
+    private String notes;
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+    public String getNumberObserved() {
+        return numberObserved;
+    }
+
+    public void setNumberObserved(String numberObserved) {
+        this.numberObserved = numberObserved;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }
