@@ -32,17 +32,14 @@ public class BirdCountRepositoryImpl implements BirdCountRepositoryCustom {
 
 //        if(dataSheetId != null) {
 //            query.where(birdCountEntity.dataSheetId.like(dataSheetId));
-//            System.out.println("x");
 //        }
 //
 //        if(surveyId != null) {
 //            query.where(birdCountEntity.surveyId.like(surveyId));
-//            System.out.println("y");
 //        }
 
         if(birdCountCriteria != null) {
             query.where(birdCountEntity.dataSheetId.like(birdCountCriteria).or(birdCountEntity.surveyId.like(birdCountCriteria)));
-            System.out.println("z");
         }
 
         query.orderBy(birdCountEntity.dataSheetId.desc());

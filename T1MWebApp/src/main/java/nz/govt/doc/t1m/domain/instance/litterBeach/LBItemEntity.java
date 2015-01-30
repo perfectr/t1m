@@ -32,4 +32,50 @@ public class LBItemEntity extends InstanceEntity {
     public Integer getDataSheetId() {
         return dataSheetId;
     }
+
+    private String litterCode;
+    private String description;
+    private String count;
+    private String weight;
+    private String notes;
+
+    public String getLitterCode() {
+        return litterCode;
+    }
+
+    public void setLitterCode(String litterCode) {
+        this.litterCode = litterCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }

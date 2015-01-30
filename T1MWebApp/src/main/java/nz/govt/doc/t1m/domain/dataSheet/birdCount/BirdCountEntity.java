@@ -1,7 +1,6 @@
 package nz.govt.doc.t1m.domain.dataSheet.birdCount;
 
 import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -30,18 +29,19 @@ public class BirdCountEntity extends DataSheetEntity {
     }
 
     private String stationId;
-    private String startTime;
     private String stationSkipped;
     private String reasonSkipped;
-    private String sun;
+    private String startTime;
     private String temp;
+    private String sun;
     private String precipitation;
     private String wind;
     private String otherNoise;
+    private String gpsUnit;
     private String easting;
     private String northing;
-    private String elevation;
     private String position;
+    private String elevation;
     private String notes;
 
     public String getStationId() {
@@ -50,14 +50,6 @@ public class BirdCountEntity extends DataSheetEntity {
 
     public void setStationId(String stationId) {
         this.stationId = stationId;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
     }
 
     public String getStationSkipped() {
@@ -76,12 +68,12 @@ public class BirdCountEntity extends DataSheetEntity {
         this.reasonSkipped = reasonSkipped;
     }
 
-    public String getSun() {
-        return sun;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setSun(String sun) {
-        this.sun = sun;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     public String getTemp() {
@@ -90,6 +82,14 @@ public class BirdCountEntity extends DataSheetEntity {
 
     public void setTemp(String temp) {
         this.temp = temp;
+    }
+
+    public String getSun() {
+        return sun;
+    }
+
+    public void setSun(String sun) {
+        this.sun = sun;
     }
 
     public String getPrecipitation() {
@@ -116,6 +116,14 @@ public class BirdCountEntity extends DataSheetEntity {
         this.otherNoise = otherNoise;
     }
 
+    public String getGpsUnit() {
+        return gpsUnit;
+    }
+
+    public void setGpsUnit(String gpsUnit) {
+        this.gpsUnit = gpsUnit;
+    }
+
     public String getEasting() {
         return easting;
     }
@@ -132,20 +140,20 @@ public class BirdCountEntity extends DataSheetEntity {
         this.northing = northing;
     }
 
-    public String getElevation() {
-        return elevation;
-    }
-
-    public void setElevation(String elevation) {
-        this.elevation = elevation;
-    }
-
     public String getPosition() {
         return position;
     }
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String getElevation() {
+        return elevation;
+    }
+
+    public void setElevation(String elevation) {
+        this.elevation = elevation;
     }
 
     public String getNotes() {

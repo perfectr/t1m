@@ -50,7 +50,7 @@ public class BirdParser {
                 Method set = bce.getDeclaredMethod("set"+field[i],paramString);
                 set.invoke(birdCountEntity,data[i]);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
         birdCountService.saveBirdCount(birdCountEntity);
