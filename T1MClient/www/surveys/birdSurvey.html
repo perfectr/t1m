@@ -101,15 +101,14 @@
                         <input type="text" class="form-control" ng-model="birdSurvey.notes" ng-disabled="birdSurvey.skip" placeholder="Notes">
                         <br>
                         <button class="btn btn-default" ng-click="saveAction()">Submit</button>
-<!--
-                        <p>{{surveyRecord}}</p>
--->
                     </div>
                 </tab>
                 
                 <tab heading='Sightings' select="intoJson()">
-                    <p>{{birdSurvey}}</p>
-                    <p>{{surveyRecord}}</p>
+                    <br>
+                    <button class = "btn btn-default" ng-click="countdown()">{{timer.mins}}:{{timer.secs}}</button>
+                    <!--<p>{{birdSurvey}}</p>
+                    <p>{{surveyRecord}}</p>-->
                 </tab>
                 
                 <tab heading='Incidental' select="intoJson()"><p>{{surveyRecord}}</p></tab>

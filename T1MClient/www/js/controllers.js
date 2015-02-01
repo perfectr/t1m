@@ -16,7 +16,7 @@ t1mControllers.controller('t1mCtrl', [ '$scope', 'RecordSvc',function($scope, Re
                 };
             }]);
 
-t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', function($scope, RecordSvc, $modal) {
+t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$timeout', function($scope, RecordSvc, $modal, $timeout) {
                 $scope.surveyRecord = new RecordSvc();
 
                 var s = $scope.surveyRecord;
@@ -45,7 +45,40 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', func
                     s.obs = b.obs;
                 }
                 $scope.initializeRecord();            
+                
+                $scope.timer = {};
+                $scope.timer.mins = 5;    
+                $scope.timer.secs = "00";
+                var stopped;
+    
+                $scope.countdown = function(){
+                  stopped = $timeout(function(){
 
+                      if($scope.timer.secs==0){
+                          if($scope.timer.mins==0){
+                              if($scope.timer.secs==0){
+                                  $scope.stop();
+                              }else{
+                                  $scope.timer.secs--;
+                              }
+                          }else {
+                              $scope.timer.mins--;
+                              $scope.timer.secs = 59;
+                          }
+                      }else{
+                        $scope.timer.secs--;
+                      }
+                      
+                      if($scope.timer.secs < 10){
+                          $scope.timer.secs = "0"+$scope.timer.secs;
+                      }
+                    $scope.countdown();
+                  },10);  
+                };
+                $scope.stop = function(){
+                  $timeout.cancel(stopped);  
+                };
+    
                 $scope.options = {
                      sun: [
                         {name: "0", value: "0"}, 
