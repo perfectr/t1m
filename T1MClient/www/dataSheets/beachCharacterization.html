@@ -1,24 +1,5 @@
 <!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8" />
@@ -37,7 +18,7 @@
     <body>
         <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mBeachCharacterizationCtrl">
            <div>
-            <h1>T1 Monitoring</h1>
+            <!--<h1>T1 Monitoring</h1>-->
             <tabset class="row" justified="true">
                 <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="selectTab(tab.index)"  active="tab.active"> </tab>
             </tabset>
@@ -51,7 +32,7 @@
                                 <h4>Beach ID</h4>
                             </div>
                             <div class="col-xs-8">
-                                <input ng-model="beachCharacterization.beachId" class="form-control" type="text" placeHolder="ID">
+                                <input ng-model="beachCharacterization.BeachId" class="form-control" type="text" placeHolder="ID">
                             </div>
                         </div>
                         <div class="row">
@@ -59,7 +40,7 @@
                                 <h4>Beach Name</h4>
                             </div>
                             <div class="col-xs-8">
-                                <input ng-model="beachCharacterization.beachName" class="form-control" type="text" placeHolder="Name">
+                                <input ng-model="beachCharacterization.BeachName" class="form-control" type="text" placeHolder="Name">
                             </div>
                         </div>
                         <div class="row">
@@ -67,7 +48,7 @@
                                 <h4>Region Name</h4>
                             </div>
                             <div class="col-xs-8">
-                                <input ng-model="beachCharacterization.regionName" class="form-control" type="text" placeHolder="Name">
+                                <input ng-model="beachCharacterization.RegionName" class="form-control" type="text" placeHolder="Name">
                             </div>
                         </div>
                         <div class="row">
@@ -84,8 +65,8 @@
                                 <h4>Longitude</h4>
                         </div>
                         <div class="col-xs-8">
-                                <input ng-model="beachCharacterization.latitudeStart" class="form-control " type="number" placeHolder="Lat">
-                                <input ng-model="beachCharacterization.longitudeStart" class="form-control " type="number" placeHolder="Lon">
+                                <input ng-model="beachCharacterization.LatitudeStart" class="form-control " type="number" placeHolder="Lat">
+                                <input ng-model="beachCharacterization.LongitudeStart" class="form-control " type="number" placeHolder="Lon">
                         </div>
                         </div>
                         <div class="row">
@@ -102,8 +83,8 @@
                                 <h4>Longitude</h4>
                             </div>
                             <div class="col-xs-8">
-                                <input ng-model="beachCharacterization.latitudeEnd" class="form-control " type="number" placeHolder="Lat">
-                                <input ng-model="beachCharacterization.longitudeEnd" class="form-control " type="number" placeHolder="Lon">
+                                <input ng-model="beachCharacterization.LatitudeEnd" class="form-control " type="number" placeHolder="Lat">
+                                <input ng-model="beachCharacterization.LongitudeEnd" class="form-control " type="number" placeHolder="Lon">
                             </div>
                         </div>
                         <br/>
@@ -112,7 +93,7 @@
                                 <h4>Coordiante System</h4>
                             </div>
                             <div class="col-xs-8">
-                                <input ng-model="beachCharacterization.coordSystem" class="form-control" type="text" placeHolder="System">
+                                <input ng-model="beachCharacterization.CoordSystem" class="form-control" type="text" placeHolder="System">
                             </div>
                         </div>  
                         <br>  
@@ -128,7 +109,7 @@
                                 <h4>Total Beach Length</h4>
                             </div>
                             <div class="col-xs-6">
-                                <input ng-model="beachCharacterization.beachLength" class="form-control" type="number" 
+                                <input ng-model="beachCharacterization.BeachLength" class="form-control" type="number" 
                                        tooltip="Length measured along the mid point of the beach (km)" 
                                        tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
@@ -138,7 +119,7 @@
                                 <h4>Substratum Type</h4>
                             </div>
                             <div class="col-xs-6">
-                                <input ng-model="beachCharacterization.substratumType" class="form-control" type="text" 
+                                <input ng-model="beachCharacterization.SubstratumType" class="form-control" type="text" 
                                        tooltip="Defines predominant beach type (pebble, rock, sand etc)" 
                                        tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
@@ -148,7 +129,7 @@
                                 <h4>Substratum Uniformity</h4>
                             </div>
                             <div class="col-xs-6">
-                                <input ng-model="beachCharacterization.substratumUniformity" class="form-control" type="text" 
+                                <input ng-model="beachCharacterization.SubstratumUniformity" class="form-control" type="text" 
                                        tooltip="Coverage by the predominant substrate type (Percent)" 
                                        tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
@@ -158,7 +139,7 @@
                                 <h4>Tidal Range</h4>
                             </div>
                             <div class="col-xs-6">
-                                <input ng-model="beachCharacterization.tidalRange" class="form-control" type="number" 
+                                <input ng-model="beachCharacterization.TidalRange" class="form-control" type="number" 
                                        tooltip="Max – min vertical tidal range from tide tables (m)" 
                                        tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
@@ -168,7 +149,7 @@
                                 <h4>Tidal Distance</h4>
                             </div>
                             <div class="col-xs-6">
-                                <input ng-model="beachCharacterization.tidalDistance" class="form-control" type="number" 
+                                <input ng-model="beachCharacterization.TidalDistance" class="form-control" type="number" 
                                        tooltip="Distance (m) from low tide to back of the beach" 
                                        tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
@@ -178,7 +159,7 @@
                                 <h4>Back of Beach</h4>
                             </div>
                             <div class="col-xs-6">
-                                <input ng-model="beachCharacterization.beachBacking" class="form-control" type="text" 
+                                <input ng-model="beachCharacterization.BeachBacking" class="form-control" type="text" 
                                        tooltip="Describe the landward limit (Rock wall, Cliff, Dune etc)" 
                                        tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
@@ -196,7 +177,8 @@
                                 <h4>Location</h4>
                             </div>
                             <div class="col-xs-6">
-                                  <select class="form-control" ng-model="beachCharacterization.location" ng-options="opt.value as opt.name for opt in options.location">
+                                  <select class="form-control" ng-model="beachCharacterization.Location" 
+                                          ng-options="opt.value as opt.name for opt in options.location">
                                 </select>
                             </div>
                         </div>
@@ -205,7 +187,7 @@
                                 <h4>Major Usage</h4>
                             </div>
                             <div class="col-xs-6">
-                                <input ng-model="beachCharacterization.majorUsage" class="form-control" type="text">
+                                <input ng-model="beachCharacterization.MajorUsage" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="row">
@@ -221,7 +203,7 @@
                                 <h4><b>Nearest Town</b></h4>
                             </div>
                             <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.nearestTown" class="form-control" type="text">
+                                <input ng-model="beachCharacterization.NearestTown" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="row">
@@ -229,7 +211,7 @@
                                 <h4>Distance</h4>
                             </div>
                             <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.nearestTownDistance" class="form-control" type="number">
+                                <input ng-model="beachCharacterization.NearestTownDistance" class="form-control" type="number">
                             </div>
                         </div>
                         <div class="row">
@@ -237,7 +219,7 @@
                                 <h4>Direction</h4>
                             </div>
                             <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.nearestTownDirection" class="form-control" type="number">
+                                <input ng-model="beachCharacterization.NearestTownDirection" class="form-control" type="number">
                             </div>
                         </div>
                         <div class="row">
@@ -245,7 +227,7 @@
                                 <h4><b>Nearest River</b></h4>
                             </div>
                             <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.nearestRiver" class="form-control" type="text">
+                                <input ng-model="beachCharacterization.NearestRiver" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="row">
@@ -253,7 +235,7 @@
                                 <h4>Distance</h4>
                             </div>
                             <div class="col-xs-5">
-                                <input ng-model="beachCharacterization.nearestRiverDistance" class="form-control" type="number">
+                                <input ng-model="beachCharacterization.NearestRiverDistance" class="form-control" type="number">
                             </div>
                         </div>
                         <div class="row">
@@ -261,7 +243,7 @@
                                 <h4>Direction</h4>
                             </div>
                             <div class="col-xs-5">
-                                <input ng-model="beachCharacterization.nearestRiverDirection" class="form-control" type="number">
+                                <input ng-model="beachCharacterization.NearestRiverDirection" class="form-control" type="number">
                             </div>
                         </div> 
                         <div class="row">
@@ -270,8 +252,8 @@
                             </div>
                             <div class="col-xs-6">
                                 <div class="btn-toolbar">
-                                    <label class="btn btn-default" ng-model="beachCharacterization.riversCreeks" btn-radio="'true'">Yes</label>
-                                    <label class="btn btn-default" ng-model="beachCharacterization.riversCreeks" btn-radio="'false'">No</label>
+                                    <label class="btn btn-default" ng-model="beachCharacterization.RiversCreeks" btn-radio="'true'">Yes</label>
+                                    <label class="btn btn-default" ng-model="beachCharacterization.RiversCreeks" btn-radio="'false'">No</label>
                                 </div>
                             </div>
                         </div>  
@@ -280,7 +262,7 @@
                                 <h4>Pipes or drains input to beach</h4>
                             </div>
                             <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.pipesDrains" class="form-control" type="number">
+                                <input ng-model="beachCharacterization.PipesDrains" class="form-control" type="number">
                             </div>
                         </div>
                         <div class="row">
@@ -290,7 +272,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <textarea ng-model="beachCharacterization.otherNotes" class="form-control" rows="2"></textarea>
+                                <textarea ng-model="beachCharacterization.OtherNotes" class="form-control" rows="2"></textarea>
                             </div>
                         </div>
                     </div>  
