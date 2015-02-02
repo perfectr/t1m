@@ -16,7 +16,7 @@ t1mControllers.controller('t1mCtrl', [ '$scope', 'RecordSvc',function($scope, Re
                 };
             }]);
 
-t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$timeout', function($scope, RecordSvc, $modal, $timeout) {
+t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$timeout', '$window', function($scope, RecordSvc, $modal, $timeout, $window) {
                 $scope.surveyRecord = new RecordSvc();
 
                 var s = $scope.surveyRecord;
@@ -33,6 +33,9 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
                     //$scope.surveyRecord = $scope.surveyRecord.concat(angular.fromJson(storageData));
 
                     $scope.birdSurvey = angular.fromJson(storageData);
+                    if($scope.birdSurvey == null){
+                        $scope.birdSurvey = {};
+                    }
                     $scope.birdSurvey.skipButton = 'Skip station';
                     $scope.birdSurvey.skip = false;
                     $scope.birdSurvey.reasonSkip = '';
@@ -49,6 +52,7 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
                 $scope.timer = {};
                 $scope.timer.mins = 5;    
                 $scope.timer.secs = "00";
+                $scope.timer.alerted = false;
                 var stopped;
     
                 $scope.countdown = function(){
@@ -70,14 +74,37 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
                       }
                       
                       if($scope.timer.secs < 10){
-                          $scope.timer.secs = "0"+$scope.timer.secs;
+                          if($scope.timer.secs == 0){
+                              $scope.timer.secs = "00";
+                              if($scope.timer.mins==0){
+                                    $scope.stop();
+                                    if(!($scope.timer.alerted)){
+                                        $scope.timerFin();
+                                    }
+                                }
+                          }else{
+                                $scope.timer.secs = "0"+$scope.timer.secs;
+                                
+                          }
                       }
                     $scope.countdown();
-                  },10);  
+                  },1000);  
                 };
                 $scope.stop = function(){
                   $timeout.cancel(stopped);  
                 };
+                $scope.reset = function(){
+                    $scope.stop();
+                    $scope.timer.mins = 5;
+                    $scope.timer.secs = "00";
+                    $scope.timer.alerted = false;
+                }
+                $scope.timerFin = function() {
+                    setTimeout(function() {
+                      $window.alert('ALERT!');
+                        $scope.timer.alerted = true;
+                    });
+                  };
     
                 $scope.options = {
                      sun: [
