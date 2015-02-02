@@ -4,6 +4,7 @@ import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
 import nz.govt.doc.t1m.domain.dataSheet.incidentalBird.IncidentalBirdEntity;
 import nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity;
 import nz.govt.doc.t1m.domain.dataSheet.birdDistance.BirdDistanceEntity;
+import nz.govt.doc.t1m.domain.response.Response;
 import nz.govt.doc.t1m.services.dataSheet.birdCount.BirdCountService;
 import nz.govt.doc.t1m.services.dataSheet.birdDistance.BirdDistanceService;
 import nz.govt.doc.t1m.services.dataSheet.incidentalBird.IncidentalBirdService;
@@ -30,10 +31,9 @@ public class BirdParser {
     private String[] field;
     private String[] data;
 
-    public void initialize(String[] field, String[] data, String[][] instanceField, String[][] instanceData) {
+    public void initialize(String[] field, String[] data) {
         this.field = field;
         this.data = data;
-        birdInstanceParser.initialize(instanceField, instanceData);
     }
 
     public DataSheetEntity saveEntity(String dataSheetName, Integer surveyId) {
@@ -50,9 +50,12 @@ public class BirdParser {
         System.out.println("New 5 minute bird count data sheet found");
         BirdCountEntity birdCountEntity = new BirdCountEntity();
         birdCountEntity.setSurveyId(surveyId);
+        if (field.length == 0) return new BirdCountEntity();
+        int numInstances = 0;
         for (int i = 0 ; i < field.length ; i++) {
             if (field[i].equals("Instances")) {
-                System.out.println("Instances found");
+                numInstances = Integer.parseInt(data[i]);
+                System.out.println(numInstances + " Instance(s) found");
             } else {
                 System.out.println(field[i] + ": " + data[i]);
                 try {
@@ -66,7 +69,8 @@ public class BirdParser {
                 }
             }
         }
-        birdCountService.saveBirdCount(birdCountEntity);
+        BirdCountEntity response = birdCountService.saveBirdCount(birdCountEntity);
+        birdInstanceParser.saveBCBird(response.getDataSheetId(), numInstances); //TODO called twice
         return birdCountEntity;
     }
 

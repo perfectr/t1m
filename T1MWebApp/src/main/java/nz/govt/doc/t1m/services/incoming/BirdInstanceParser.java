@@ -1,9 +1,13 @@
 package nz.govt.doc.t1m.services.incoming;
 
+import nz.govt.doc.t1m.domain.instance.birdCount.BCBirdEntity;
+import nz.govt.doc.t1m.domain.instance.birdDistance.BDBirdEntity;
 import nz.govt.doc.t1m.services.instance.birdCount.BCBirdService;
 import nz.govt.doc.t1m.services.instance.birdDistance.BDBirdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by McCaulC on 2/02/2015.
@@ -25,5 +29,35 @@ public class BirdInstanceParser {
         this.instanceField = instanceField;
         this.instanceData = instanceData;
         this.count = 0;
+    }
+
+    public void saveBCBird(Integer dataSheetId, int numBCBirds){
+        System.out.println("Count = " + count);
+        for (int i = 0 ; i < numBCBirds ; i++) {
+            System.out.println("New BCBird instance found");
+            BCBirdEntity bcBirdEntity = new BCBirdEntity();
+            bcBirdEntity.setDataSheetId(dataSheetId);
+            for (int j = 0 ; j < instanceField[count].length ; j++) {
+                System.out.println(instanceField[count][j] + ": " + instanceData[count][j]);
+                try {
+                    Class[] paramString = new Class[1];
+                    paramString[0] = String.class;
+                    Class bce = Class.forName("nz.govt.doc.t1m.domain.instance.birdCount.BCBirdEntity");
+                    Method set = bce.getDeclaredMethod("set" + instanceField[count][j], paramString);
+                    set.invoke(bcBirdEntity, instanceData[count][j]);
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
+            }
+            bcBirdService.saveBCBird(bcBirdEntity);
+            count++;
+        }
+        System.out.println("Count = " + count);
+    }
+
+    public BDBirdEntity saveBDBird(Integer dataSheetId, int numBDBirds) {
+        BDBirdEntity bdBirdEntity = new BDBirdEntity();
+        bdBirdEntity.setDataSheetId(dataSheetId);
+        return bdBirdEntity;
     }
 }

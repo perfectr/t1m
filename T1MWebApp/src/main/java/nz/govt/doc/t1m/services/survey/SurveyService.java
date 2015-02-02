@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 /**
  */
 @Component
-public class SurveyService {
+public class  SurveyService {
 
     @Autowired
     protected SurveyRepository surveyRepository;

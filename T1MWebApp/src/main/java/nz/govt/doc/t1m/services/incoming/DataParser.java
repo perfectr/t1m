@@ -20,6 +20,8 @@ public class DataParser {
     protected BirdParser birdParser;
     @Autowired
     protected LitterParser litterParser;
+    @Autowired
+    protected BirdInstanceParser birdInstanceParser;
 
     private DataForm dataForm;
 
@@ -53,8 +55,9 @@ public class DataParser {
     public void saveDataSheets(Integer surveyId) {
         if (dataForm.getTyp().equals("bird")) {
             System.out.println("New bird survey found");
+            birdInstanceParser.initialize(dataForm.getInf(), dataForm.getInd());
             for (int i = 0 ; i < dataSheetType.length ; i++) {
-                birdParser.initialize(field[i], data[i], dataForm.getInf(), dataForm.getInd());
+                birdParser.initialize(field[i], data[i]);
                 birdParser.saveEntity(dataSheetType[i], surveyId);
             }
         } else if (dataForm.getTyp().equals("litter")) {
