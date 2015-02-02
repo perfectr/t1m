@@ -25,7 +25,7 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', func
                 
                 $scope.options = {
                      sun: [
-                        {name: "0", value: "0"}, 
+                        {name: "0", value: "0"},
                         {name: "1", value: "1"},
                         {name: "2", value: "2"},
                         {name: "3", value: "3"},
@@ -83,9 +83,27 @@ t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInsta
             });
 
 
-
+/* ================== controllers for beach litter survey ========================= */
 t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+    $scope.startDataSheet = function(dataSheetType) {
+        window.location = "../dataSheets/"+dataSheetType+".html";
+    };
+    
+    $scope.clearDataSheet = function(dataSheetType) {
+        window.localStorage.setItem(dataSheetType, "{}");
+    };
+}]);
+
+
+t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
             $scope.litterBeach = {};
+            $scope.testLitterBeach = {};
+    
+            var savedLitterBeach =  window.localStorage.getItem("litterBeach");
+            if(savedLitterBeach != null){
+                $scope.litterBeach = angular.fromJson(savedLitterBeach);
+                $scope.testLitterBeach = angular.fromJson(savedLitterBeach);
+            };
     
     
             $scope.options = {
@@ -96,7 +114,7 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
                         {name: "Spring", value: "Spring", startMonth: 09, endMonth: 11}]
                 };
     
-            $scope.litterBeach.location = $scope.options.seasons[0].value;
+            $scope.litterBeach.Season = $scope.options.seasons[0].value;
     
              $scope.tabs = [
                     {title: "Sampling Area", index: 0},
@@ -105,15 +123,23 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
     
             $scope.selectTab = function(index){
                     $scope.tabs[index].active = true;   
-                }
-    
+                };
+            
+            $scope.saveLitterBeach = function(){
+                window.localStorage.setItem("litterBeach", angular.toJson($scope.litterBeach, false));
+                $scope.testLitterBeach = angular.fromJson(window.localStorage.getItem("litterBeach"));
+            };
     
             }]);
 
 
 t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
-                $scope.surveyRecord = new RecordSvc();
                 $scope.beachCharacterization = {};
+    
+                var savedBeachCharacterization =  window.localStorage.getItem("beachCharacterization");
+                if(savedBeachCharacterization != null){
+                    $scope.beachCharacterization = angular.fromJson(savedBeachCharacterization);
+                };
                     
                 $scope.options = {
                     location: [
@@ -128,19 +154,14 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
                     {title: "Source Char.", index: 2 }
                 ];
     
-                $scope.beachCharacterization.location = $scope.options.location[0].value;
-    
-                var stuff = window.localStorage.getItem("litterSurvey");
-                $scope.surveyRecord = angular.fromJson(stuff);  
-    
-                
-                $scope.saveTab = function(){
-                      $scope.surveyRecord.dst[0] = "beachLitter";
-                };
+                $scope.beachCharacterization.Location = $scope.options.location[0].value;
     
                 $scope.selectTab = function(index){
-                      window.mySwipe.slide(index, 500);
+                    window.mySwipe.slide(index, 500);
+                    $scope.saveBeachCharacterization();
                 };
+    
+                
     
                 $scope.getSelectTab = function(tabName){
                     for(tab in tabs){
@@ -148,6 +169,10 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
                             return tab.select;   
                         }
                     }
+                };
+    
+                 $scope.saveBeachCharacterization = function(){
+                    window.localStorage.setItem("beachCharacterization", angular.toJson($scope.beachCharacterization, false));
                 };
     
                 $scope.saveAction = function(){
