@@ -31,7 +31,7 @@ myApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpP
   $routeProvider.when('/person/edit/:personId', {templateUrl: '/partials/PersonEdit.html',    controller: 'PersonEditCtrl'});
   $routeProvider.when('/survey/search',         {templateUrl: '/partials/SurveySearch.html',  controller: 'SurveySearchCtrl'});
   $routeProvider.when('/survey/edit/:surveyId', {templateUrl: '/partials/SurveyEdit.html',    controller: 'SurveyEditCtrl'});
-  $routeProvider.when('/birdCount/search',         {templateUrl: '/partials/birdCountSearch.html',  controller: 'BirdCountSearchCtrl'});
+  $routeProvider.when('/birdCount/search',         {templateUrl: '/partials/BirdCountSearch.html',  controller: 'BirdCountSearchCtrl'});
   $routeProvider.otherwise({redirectTo: '/landing'});
 }]);
 

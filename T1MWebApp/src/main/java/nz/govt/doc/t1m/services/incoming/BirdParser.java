@@ -5,6 +5,8 @@ import nz.govt.doc.t1m.domain.dataSheet.incidentalBird.IncidentalBirdEntity;
 import nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity;
 import nz.govt.doc.t1m.domain.dataSheet.birdDistance.BirdDistanceEntity;
 import nz.govt.doc.t1m.services.dataSheet.birdCount.BirdCountService;
+import nz.govt.doc.t1m.services.dataSheet.birdDistance.BirdDistanceService;
+import nz.govt.doc.t1m.services.dataSheet.incidentalBird.IncidentalBirdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,10 @@ public class BirdParser {
 
     @Autowired
     protected BirdCountService birdCountService;
+    @Autowired
+    protected BirdDistanceService birdDistanceService;
+    @Autowired
+    protected IncidentalBirdService incidentalBirdService;
 
     private String[] field;
     private String[] data;
@@ -50,7 +56,7 @@ public class BirdParser {
                 Method set = bce.getDeclaredMethod("set"+field[i],paramString);
                 set.invoke(birdCountEntity,data[i]);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
         birdCountService.saveBirdCount(birdCountEntity);
@@ -63,7 +69,17 @@ public class BirdParser {
         birdDistanceEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
+            try {
+                Class[] paramString = new Class[1];
+                paramString[0] = String.class;
+                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.birdDistance.BirdDistanceEntity");
+                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
+                set.invoke(birdDistanceEntity,data[i]);
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
         }
+        birdDistanceService.saveBirdDistance(birdDistanceEntity);
         return birdDistanceEntity;
     }
 
@@ -73,7 +89,17 @@ public class BirdParser {
         incidentalBirdEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
+            try {
+                Class[] paramString = new Class[1];
+                paramString[0] = String.class;
+                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.incidentalBird.IncidentalBirdEntity");
+                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
+                set.invoke(incidentalBirdEntity,data[i]);
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
         }
+        incidentalBirdService.saveIncidentalBird(incidentalBirdEntity);
         return incidentalBirdEntity;
     }
 

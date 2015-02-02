@@ -4,16 +4,31 @@ import nz.govt.doc.t1m.domain.dataSheet.DataSheetEntity;
 import nz.govt.doc.t1m.domain.dataSheet.litterBeach.LitterBeachEntity;
 import nz.govt.doc.t1m.domain.dataSheet.litterLarge.LitterLargeEntity;
 import nz.govt.doc.t1m.domain.dataSheet.beachCharacterization.BeachCharacterizationEntity;
+import nz.govt.doc.t1m.services.dataSheet.beachCharacterization.BeachCharacterizationService;
+import nz.govt.doc.t1m.services.dataSheet.litterBeach.LitterBeachService;
+import nz.govt.doc.t1m.services.dataSheet.litterLarge.LitterLargeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by McCaulC on 27/01/2015.
  */
+@Component
 public class LitterParser {
+
+    @Autowired
+    protected LitterBeachService litterBeachService;
+    @Autowired
+    protected LitterLargeService litterLargeService;
+    @Autowired
+    protected BeachCharacterizationService beachCharacterizationService;
 
     private String[] field;
     private String[] data;
 
-    public LitterParser(String[] field, String[] data) {
+    public void initialize(String[] field, String[] data) {
         this.field = field;
         this.data = data;
     }
@@ -34,7 +49,17 @@ public class LitterParser {
         litterBeachEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
+            try {
+                Class[] paramString = new Class[1];
+                paramString[0] = String.class;
+                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.litterBeach.LitterBeachEntity");
+                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
+                set.invoke(litterBeachEntity,data[i]);
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
         }
+        litterBeachService.saveLitterBeach(litterBeachEntity);
         return litterBeachEntity;
     }
 
@@ -44,7 +69,17 @@ public class LitterParser {
         litterLargeEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
+            try {
+                Class[] paramString = new Class[1];
+                paramString[0] = String.class;
+                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.litterLarge.LitterLargeEntity");
+                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
+                set.invoke(litterLargeEntity,data[i]);
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
         }
+        litterLargeService.saveLitterLarge(litterLargeEntity);
         return litterLargeEntity;
     }
 
@@ -54,7 +89,17 @@ public class LitterParser {
         beachCharacterizationEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
             System.out.println(field[i] + ": " + data[i]);
+            try {
+                Class[] paramString = new Class[1];
+                paramString[0] = String.class;
+                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.beachCharacterization.BeachCharacterizationEntity");
+                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
+                set.invoke(beachCharacterizationEntity,data[i]);
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
         }
+        beachCharacterizationService.saveBeachCharacterization(beachCharacterizationEntity);
         return beachCharacterizationEntity;
     }
 

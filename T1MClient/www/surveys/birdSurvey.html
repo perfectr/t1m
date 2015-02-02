@@ -39,47 +39,77 @@
             <tabset justified='true'>
                 <tab heading='Site' select="intoJson" >
                     <div class="inner">
-                    <h4>Choose count station</h4>
-                    <div class="btn-toolbar">
-                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'X'">X</label>
-                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'A'">A</label>
-                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'D'">D</label>
-                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'M'">M</label>
-                        <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'P'">P</label>
-                    </div><br>
-                        <button type="button" class="btn btn-default" ng-model="birdSurvey.skip" btn-checkbox btn-checkbox-true=true btn-checkbox-false=false ng-click="skip()">{{birdSurvey.skipButton}}</button>
-                    <br>
-                        
-                    <script type="text/ng-template" id="skipStationModalContent.html">
-                        <div class="modal-header">
-                            <h3 class="modal-title">Reason for skip:</h3>
-                        </div>
-                        <div class="modal-body">
-                            <input type="text" class="form-control" ng-model="reasonSkip"></input>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" ng-click="ok()">OK</button>
-                            <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
-                        </div>
-                    </script>    
-                        
-                        
-                        
-                    <h4>Enter Start Time:</h4>
-                    <input type="time" class="form-control" ng-model="birdSurvey.time" ng-disabled="birdSurvey.skip">
-                    <h4>Sun</h4>
-                    <select class="form-control" ng-model="birdSurvey.sun" ng-options="opt.value as opt.name for opt in options.sun" ng-disabled="birdSurvey.skip">
-                        <option value="" disabled selected>Bright sun immediately overhead in minutes</option>
-                    </select>  
-                    <h4>Temperature</h4>
-                    <select class="form-control" ng-model="birdSurvey.temp" ng-options="opt.value as opt.name for opt in options.temp" ng-disabled="birdSurvey.skip">
-                        <option value="" disabled selected>Temperature</option>
-                    </select>
+                        <h4>Choose count station</h4>
+                        <div class="btn-toolbar">
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'X'">X</label>
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'A'">A</label>
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'D'">D</label>
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'M'">M</label>
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'P'">P</label>
+                        </div><br>
+<!--
+                        <p>{{birdSurvey}}</p>
+-->
+                            <button type="button" class="btn btn-default" ng-model="birdSurvey.skip" btn-checkbox btn-checkbox-true=true btn-checkbox-false=false ng-click="skip()">{{birdSurvey.skipButton}}</button>
+                        <br>
+                        <script type="text/ng-template" id="skipStationModalContent.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Reason for skip:</h3>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="form-control" ng-model="reasonSkip"></input>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </script>    
+                        <h4>Enter Start Time:</h4>
+                        <input type="time" class="form-control" ng-model="birdSurvey.time" ng-disabled="birdSurvey.skip">
+                        <h4>Sun</h4>
+                        <select class="form-control" ng-model="birdSurvey.sun" ng-options="opt.value as opt.name for opt in options.sun" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Bright sun immediately overhead in minutes</option>
+                        </select>  
+                        <h4>Temperature</h4>
+                        <select class="form-control" ng-model="birdSurvey.temp" ng-options="opt.value as opt.name for opt in options.temp" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Temperature</option>
+                        </select>
+                        <h4>Precipitation</h4>
+                        <select class="form-control" ng-model="birdSurvey.prec" ng-options="opt.value as opt.name for opt in options.prec" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Precipitation</option>
+                        </select>
+                        <h4>Wind</h4>
+                        <select class="form-control" ng-model="birdSurvey.wind" ng-options="opt.value as opt.name for opt in options.wind" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Wind</option>
+                        </select>
+                        <h4>Other noise</h4>
+                        <select class="form-control" ng-model="birdSurvey.othNoi" ng-options="opt.value as opt.name for opt in options.othNoi" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Other Noise</option>
+                        </select>
+                        <h4>Easting</h4>
+                        <input type="number" class="form-control" ng-model="birdSurvey.east" ng-disabled="birdSurvey.skip" placeholder="Easting">
+                        <h4>Northing</h4>
+                        <input type="number" class="form-control" ng-model="birdSurvey.north" ng-disabled="birdSurvey.skip" placeholder="Northing">
+                        <h4>Elevation</h4>
+                        <input type="number" class="form-control" ng-model="birdSurvey.elev" ng-disabled="birdSurvey.skip" placeholder="Elevation">
+                    
+                        <h4>Position</h4>
+                        <select class="form-control" ng-model="birdSurvey.pos" ng-options="opt.value as opt.name for opt in options.pos" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Position</option>
+                        </select>
+                        <h4>Notes</h4>
+                        <input type="text" class="form-control" ng-model="birdSurvey.notes" ng-disabled="birdSurvey.skip" placeholder="Notes">
+                        <br>
+                        <button class="btn btn-default" ng-click="saveAction()">Submit</button>
                     </div>
-                    <p>{{birdSurvey.sun}}</p>
                 </tab>
                 
-                <tab heading='Sightings' select="intoJson()"><p>{{surveyRecord}}</p></tab>
+                <tab heading='Sightings' select="intoJson()">
+                    <br>
+                    <button class = "btn btn-default" ng-click="countdown()">{{timer.mins}}:{{timer.secs}}</button>
+                    <!--<p>{{birdSurvey}}</p>
+                    <p>{{surveyRecord}}</p>-->
+                </tab>
                 
                 <tab heading='Incidental' select="intoJson()"><p>{{surveyRecord}}</p></tab>
                 
