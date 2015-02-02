@@ -1,6 +1,5 @@
 package nz.govt.doc.t1m.services.incoming;
 
-import nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity;
 import nz.govt.doc.t1m.domain.survey.SurveyEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -55,13 +54,13 @@ public class DataParser {
         if (dataForm.getTyp().equals("bird")) {
             System.out.println("New bird survey found");
             for (int i = 0 ; i < dataSheetType.length ; i++) {
-                birdParser.initialize(field[i], data[i]);
+                birdParser.initialize(field[i], data[i], dataForm.getInf(), dataForm.getInd());
                 birdParser.saveEntity(dataSheetType[i], surveyId);
             }
         } else if (dataForm.getTyp().equals("litter")) {
             System.out.println("New litter survey found");
             for (int i = 0 ; i < dataSheetType.length ; i++) {
-                litterParser.initialize(field[i], data[i]);
+                litterParser.initialize(field[i], data[i], dataForm.getInf(), dataForm.getInd());
                 litterParser.saveEntity(dataSheetType[i], surveyId);
             }
         } else System.out.println("Bad survey type received");

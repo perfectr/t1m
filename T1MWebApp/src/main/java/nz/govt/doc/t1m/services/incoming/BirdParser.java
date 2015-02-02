@@ -24,13 +24,16 @@ public class BirdParser {
     protected BirdDistanceService birdDistanceService;
     @Autowired
     protected IncidentalBirdService incidentalBirdService;
+    @Autowired
+    protected BirdInstanceParser birdInstanceParser;
 
     private String[] field;
     private String[] data;
 
-    public void initialize(String[] field, String[] data) {
+    public void initialize(String[] field, String[] data, String[][] instanceField, String[][] instanceData) {
         this.field = field;
         this.data = data;
+        birdInstanceParser.initialize(instanceField, instanceData);
     }
 
     public DataSheetEntity saveEntity(String dataSheetName, Integer surveyId) {
@@ -48,15 +51,19 @@ public class BirdParser {
         BirdCountEntity birdCountEntity = new BirdCountEntity();
         birdCountEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
-            System.out.println(field[i] + ": " + data[i]);
-            try {
-                Class[] paramString = new Class[1];
-                paramString[0] = String.class;
-                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity");
-                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
-                set.invoke(birdCountEntity,data[i]);
-            } catch (Exception e) {
-                //e.printStackTrace();
+            if (field[i].equals("Instances")) {
+                System.out.println("Instances found");
+            } else {
+                System.out.println(field[i] + ": " + data[i]);
+                try {
+                    Class[] paramString = new Class[1];
+                    paramString[0] = String.class;
+                    Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.birdCount.BirdCountEntity");
+                    Method set = bce.getDeclaredMethod("set" + field[i], paramString);
+                    set.invoke(birdCountEntity, data[i]);
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
             }
         }
         birdCountService.saveBirdCount(birdCountEntity);
@@ -68,15 +75,19 @@ public class BirdParser {
         BirdDistanceEntity birdDistanceEntity = new BirdDistanceEntity();
         birdDistanceEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
-            System.out.println(field[i] + ": " + data[i]);
-            try {
-                Class[] paramString = new Class[1];
-                paramString[0] = String.class;
-                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.birdDistance.BirdDistanceEntity");
-                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
-                set.invoke(birdDistanceEntity,data[i]);
-            } catch (Exception e) {
-                //e.printStackTrace();
+            if (field[i].equals("Instances")) {
+                System.out.println("Instances found");
+            } else {
+                System.out.println(field[i] + ": " + data[i]);
+                try {
+                    Class[] paramString = new Class[1];
+                    paramString[0] = String.class;
+                    Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.birdDistance.BirdDistanceEntity");
+                    Method set = bce.getDeclaredMethod("set" + field[i], paramString);
+                    set.invoke(birdDistanceEntity, data[i]);
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
             }
         }
         birdDistanceService.saveBirdDistance(birdDistanceEntity);

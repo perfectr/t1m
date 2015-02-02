@@ -27,10 +27,14 @@ public class LitterParser {
 
     private String[] field;
     private String[] data;
+    private String[][] instanceField;
+    private String[][] instanceData;
 
-    public void initialize(String[] field, String[] data) {
+    public void initialize(String[] field, String[] data, String[][] instanceField, String[][] instanceData) {
         this.field = field;
         this.data = data;
+        this.instanceField = instanceField;
+        this.instanceData = instanceData;
     }
 
     public DataSheetEntity saveEntity(String dataSheetName, Integer surveyId) {
