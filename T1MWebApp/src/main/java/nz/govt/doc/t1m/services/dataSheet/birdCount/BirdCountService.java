@@ -24,11 +24,17 @@ public class BirdCountService {
         return new Response<>(birdCountRepository.findOne(birdCountId));
     }
 
+//    @Transactional
+//     public Response<BirdCountEntity> saveBirdCount(BirdCountEntity birdCountEntity) {
+//        BirdCountEntity birdCountResponse = birdCountRepository.save(birdCountEntity);
+//        Response res = new Response<>(birdCountResponse);
+//        return res;
+//    }
+
     @Transactional
-    public Response<BirdCountEntity> saveBirdCount(BirdCountEntity birdCountEntity) {
+    public BirdCountEntity saveBirdCount(BirdCountEntity birdCountEntity) {
         BirdCountEntity birdCountResponse = birdCountRepository.save(birdCountEntity);
-        Response res = new Response<>(birdCountResponse);
-        return res;
+        return birdCountResponse;
     }
 
     public void removeBirdCount(Integer birdCountId) {

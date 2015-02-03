@@ -26,11 +26,17 @@ public class BirdDistanceService {
         return new Response<>(birdDistanceRepository.findOne(birdDistanceId));
     }
 
+//    @Transactional
+//    public Response<BirdDistanceEntity> saveBirdDistance(BirdDistanceEntity birdDistanceEntity) {
+//        BirdDistanceEntity birdDistanceResponse = birdDistanceRepository.save(birdDistanceEntity);
+//        Response res = new Response<>(birdDistanceResponse);
+//        return res;
+//    }
+
     @Transactional
-    public Response<BirdDistanceEntity> saveBirdDistance(BirdDistanceEntity birdDistanceEntity) {
+    public BirdDistanceEntity saveBirdDistance(BirdDistanceEntity birdDistanceEntity) {
         BirdDistanceEntity birdDistanceResponse = birdDistanceRepository.save(birdDistanceEntity);
-        Response res = new Response<>(birdDistanceResponse);
-        return res;
+        return birdDistanceResponse;
     }
 
     public void removeBirdDistance(Integer birdDistanceId) {

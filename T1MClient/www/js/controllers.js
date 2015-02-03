@@ -56,45 +56,53 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
                 $scope.timer.mins = 5;    
                 $scope.timer.secs = "00";
                 $scope.timer.alerted = false;
+                $scope.timer.started = false;
                 var stopped;
-    
+                
+                $scope.startCountdown = function(){
+                    if($scope.timer.started == false){
+                        $scope.countdown();
+                        $scope.timer.started = true;
+                    }
+                }
                 $scope.countdown = function(){
-                  stopped = $timeout(function(){
+                          stopped = $timeout(function(){
 
-                      if($scope.timer.secs==0){
-                          if($scope.timer.mins==0){
                               if($scope.timer.secs==0){
-                                  $scope.stop();
+                                  if($scope.timer.mins==0){
+                                      if($scope.timer.secs==0){
+                                          $scope.stop();
+                                      }else{
+                                          $scope.timer.secs--;
+                                      }
+                                  }else {
+                                      $scope.timer.mins--;
+                                      $scope.timer.secs = 59;
+                                  }
                               }else{
-                                  $scope.timer.secs--;
+                                $scope.timer.secs--;
                               }
-                          }else {
-                              $scope.timer.mins--;
-                              $scope.timer.secs = 59;
-                          }
-                      }else{
-                        $scope.timer.secs--;
-                      }
-                      
-                      if($scope.timer.secs < 10){
-                          if($scope.timer.secs == 0){
-                              $scope.timer.secs = "00";
-                              if($scope.timer.mins==0){
-                                    $scope.stop();
-                                    if(!($scope.timer.alerted)){
-                                        $scope.timerFin();
-                                    }
-                                }
-                          }else{
-                                $scope.timer.secs = "0"+$scope.timer.secs;
-                                
-                          }
-                      }
-                    $scope.countdown();
-                  },1000);  
+
+                              if($scope.timer.secs < 10){
+                                  if($scope.timer.secs == 0){
+                                      $scope.timer.secs = "00";
+                                      if($scope.timer.mins==0){
+                                            $scope.stop();
+                                            if(!($scope.timer.alerted)){
+                                                $scope.timerFin();
+                                            }
+                                        }
+                                  }else{
+                                        $scope.timer.secs = "0"+$scope.timer.secs;
+
+                                  }
+                              }
+                            $scope.countdown();
+                          },1000); 
                 };
                 $scope.stop = function(){
                   $timeout.cancel(stopped);  
+                    $scope.timer.started = false;
                 };
                 $scope.reset = function(){
                     $scope.stop();
