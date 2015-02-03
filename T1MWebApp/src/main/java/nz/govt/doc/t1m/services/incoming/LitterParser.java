@@ -24,6 +24,8 @@ public class LitterParser {
     protected LitterLargeService litterLargeService;
     @Autowired
     protected BeachCharacterizationService beachCharacterizationService;
+    @Autowired
+    protected LitterInstanceParser litterInstanceParser;
 
     private String[] field;
     private String[] data;
@@ -51,19 +53,27 @@ public class LitterParser {
         System.out.println("New beach litter data sheet found");
         LitterBeachEntity litterBeachEntity = new LitterBeachEntity();
         litterBeachEntity.setSurveyId(surveyId);
+        if (field.length == 0) return new LitterBeachEntity();
+        int numInstances = 0;
         for (int i = 0 ; i < field.length ; i++) {
-            System.out.println(field[i] + ": " + data[i]);
-            try {
-                Class[] paramString = new Class[1];
-                paramString[0] = String.class;
-                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.litterBeach.LitterBeachEntity");
-                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
-                set.invoke(litterBeachEntity,data[i]);
-            } catch (Exception e) {
-                //e.printStackTrace();
+            if (field[i].equals("Instances")) {
+                numInstances = Integer.parseInt(data[i]);
+                //System.out.println(numInstances + " Instance(s) found");
+            } else {
+                //System.out.println(field[i] + ": " + data[i]);
+                try {
+                    Class[] paramString = new Class[1];
+                    paramString[0] = String.class;
+                    Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.litterBeach.LitterBeachEntity");
+                    Method set = bce.getDeclaredMethod("set" + field[i], paramString);
+                    set.invoke(litterBeachEntity, data[i]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
-        litterBeachService.saveLitterBeach(litterBeachEntity);
+        LitterBeachEntity response = litterBeachService.saveLitterBeach(litterBeachEntity);
+        litterInstanceParser.saveLBItem(response.getDataSheetId(), numInstances);
         return litterBeachEntity;
     }
 
@@ -71,19 +81,27 @@ public class LitterParser {
         System.out.println("New large litter data sheet found");
         LitterLargeEntity litterLargeEntity = new LitterLargeEntity();
         litterLargeEntity.setSurveyId(surveyId);
+        if (field.length == 0) return new LitterLargeEntity();
+        int numInstances = 0;
         for (int i = 0 ; i < field.length ; i++) {
-            System.out.println(field[i] + ": " + data[i]);
-            try {
-                Class[] paramString = new Class[1];
-                paramString[0] = String.class;
-                Class bce = Class.forName("nz.govt.doc.t1m.domain.dataSheet.litterLarge.LitterLargeEntity");
-                Method set = bce.getDeclaredMethod("set"+field[i],paramString);
-                set.invoke(litterLargeEntity,data[i]);
-            } catch (Exception e) {
-                //e.printStackTrace();
+            if (field[i].equals("Instances")) {
+                numInstances = Integer.parseInt(data[i]);
+                //System.out.println(numInstances + " Instance(s) found");
+            } else {
+                //System.out.println(field[i] + ": " + data[i]);
+                try {
+                    Class[] paramString = new Class[1];
+                    paramString[0] = String.class;
+                    Class classType = Class.forName("nz.govt.doc.t1m.domain.dataSheet.litterLarge.LitterLargeEntity");
+                    Method set = classType.getDeclaredMethod("set" + field[i], paramString);
+                    set.invoke(litterLargeEntity, data[i]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
-        litterLargeService.saveLitterLarge(litterLargeEntity);
+        LitterLargeEntity response = litterLargeService.saveLitterLarge(litterLargeEntity);
+        litterInstanceParser.saveLLItem(response.getDataSheetId(), numInstances);
         return litterLargeEntity;
     }
 

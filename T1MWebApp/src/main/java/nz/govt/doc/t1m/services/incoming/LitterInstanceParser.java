@@ -1,24 +1,24 @@
 package nz.govt.doc.t1m.services.incoming;
 
-import nz.govt.doc.t1m.domain.instance.birdCount.BCBirdEntity;
-import nz.govt.doc.t1m.domain.instance.birdDistance.BDBirdEntity;
-import nz.govt.doc.t1m.services.instance.birdCount.BCBirdService;
-import nz.govt.doc.t1m.services.instance.birdDistance.BDBirdService;
+import nz.govt.doc.t1m.domain.instance.litterBeach.LBItemEntity;
+import nz.govt.doc.t1m.domain.instance.litterLarge.LLItemEntity;
+import nz.govt.doc.t1m.services.instance.litterBeach.LBItemService;
+import nz.govt.doc.t1m.services.instance.litterLarge.LLItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
 /**
- * Created by McCaulC on 2/02/2015.
+ * Created by McCaulC on 3/02/2015.
  */
 @Component
-public class BirdInstanceParser {
+public class LitterInstanceParser {
 
     @Autowired
-    protected BCBirdService bcBirdService;
+    protected LBItemService lbItemService;
     @Autowired
-    protected BDBirdService bdBirdService;
+    protected LLItemService llItemService;
 
     private String[][] instanceField;
     private String[][] instanceData;
@@ -31,46 +31,46 @@ public class BirdInstanceParser {
         this.count = 0;
     }
 
-    public void saveBCBird(Integer dataSheetId, int numBCBirds){
-        for (int i = 0 ; i < numBCBirds ; i++) {
-            System.out.println("New BCBird instance found");
-            BCBirdEntity bcBirdEntity = new BCBirdEntity();
-            bcBirdEntity.setDataSheetId(dataSheetId);
+    public void saveLBItem(Integer dataSheetId, int numLBItems){
+        for (int i = 0 ; i < numLBItems ; i++) {
+            System.out.println("New LBItem instance found");
+            LBItemEntity lbItemEntity = new LBItemEntity();
+            lbItemEntity.setDataSheetId(dataSheetId);
             for (int j = 0 ; j < instanceField[count].length ; j++) {
                 //System.out.println(instanceField[count][j] + ": " + instanceData[count][j]);
                 try {
                     Class[] paramString = new Class[1];
                     paramString[0] = String.class;
-                    Class classType = Class.forName("nz.govt.doc.t1m.domain.instance.birdCount.BCBirdEntity");
+                    Class classType = Class.forName("nz.govt.doc.t1m.domain.instance.litterBeach.LBItemEntity");
                     Method set = classType.getDeclaredMethod("set" + instanceField[count][j], paramString);
-                    set.invoke(bcBirdEntity, instanceData[count][j]);
+                    set.invoke(lbItemEntity, instanceData[count][j]);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            bcBirdService.saveBCBird(bcBirdEntity);
+            lbItemService.saveLBItem(lbItemEntity);
             count++;
         }
     }
 
-    public void saveBDBird(Integer dataSheetId, int numBDBirds) {
-        for (int i = 0 ; i < numBDBirds ; i++) {
-            System.out.println("New BDBird instance found");
-            BDBirdEntity bdBirdEntity = new BDBirdEntity();
-            bdBirdEntity.setDataSheetId(dataSheetId);
+    public void saveLLItem(Integer dataSheetId, int numLLItems) {
+        for (int i = 0 ; i < numLLItems ; i++) {
+            System.out.println("New LLItem instance found");
+            LLItemEntity llItemEntity = new LLItemEntity();
+            llItemEntity.setDataSheetId(dataSheetId);
             for (int j = 0 ; j < instanceField[count].length ; j++) {
                 //System.out.println(instanceField[count][j] + ": " + instanceData[count][j]);
                 try {
                     Class[] paramString = new Class[1];
                     paramString[0] = String.class;
-                    Class classType = Class.forName("nz.govt.doc.t1m.domain.instance.birdDistance.BDBirdEntity");
+                    Class classType = Class.forName("nz.govt.doc.t1m.domain.instance.litterLarge.LLItemEntity");
                     Method set = classType.getDeclaredMethod("set" + instanceField[count][j], paramString);
-                    set.invoke(bdBirdEntity, instanceData[count][j]);
+                    set.invoke(llItemEntity, instanceData[count][j]);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            bdBirdService.saveBDBird(bdBirdEntity);
+            llItemService.saveLLItem(llItemEntity);
             count++;
         }
     }
