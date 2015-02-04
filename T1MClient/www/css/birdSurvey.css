@@ -34,3 +34,31 @@ select:disabled{
     appearance: none;
     background: #d11f1f;
 }*/
+
+span {
+    font-size: 400%;
+    color: white;
+}
+
+
+
+.btn-circle {
+    width: 5em;
+    height: 5em;
+    text-align: center;
+    padding-right: 4.6em;
+    padding-left: -0.14em;
+    padding-bottom: 4.74em;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 100em;
+}
+
+.btn-wide {
+    display:block;
+    width: 100%;
+}
+
+.panel-default {
+    min-width: 100%;
+}
