@@ -47,10 +47,8 @@
                             <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'M'">M</label>
                             <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'P'">P</label>
                         </div><br>
-<!--
-                        <p>{{birdSurvey}}</p>
--->
-                            <button type="button" class="btn btn-default" ng-model="birdSurvey.skip" btn-checkbox btn-checkbox-true=true btn-checkbox-false=false ng-click="skip()">{{birdSurvey.skipButton}}</button>
+
+                        <button type="button" class="btn btn-default" ng-model="birdSurvey.skip" btn-checkbox btn-checkbox-true=true btn-checkbox-false=false ng-click="skip()">{{birdSurvey.skipButton}}</button>
                         <br>
                         <script type="text/ng-template" id="skipStationModalContent.html">
                             <div class="modal-header">
@@ -106,10 +104,59 @@
                 
                 <tab heading='Sightings' select="intoJson()">
                     <br>
-                    <button class = "btn-lg btn-default" ng-click="startCountdown()">{{timer.mins}}:{{timer.secs}}</button>      
-                    <button class = "btn btn-danger" ng-click="reset()">Reset</button>
-                    <!--<p>{{birdSurvey}}</p>
-                    <p>{{surveyRecord}}</p>-->
+                    <div class="row">
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4">
+                            <button class = "btn-lg btn-default btn-wide" ng-click="startCountdown()">{{timer.mins}}:{{timer.secs}}</button>                           </div>
+                        <div class="col-xs-4">
+                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
+                        </div>
+                    </div>
+                    <br><br><div class="row">
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-3">
+                            <button class="btn btn-success btn-circle" ng-click="addBirdModal()">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </button>
+                            <script type="text/ng-template" id="birdModalContent.html">
+                                    <div class="modal-header">
+                                        <div class="input-group">
+                                            <input type="text" class = "form-control" ng-model="birdText" placeholder="Type Bird Name">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="list-group">
+                                            <li ng-repeat="birdSpecie in birdSpecies" class="list-group-item" ng-click="birdPress(birdSpecie.text)">{{birdSpecie.text}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                    </div>
+                                </script>
+                        </div>
+                        <div class="col-xs-4">
+                            <h3>Add Bird</h3>
+                        </div>    
+                        <div class="col-xs-3"></div> 
+                    </div>
+                    <div class="inner">
+                        <br>
+                        <div class ="panel panel-default" style="padding:5%;">
+                                <div>
+                                    <ul class="list-group">
+                                        <li ng-repeat="bird in birds" class="list-group-item">{{bird.text}}</li>
+                                    </ul>
+                                  <!--<form ng-submit="addBird()">-->
+                                    
+                                   <!-- <button class="btn btn-default" type="submit">add</button>
+                                  </form>-->
+                                </div>
+                        </div>
+                    </div>
+
                 </tab>
                 
                 <tab heading='Incidental' select="intoJson()"><p>{{surveyRecord}}</p></tab>

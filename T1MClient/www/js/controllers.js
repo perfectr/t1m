@@ -59,6 +59,16 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
                 $scope.timer.started = false;
                 var stopped;
                 
+                $scope.birds = [];
+                    
+                $scope.birdText = '';
+
+                $scope.addBird = function(bt) {
+                    $scope.birds.push({text:bt});
+                    $scope.birdText = '';
+                };
+    
+                
                 $scope.startCountdown = function(){
                     if($scope.timer.started == false){
                         $scope.countdown();
@@ -112,7 +122,7 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
                 }
                 $scope.timerFin = function() {
                     setTimeout(function() {
-                      $window.alert('ALERT!');
+                      $window.alert('Time\'s up!');
                         $scope.timer.alerted = true;
                     });
                   };
@@ -190,6 +200,26 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
                         });
                 }
                 
+                $scope.addBirdModal = function(){
+                    
+                    var modalInstance = $modal.open({
+                              templateUrl: 'birdModalContent.html',
+                              controller: 'birdModalInstanceCtrl'
+                            });
+                    modalInstance.result.then(function (bt) {
+                            if(bt!=null){
+                                for(var i = 0; i < $scope.birds.length; i++){
+                                    if($scope.birds[i].text==bt){
+                                        return;
+                                    }
+                                }
+                                $scope.addBird(bt);
+                                
+                            }   
+                        });
+                    
+                }
+                
                 $scope.saveAction = function(){
                     $scope.intoJson();
                     $scope.surveyRecord.$save();
@@ -209,6 +239,69 @@ t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInsta
         $modalInstance.close(['','true']);
     };
 });
+
+t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInstance) {
+                
+            $scope.birdSpecies = [
+                            {text:'Bellbird'},
+                            {text:'Blackbird'},
+                            {text:'Blue Duck'},
+                            {text:'Brown Creeper'},
+                            {text:'Californian Quail'},
+                            {text:'Chaffinch'},
+                            {text:'Dunnock (Hedge Sparrow)'},
+                            {text:'Eastern Rosella'},
+                            {text:'Falcon (NZ)'},
+                            {text:'Fantail'},
+                            {text:'Fernbird'},
+                            {text:'Goldfinch'},
+                            {text:'Gray Warbler'},
+                            {text:'Greenfinch'},
+                            {text:'Harrier Hawk'},
+                            {text:'House Sparrow'},
+                            {text:'Indian Myna'},
+                            {text:'Kaka'},
+                            {text:'Kea'},
+                            {text:'Kingfisher (NZ)'},
+                            {text:'Kiwi (* specify)'},
+                            {text:'Long Tail Cuckoo'},
+                            {text:'Magpie (Australian)'},
+                            {text:'Morepork'},
+                            {text:'Oystercatcher (* specify)'},
+                            {text:'Paradise Shelduck'},
+                            {text:'Parakeet (* specify)'},
+                            {text:'Pukeko'},
+                            {text:'Redpoll'},
+                            {text:'Rifleman'},
+                            {text:'Robin'},
+                            {text:'Rock Pigeon (Feral)'},
+                            {text:'Rock Wren'},
+                            {text:'Shinning Cuckoo'},
+                            {text:'Silvereye'},
+                            {text:'Song Thrush'},
+                            {text:'Spur Wing Plover'},
+                            {text:'Starling'},
+                            {text:'Tomtit'},
+                            {text:'Tui'},
+                            {text:'Weka'},
+                            {text:'Welcome Swallow'},
+                            {text:'Wood Pigeon (Kereru)'},
+                            {text:'Yellow Hammer'},
+                            {text:'Yellowhead'}];
+    
+              $scope.birdPress = function(birdType){
+                  $scope.birdText = birdType;
+                  $scope.ok();
+              }
+    
+              $scope.ok = function () {
+                $modalInstance.close($scope.birdText);
+              };
+
+              $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+              };
+            });
 
 
 /* ================== controllers for beach litter survey ========================= */
