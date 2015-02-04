@@ -213,7 +213,10 @@ t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInsta
 
 /* ================== controllers for beach litter survey ========================= */
 t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+    
     $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));
+    $scope.toSendSR= {};
+    
     if($scope.surveyRecord == null){
         $scope.surveyRecord = {};  
     };
@@ -231,10 +234,15 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
           $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));
     };
     
-    $scope.sendToServer = function (){
-        var toSend = new RecordSvc();
-        
+    $scope.testSaveInstances = function(){
+          testSaveDataSheetToSurveyRecord();
+          $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));    
     };
+    
+    $scope.sendToServer = function (){
+        //TODO need to add validaton so that important fields are filled
+        $scope.response = sendSurveyRecordToServer(new RecordSvc);
+    }
     
 }]);
 
