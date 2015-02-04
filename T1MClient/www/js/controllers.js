@@ -310,6 +310,10 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
     $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));
     $scope.toSendSR= {};
     
+    
+   
+    
+    
     if($scope.surveyRecord == null){
         $scope.surveyRecord = {};  
     };
@@ -322,8 +326,8 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
         window.localStorage.setItem(dataSheetType, "{}");
     };
     
-    $scope.packageDataSheetIntoSurveyRecord = function (dataSheetType, dataSheetStorageKey, index){
-          saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey, index);
+    $scope.packageDataSheetIntoSurveyRecord = function (dataSheetType, dataSheetStorageKey){
+          saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey);
           $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));
     };
     
@@ -342,12 +346,10 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
 
 t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
     $scope.litterBeach = {};
-    $scope.testLitterBeach = {};
 
     var savedLitterBeach =  window.localStorage.getItem("litterBeach");
     if(savedLitterBeach != null){
         $scope.litterBeach = angular.fromJson(savedLitterBeach);
-        $scope.testLitterBeach = angular.fromJson(savedLitterBeach);
     };
 
 
@@ -372,8 +374,34 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc',function
 
     $scope.saveLitterBeach = function(){
         window.localStorage.setItem("litterBeach", angular.toJson($scope.litterBeach, false));
-        $scope.testLitterBeach = angular.fromJson(window.localStorage.getItem("litterBeach"));
     };
+    
+  
+    
+    $scope.retriveGPS = function(gpsField){
+        
+           var retriveGPSSuccess = function(position) {
+               $scope.litterBeach["Latitude"+gpsField] = position.coords.latitude;
+               $scope.litterBeach["Longitude"+gpsField] = position.coords.longitude;
+               $scope.litterBeach.CoordSystem = "WGS84";
+               $scope.$apply();       
+           } 
+           
+           var retriveGPSError = function(error){
+             /*  if(error.code = PositionError.PERMISSION_DENIED){
+               }
+               if(error.code = PositionError.POSITION_UNAVAILABLE){
+               }
+               if(error.code = PositionError.TIMEOUT){
+               }*/
+               
+           }
+           
+           var options = { enableHighAccuracy: true, maximumAge: 100 };
+           navigator.geolocation.getCurrentPosition(retriveGPSSuccess, retriveGPSError, options);
+    }
+    
+   
     
 }]);
 
@@ -419,9 +447,22 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
      $scope.saveBeachCharacterization = function(){
         window.localStorage.setItem("beachCharacterization", angular.toJson($scope.beachCharacterization, false));
     };
+    
+    $scope.retriveGPS = function(gpsField){
+        
+           var retriveGPSSuccess = function(position) {
+               $scope.beachCharacterization["Latitude"+gpsField] = position.coords.latitude;
+               $scope.beachCharacterization["Longitude"+gpsField] = position.coords.longitude;
+               $scope.beachCharacterization.CoordSystem = "WGS84";
+               $scope.$apply();       
+           } 
+           
+           var retriveGPSError = function(error){               
+           }
+           
+           var options = { enableHighAccuracy: true, maximumAge: 100 };
+           navigator.geolocation.getCurrentPosition(retriveGPSSuccess, retriveGPSError, options);
+    }
+    
 
-    $scope.saveAction = function(){
-        $scope.surveyRecord.$save();
-        $scope.surveyRecord = new RecordSvc();
-    };
 }]);

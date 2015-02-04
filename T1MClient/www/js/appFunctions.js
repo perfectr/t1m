@@ -161,7 +161,7 @@ function testSaveDataSheetToSurveyRecord(){
         Instances:[
             {LitterCode:"pk11",Description:"plastic11",Count:20,Weight:5},
             {LitterCode:"pk12",Description:"plastic12",Count:10,Weight:2},
-            {LitterCode:"pk12",Description:"plastic12",Count:10,Weight:2, Note:"there is soooooo much litter"}
+            {LitterCode:"pk12",Description:"plastic12",Count:10,Weight:2, Notes:"there is soooooo much litter"}
         ]};
     
     window.localStorage.setItem("testDST", angular.toJson(testDataSheet, true));

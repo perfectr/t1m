@@ -56,7 +56,7 @@
                                 <h4><b>Start Location</b></h4>
                             </div>
                             <div class="col-xs-6">
-                                <button class="btn btn-default" >Retrive GPS Location</button>
+                                <button class="btn btn-default"  ng-click="retriveGPS('Start')" >Retrive GPS Location</button>
                             </div>
                         </div>
                         <div class="row">
@@ -65,8 +65,8 @@
                                 <h4>Longitude</h4>
                         </div>
                         <div class="col-xs-8">
-                                <input ng-model="beachCharacterization.LatitudeStart" class="form-control " type="number" placeHolder="Lat">
-                                <input ng-model="beachCharacterization.LongitudeStart" class="form-control " type="number" placeHolder="Lon">
+                                <input ng-model="beachCharacterization.LatitudeStart" class="form-control" type="number" placeHolder="Lat">
+                                <input ng-model="beachCharacterization.LongitudeStart" class="form-control" type="number" placeHolder="Lon">
                         </div>
                         </div>
                         <div class="row">
@@ -74,7 +74,7 @@
                                 <h4><b>End Location </b></h4>
                             </div>
                             <div class="col-xs-6">
-                                <button class="btn btn-default">Retrive GPS Location</button>
+                                <button class="btn btn-default"  ng-click="retriveGPS('End')">Retrive GPS Location</button>
                             </div>
                         </div>
                             <div class="row">
