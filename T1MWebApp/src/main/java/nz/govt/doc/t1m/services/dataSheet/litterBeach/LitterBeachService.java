@@ -26,11 +26,17 @@ public class LitterBeachService {
         return new Response<>(litterBeachRepository.findOne(litterBeachId));
     }
 
+//    @Transactional
+//    public Response<LitterBeachEntity> saveLitterBeach(LitterBeachEntity litterBeachEntity) {
+//        LitterBeachEntity litterBeachResponse = litterBeachRepository.save(litterBeachEntity);
+//        Response res = new Response<>(litterBeachResponse);
+//        return res;
+//    }
+
     @Transactional
-    public Response<LitterBeachEntity> saveLitterBeach(LitterBeachEntity litterBeachEntity) {
+    public LitterBeachEntity saveLitterBeach(LitterBeachEntity litterBeachEntity) {
         LitterBeachEntity litterBeachResponse = litterBeachRepository.save(litterBeachEntity);
-        Response res = new Response<>(litterBeachResponse);
-        return res;
+        return litterBeachResponse;
     }
 
     public void removeLitterBeach(Integer litterBeachId) {
