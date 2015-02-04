@@ -10,9 +10,9 @@
     margin-bottom: 0 !important;
   }
       .nav-tabs.nav-justified > .active > a,
-  .nav-tabs.nav-justified > .active > a:hover,
-  .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #fff !important;
+      .nav-tabs.nav-justified > .active > a:hover,
+      .nav-tabs.nav-justified > .active > a:focus {
+      border-bottom-color: #fff !important;
   }
 }
 
@@ -35,12 +35,21 @@ select:disabled{
     background: #d11f1f;
 }*/
 
-span {
+.plusButton {
     font-size: 400%;
     color: white;
 }
 
-
+.btn-incrementBird{
+    font-size: 150%;
+    color: #55a8c3;
+    background: white;
+    border-color: #55a8c3;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    border-radius: 100em;
+}
 
 .btn-circle {
     width: 5em;

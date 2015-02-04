@@ -57,13 +57,23 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
                 var stopped;
                 
                 $scope.birds = [];
-                    
+                $scope.birdCount = [];    
                 $scope.birdText = '';
 
                 $scope.addBird = function(bt) {
                     $scope.birds.push({text:bt});
                     $scope.birdText = '';
                 };
+    
+                $scope.incrementBird = function(bt){
+                    for(var i=0; i < $scope.birdCount.length; i++){
+                        if($scope.birdCount[i].bird==bt){
+                            $scope.birdCount[i].near++;
+                            return;
+                        }
+                    }
+                    $scope.birdCount.push({bird:bt,near:0,far:0,veryFar:0,notes:""});
+                }
     
                 
                 $scope.startCountdown = function(){
@@ -173,6 +183,8 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
 
                     $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['StationId','StartTime','StationSkipped','ReasonSkipped','Sun','Temp','Precipitation','Wind','OtherNoise','Easting','Northing','Elevation','Position','Notes'];
                     $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [b.rad,b.time,b.skip,b.reasonSkip,b.sun,b.temp,b.prec,b.wind,b.othNoi,b.east,b.north,b.elev,b.pos,b.notes];
+                    $scope.surveyRecord.inf=[];
+                    $scope.surveyRecord.ind=[];
                     /*window.localStorage.setItem(b.typ,angular.toJson($scope.surveyRecord,false));*/
                 }
                 
@@ -211,8 +223,32 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
                                     }
                                 }
                                 $scope.addBird(bt);
-                                
+                                $scope.incrementBird(bt);
                             }   
+                        });
+                    
+                }
+                
+                $scope.addBirdIncrementModal = function(bName){
+                    var b;
+                    
+                    for(var i=0; i < $scope.birdCount.length; i++){
+                        if($scope.birdCount[i].bird==bName){
+                            b = $scope.birdCount[i];
+                        }
+                    }
+                    
+                    var modalInstance = $modal.open({
+                              templateUrl: 'birdIncModalContent.html',
+                              controller: 'birdIncrementModalCtrl',
+                              resolve:{
+                                  b: function(){
+                                      return b;
+                                  }
+                              }
+                            });
+                    modalInstance.result.then(function (bt) {
+                            
                         });
                     
                 }
@@ -298,7 +334,50 @@ t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInsta
               $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
               };
-            });
+        });
+
+t1mControllers.controller('birdIncrementModalCtrl', function ($scope, $modalInstance, b) {
+                
+              $scope.bird = b;
+              
+              $scope.nearIncPlus = function(){
+                  $scope.bird.near++;
+              };
+    
+              $scope.nearIncMinus = function(){
+                  if($scope.bird.near > 0){
+                    $scope.bird.near--;
+                  }
+              };
+                
+              $scope.farIncPlus = function(){
+                  $scope.bird.far++;
+              };
+    
+              $scope.farIncMinus = function(){
+                  if($scope.bird.far > 0){
+                    $scope.bird.far--;
+                  }
+              }; 
+    
+              $scope.veryFarIncPlus = function(){
+                  $scope.bird.veryFar++;
+              };
+    
+              $scope.veryFarIncMinus = function(){
+                  if($scope.bird.veryFar > 0){
+                    $scope.bird.veryFar--;
+                  }
+              }; 
+                
+              $scope.ok = function () {
+                $modalInstance.close();
+              };
+
+              $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+              };
+        });
 
 
 /* ================== controllers for beach litter survey ========================= */

@@ -116,7 +116,7 @@
                         <div class="col-xs-2"></div>
                         <div class="col-xs-3">
                             <button class="btn btn-success btn-circle" ng-click="addBirdModal()">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-plus plusButton" aria-hidden="true"></span>
                             </button>
                             <script type="text/ng-template" id="birdModalContent.html">
                                     <div class="modal-header">
@@ -147,16 +147,75 @@
                         <div class ="panel panel-default" style="padding:5%;">
                                 <div>
                                     <ul class="list-group">
-                                        <li ng-repeat="bird in birds" class="list-group-item">{{bird.text}}</li>
+                                        <li ng-repeat="bird in birds" class="list-group-item" ng-click="addBirdIncrementModal(bird.text)">{{bird.text}}</li>
                                     </ul>
-                                  <!--<form ng-submit="addBird()">-->
-                                    
-                                   <!-- <button class="btn btn-default" type="submit">add</button>
-                                  </form>-->
                                 </div>
+                            <script type="text/ng-template" id="birdIncModalContent.html">
+                                    <div class="modal-header">
+                                        <h4>{{bird.bird}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-xs-3">Near:</div>
+                                            <div class="col-xs-3">{{bird.near}}</div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="nearIncPlus()">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="nearIncMinus()">
+                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-xs-3">Far:</div>
+                                            <div class="col-xs-3">{{bird.far}}</div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="farIncPlus()">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="farIncMinus()">
+                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-xs-3">Very Far:</div>
+                                            <div class="col-xs-3">{{bird.veryFar}}</div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="veryFarIncPlus()">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="veryFarIncMinus()">
+                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <input type="text" class="form-control" placeholder="Comments" ng-model="bird.notes">
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-warning" ng-click="ok()">ok</button>
+                                    </div>
+                                </script>
                         </div>
                     </div>
-
+                    <!--<p>{{birdCount}}</p>-->
                 </tab>
                 
                 <tab heading='Incidental' select="intoJson()"><p>{{surveyRecord}}</p></tab>
