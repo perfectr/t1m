@@ -363,14 +363,11 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc',function
 
     $scope.litterBeach.Season = $scope.options.seasons[0].value;
 
-    $scope.tabs = [
-            {title: "Sampling Area", index: 0},
-            {title: "Litter Data", index: 1}
-        ];
+   
 
-    $scope.selectTab = function(index){
+    /*$scope.selectTab = function(index){
             $scope.tabs[index].active = true;   
-        };
+        };*/
 
     $scope.saveLitterBeach = function(){
         window.localStorage.setItem("litterBeach", angular.toJson($scope.litterBeach, false));
@@ -401,7 +398,27 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc',function
            navigator.geolocation.getCurrentPosition(retriveGPSSuccess, retriveGPSError, options);
     }
     
-   
+     $scope.tabs = [
+            {title: "Sampling Area", index: 0},
+            {title: "Litter Data", index: 1}
+        ];
+
+    $scope.selectTab = function(index){
+        window.mySwipe.slide(index, 500);
+        $scope.saveLitterBeach();
+    };
+    
+   $scope.getSelectTab = function(tabName){
+        for(tab in tabs){
+            if(tab.name == tabName){
+                return tab.select;   
+            }
+        }
+    };
+    
+    $scope.popNotes = function(){
+        $scope.litterBeach.Notes =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."  
+    }
     
 }]);
 
@@ -418,7 +435,16 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
         location: [
             {name: "Urban", value: "Urban"}, 
             {name: "Peri-urban", value: "Peri-urban"},
-            {name: "Rural", value: "Rural"}]
+            {name: "Rural", value: "Rural"}
+        ],
+        majorUsage: [
+            {name: "Swimming", value: "Swimming"}, 
+            {name: "Sunbathing", value: "Sunbathing"},
+            {name: "Fishing", value: "Fishing"},
+            {name: "Surfing", value: "Surfing"},
+            {name: "Boat Access", value: "Boat Access"},
+            {name: "Remote", value: "Remote"}
+        ]
     };
 
     $scope.tabs = [
@@ -428,6 +454,7 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
     ];
 
     $scope.beachCharacterization.Location = $scope.options.location[0].value;
+    $scope.beachCharacterization.MajorUsage = $scope.options.majorUsage[0].value;
 
     $scope.selectTab = function(index){
         window.mySwipe.slide(index, 500);
