@@ -7,12 +7,15 @@ t1mControllers.controller('t1mCtrl', [ '$scope', 'RecordSvc',function($scope, Re
             
             
                 $scope.startSurvey = function(surveyType){
-                    $scope.surveyRecord.typ = 'bird';
+                    $scope.surveyRecord.typ = surveyType;
                     $scope.surveyRecord.dst = [];
-                    $scope.surveyRecord.fld = [[]];
-                    $scope.surveyRecord.dat = [[]];
+                    $scope.surveyRecord.fld = [];
+                    $scope.surveyRecord.dat = [];
+                    $scope.surveyRecord.inf = [];
+                    $scope.surveyRecord.ind = [];
                     window.localStorage.setItem(surveyType,angular.toJson($scope.surveyRecord,false));
-                    window.location = "surveys/"+surveyType+".html";
+                    window.localStorage.setItem("surveyRecord", angular.toJson($scope.surveyRecord,false)); //beach litter saving reference.
+                    window.location = "surveys/"+surveyType+"Survey.html";
                 };
             }]);
 
@@ -264,14 +267,14 @@ t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$ti
 
 t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInstance) {
 
-              $scope.ok = function () {
-                $modalInstance.close([$scope.reasonSkip,'false']);
-              };
+    $scope.ok = function () {
+        $modalInstance.close([$scope.reasonSkip,'false']);
+    };
 
-              $scope.cancel = function () {
-                $modalInstance.close(['','true']);
-              };
-            });
+    $scope.cancel = function () {
+        $modalInstance.close(['','true']);
+    };
+});
 
 t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInstance) {
                 
@@ -382,6 +385,18 @@ t1mControllers.controller('birdIncrementModalCtrl', function ($scope, $modalInst
 
 /* ================== controllers for beach litter survey ========================= */
 t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+    
+    $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));
+    $scope.toSendSR= {};
+    
+    
+   
+    
+    
+    if($scope.surveyRecord == null){
+        $scope.surveyRecord = {};  
+    };
+        
     $scope.startDataSheet = function(dataSheetType) {
         window.location = "../dataSheets/"+dataSheetType+".html";
     };
@@ -389,91 +404,144 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
     $scope.clearDataSheet = function(dataSheetType) {
         window.localStorage.setItem(dataSheetType, "{}");
     };
+    
+    $scope.packageDataSheetIntoSurveyRecord = function (dataSheetType, dataSheetStorageKey){
+          saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey);
+          $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));
+    };
+    
+    $scope.testSaveInstances = function(){
+          testSaveDataSheetToSurveyRecord();
+          $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));    
+    };
+    
+    $scope.sendToServer = function (){
+        //TODO need to add validaton so that important fields are filled
+        $scope.response = sendSurveyRecordToServer(new RecordSvc);
+    }
+    
 }]);
 
 
 t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
-            $scope.litterBeach = {};
-            $scope.testLitterBeach = {};
+    $scope.litterBeach = {};
+
+    var savedLitterBeach =  window.localStorage.getItem("litterBeach");
+    if(savedLitterBeach != null){
+        $scope.litterBeach = angular.fromJson(savedLitterBeach);
+    };
+
+
+    $scope.options = {
+            seasons: [
+                {name: "Summer", value: "Summer", startMonth: 12, endMonth: 02}, 
+                {name: "Autum", value: "Autum", startMonth: 03, endMonth: 05},
+                {name: "Winter", value: "Winter", startMonth: 06, endMonth: 08 },
+                {name: "Spring", value: "Spring", startMonth: 09, endMonth: 11}]
+        };
+
+    $scope.litterBeach.Season = $scope.options.seasons[0].value;
+
+    $scope.tabs = [
+            {title: "Sampling Area", index: 0},
+            {title: "Litter Data", index: 1}
+        ];
+
+    $scope.selectTab = function(index){
+            $scope.tabs[index].active = true;   
+        };
+
+    $scope.saveLitterBeach = function(){
+        window.localStorage.setItem("litterBeach", angular.toJson($scope.litterBeach, false));
+    };
     
-            var savedLitterBeach =  window.localStorage.getItem("litterBeach");
-            if(savedLitterBeach != null){
-                $scope.litterBeach = angular.fromJson(savedLitterBeach);
-                $scope.testLitterBeach = angular.fromJson(savedLitterBeach);
-            };
+  
     
+    $scope.retriveGPS = function(gpsField){
+        
+           var retriveGPSSuccess = function(position) {
+               $scope.litterBeach["Latitude"+gpsField] = position.coords.latitude;
+               $scope.litterBeach["Longitude"+gpsField] = position.coords.longitude;
+               $scope.litterBeach.CoordSystem = "WGS84";
+               $scope.$apply();       
+           } 
+           
+           var retriveGPSError = function(error){
+             /*  if(error.code = PositionError.PERMISSION_DENIED){
+               }
+               if(error.code = PositionError.POSITION_UNAVAILABLE){
+               }
+               if(error.code = PositionError.TIMEOUT){
+               }*/
+               
+           }
+           
+           var options = { enableHighAccuracy: true, maximumAge: 100 };
+           navigator.geolocation.getCurrentPosition(retriveGPSSuccess, retriveGPSError, options);
+    }
     
-            $scope.options = {
-                    seasons: [
-                        {name: "Summer", value: "Summer", startMonth: 12, endMonth: 02}, 
-                        {name: "Autum", value: "Autum", startMonth: 03, endMonth: 05},
-                        {name: "Winter", value: "Winter", startMonth: 06, endMonth: 08 },
-                        {name: "Spring", value: "Spring", startMonth: 09, endMonth: 11}]
-                };
+   
     
-            $scope.litterBeach.Season = $scope.options.seasons[0].value;
-    
-             $scope.tabs = [
-                    {title: "Sampling Area", index: 0},
-                    {title: "Litter Data", index: 1}
-                ];
-    
-            $scope.selectTab = function(index){
-                    $scope.tabs[index].active = true;   
-                };
-            
-            $scope.saveLitterBeach = function(){
-                window.localStorage.setItem("litterBeach", angular.toJson($scope.litterBeach, false));
-                $scope.testLitterBeach = angular.fromJson(window.localStorage.getItem("litterBeach"));
-            };
-    
-            }]);
+}]);
 
 
 t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
-                $scope.beachCharacterization = {};
+    $scope.beachCharacterization = {};
+
+    var savedBeachCharacterization =  window.localStorage.getItem("beachCharacterization");
+    if(savedBeachCharacterization != null){
+        $scope.beachCharacterization = angular.fromJson(savedBeachCharacterization);
+    };
+
+    $scope.options = {
+        location: [
+            {name: "Urban", value: "Urban"}, 
+            {name: "Peri-urban", value: "Peri-urban"},
+            {name: "Rural", value: "Rural"}]
+    };
+
+    $scope.tabs = [
+        {title: "Sampling Area", index: 0},
+        {title: "Beach Char.", index: 1},
+        {title: "Source Char.", index: 2 }
+    ];
+
+    $scope.beachCharacterization.Location = $scope.options.location[0].value;
+
+    $scope.selectTab = function(index){
+        window.mySwipe.slide(index, 500);
+        $scope.saveBeachCharacterization();
+    };
+
+
+
+    $scope.getSelectTab = function(tabName){
+        for(tab in tabs){
+            if(tab.name == tabName){
+                return tab.select;   
+            }
+        }
+    };
+
+     $scope.saveBeachCharacterization = function(){
+        window.localStorage.setItem("beachCharacterization", angular.toJson($scope.beachCharacterization, false));
+    };
     
-                var savedBeachCharacterization =  window.localStorage.getItem("beachCharacterization");
-                if(savedBeachCharacterization != null){
-                    $scope.beachCharacterization = angular.fromJson(savedBeachCharacterization);
-                };
-                    
-                $scope.options = {
-                    location: [
-                        {name: "Urban", value: "Urban"}, 
-                        {name: "Peri-urban", value: "Peri-urban"},
-                        {name: "Rural", value: "Rural"}]
-                };
+    $scope.retriveGPS = function(gpsField){
+        
+           var retriveGPSSuccess = function(position) {
+               $scope.beachCharacterization["Latitude"+gpsField] = position.coords.latitude;
+               $scope.beachCharacterization["Longitude"+gpsField] = position.coords.longitude;
+               $scope.beachCharacterization.CoordSystem = "WGS84";
+               $scope.$apply();       
+           } 
+           
+           var retriveGPSError = function(error){               
+           }
+           
+           var options = { enableHighAccuracy: true, maximumAge: 100 };
+           navigator.geolocation.getCurrentPosition(retriveGPSSuccess, retriveGPSError, options);
+    }
     
-                $scope.tabs = [
-                    {title: "Sampling Area", index: 0},
-                    {title: "Beach Char.", index: 1},
-                    {title: "Source Char.", index: 2 }
-                ];
-    
-                $scope.beachCharacterization.Location = $scope.options.location[0].value;
-    
-                $scope.selectTab = function(index){
-                    window.mySwipe.slide(index, 500);
-                    $scope.saveBeachCharacterization();
-                };
-    
-                
-    
-                $scope.getSelectTab = function(tabName){
-                    for(tab in tabs){
-                        if(tab.name == tabName){
-                            return tab.select;   
-                        }
-                    }
-                };
-    
-                 $scope.saveBeachCharacterization = function(){
-                    window.localStorage.setItem("beachCharacterization", angular.toJson($scope.beachCharacterization, false));
-                };
-    
-                $scope.saveAction = function(){
-                    $scope.surveyRecord.$save();
-                    $scope.surveyRecord = new RecordSvc();
-                };
-            }]);
+
+}]);

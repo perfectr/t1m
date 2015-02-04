@@ -106,7 +106,7 @@ public class BirdParser {
         IncidentalBirdEntity incidentalBirdEntity = new IncidentalBirdEntity();
         incidentalBirdEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
-            System.out.println(field[i] + ": " + data[i]);
+            //System.out.println(field[i] + ": " + data[i]);
             try {
                 Class[] paramString = new Class[1];
                 paramString[0] = String.class;

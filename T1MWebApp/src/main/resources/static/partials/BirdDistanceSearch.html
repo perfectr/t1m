@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Bird Distance Data Sheets Received</h4></div>
+            <table class="table table-hover">
+                <tbody>
+                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Station ID</h5></td><td><h5>Start Time</h5></td><td><h5>Notes</h5></td></tr>
+                <tr ng-repeat="birdDistance in birdDistanceSearchSvc.searchResponse.results">
+                    <td>{{birdDistance.dataSheetId}}</td>
+                    <td>{{birdDistance.surveyId}}</td>
+                    <td>{{birdDistance.stationId}}</td>
+                    <td>{{birdDistance.startTime}}</td>
+                    <td>{{birdDistance.notes}}</td>
+                </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+                </tbody>
+            </table>
+            <pagination
+                    max-size="4"
+                    boundary-links="true"
+                    ng-change="pageChanged()"
+                    ng-model="birdDistanceSearchSvc.searchCriteria.pageNumber"
+                    items-per-page="birdDistanceSearchSvc.searchCriteria.pageSize"
+                    total-items="birdDistanceSearchSvc.searchResponse.total"
+                    num-pages="birdDistanceSearchSvc.searchResponse.numPages">
+            </pagination>
+        </div>
+    </div>
+</div>

@@ -47,13 +47,28 @@
     <div class="row" ng-controller="MenuCtrl">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
+                <li>Generic</li>
                 <li ng-class="{ active: isActive('/landing')}"><a href="#">Overview</a></li>
-                <!--<li ng-class="{ active: isActive('/contact')}"><a href="#/contact">Contact</a></li>-->
-                <!--<li ng-class="{ active: isActive('/#/person')}"><a href="#/person/search">People</a></li>-->
+                <li>Survey Meta Data</li>
                 <li ng-class="{ active: isActive('/#/survey')}"><a href="#/survey/search">Surveys</a></li>
+                <li>Bird Surveys</li>
                 <li ng-class="{ active: isActive('/#/birdCount')}"><a href="#/birdCount/search">Bird Counts</a></li>
-                <!--<li class=""><a href="{{publicAccessURL}}">Public Access</a></li>-->
-                <!--<li class=""><a href="{{secureLoginURL}}">Login</a></li>-->
+                <li ng-class="{ active: isActive('/#/bcBird')}"><a href="#/bcBird/search">BC Birds</a></li>
+                <li ng-class="{ active: isActive('/#/birdDistance')}"><a href="#/birdDistance/search">Bird Distances</a></li>
+                <li ng-class="{ active: isActive('/#/bdBird')}"><a href="#/bdBird/search">BD Birds</a></li>
+                <li ng-class="{ active: isActive('/#/incidentalBird')}"><a href="#/incidentalBird/search">Incidental Birds</a></li>
+                <li>Litter Surveys</li>
+                <li ng-class="{ active: isActive('/#/litterBeach')}"><a href="#/litterBeach/search">Beach Litters</a></li>
+                <li ng-class="{ active: isActive('/#/lbItem')}"><a href="#/lbItem/search">BL Items</a></li>
+                <li ng-class="{ active: isActive('/#/litterLarge')}"><a href="#/litterLarge/search">Large Litters</a></li>
+                <li ng-class="{ active: isActive('/#/llItem')}"><a href="#/llItem/search">LL Items</a></li>
+                <li ng-class="{ active: isActive('/#/beachCharacterization')}"><a href="#/beachCharacterization/search">Beach Characterization</a></li>
+                <!--
+                <li ng-class="{ active: isActive('/contact')}"><a href="#/contact">Contact</a></li>
+                <li ng-class="{ active: isActive('/#/person')}"><a href="#/person/search">People</a></li>
+                <li class=""><a href="{{publicAccessURL}}">Public Access</a></li>
+                <li class=""><a href="{{secureLoginURL}}">Login</a></li>
+                -->
             </ul>
             <div class="version">
                 <p th:text="'Version: ' + ${version}">Version: ${version}</p>
