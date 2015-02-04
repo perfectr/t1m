@@ -21,11 +21,6 @@ myAppControllers.controller('LandingCtrl', ['$scope', 'LandingSvc', function($sc
     $scope.secureLoginURL  = LandingSvc.secureLoginURL();
 }]);
 
-
-myAppControllers.controller('ContactCtrl', ['$scope', function($scope) {
-
-}]);
-
 myAppControllers.controller('PersonSearchCtrl', ['$scope', '$window', 'PersonSearchSvc', function($scope, $window, PersonSearchSvc) {
 
     $scope.personSearchSvc = PersonSearchSvc;
@@ -51,6 +46,294 @@ myAppControllers.controller('PersonSearchCtrl', ['$scope', '$window', 'PersonSea
 
     $scope.pageChanged();
 }]);
+
+myAppControllers.controller('SurveySearchCtrl', ['$scope', '$window', 'SurveySearchSvc', function($scope, $window, SurveySearchSvc) {
+
+    $scope.surveySearchSvc = SurveySearchSvc;
+
+    $scope.pageChanged = function() {
+        SurveySearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        SurveySearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        SurveySearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/survey/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('BirdCountSearchCtrl', ['$scope', '$window', 'BirdCountSearchSvc', function($scope, $window, BirdCountSearchSvc) {
+
+    $scope.birdCountSearchSvc = BirdCountSearchSvc;
+
+    $scope.pageChanged = function() {
+        BirdCountSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        BirdCountSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        BirdCountSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/birdCount/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('BCBirdSearchCtrl', ['$scope', '$window', 'BCBirdSearchSvc', function($scope, $window, BCBirdSearchSvc) {
+
+    $scope.bcBirdSearchSvc = BCBirdSearchSvc;
+
+    $scope.pageChanged = function() {
+        BCBirdSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        BCBirdSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        BCBirdSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/bcBird/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('BirdDistanceSearchCtrl', ['$scope', '$window', 'BirdDistanceSearchSvc', function($scope, $window, BirdDistanceSearchSvc) {
+
+    $scope.birdDistanceSearchSvc = BirdDistanceSearchSvc;
+
+    $scope.pageChanged = function() {
+        BirdDistanceSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        BirdDistanceSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        BirdDistanceSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/birdDistance/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('BDBirdSearchCtrl', ['$scope', '$window', 'BDBirdSearchSvc', function($scope, $window, BDBirdSearchSvc) {
+
+    $scope.bdBirdSearchSvc = BDBirdSearchSvc;
+
+    $scope.pageChanged = function() {
+        BDBirdSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        BDBirdSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        BDBirdSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/bdBird/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('IncidentalBirdSearchCtrl', ['$scope', '$window', 'IncidentalBirdSearchSvc', function($scope, $window, IncidentalBirdSearchSvc) {
+
+    $scope.incidentalBirdSearchSvc = IncidentalBirdSearchSvc;
+
+    $scope.pageChanged = function() {
+        IncidentalBirdSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        IncidentalBirdSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        IncidentalBirdSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/incidentalBird/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('LitterBeachSearchCtrl', ['$scope', '$window', 'LitterBeachSearchSvc', function($scope, $window, LitterBeachSearchSvc) {
+
+    $scope.litterBeachSearchSvc = LitterBeachSearchSvc;
+
+    $scope.pageChanged = function() {
+        LitterBeachSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        LitterBeachSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        LitterBeachSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/litterBeach/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('LBItemSearchCtrl', ['$scope', '$window', 'LBItemSearchSvc', function($scope, $window, LBItemSearchSvc) {
+
+    $scope.lbItemSearchSvc = LBItemSearchSvc;
+
+    $scope.pageChanged = function() {
+        LBItemSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        LBItemSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        LBItemSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/lbItem/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('LitterLargeSearchCtrl', ['$scope', '$window', 'LitterLargeSearchSvc', function($scope, $window, LitterLargeSearchSvc) {
+
+    $scope.litterLargeSearchSvc = LitterLargeSearchSvc;
+
+    $scope.pageChanged = function() {
+        LitterLargeSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        LitterLargeSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        LitterLargeSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/litterLarge/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('LLItemSearchCtrl', ['$scope', '$window', 'LLItemSearchSvc', function($scope, $window, LLItemSearchSvc) {
+
+    $scope.llItemSearchSvc = LLItemSearchSvc;
+
+    $scope.pageChanged = function() {
+        LLItemSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        LLItemSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        LLItemSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/llItem/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+myAppControllers.controller('BeachCharacterizationSearchCtrl', ['$scope', '$window', 'BeachCharacterizationSearchSvc', function($scope, $window, BeachCharacterizationSearchSvc) {
+
+    $scope.beachCharacterizationSearchSvc = BeachCharacterizationSearchSvc;
+
+    $scope.pageChanged = function() {
+        BeachCharacterizationSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        BeachCharacterizationSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        BeachCharacterizationSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.newAction = function() {
+        $window.location.href = '#/beachCharacterization/edit/-1';
+    }
+
+    $scope.pageChanged();
+}]);
+
+
 
 myAppControllers.controller('PersonEditCtrl', ['$scope', '$routeParams', '$window', 'PersonSvc', function($scope, $routeParams, $window, PersonSvc) {
 
@@ -106,32 +389,6 @@ myAppControllers.controller('PersonEditCtrl', ['$scope', '$routeParams', '$windo
     $scope.refresh();
 }]);
 
-myAppControllers.controller('SurveySearchCtrl', ['$scope', '$window', 'SurveySearchSvc', function($scope, $window, SurveySearchSvc) {
-
-    $scope.surveySearchSvc = SurveySearchSvc;
-
-    $scope.pageChanged = function() {
-        SurveySearchSvc.search();
-    };
-
-    $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
-        SurveySearchSvc.searchCriteria.pageNumber = 1;
-        $scope.pageChanged();
-    }
-
-    $scope.resetAction = function() {
-        SurveySearchSvc.reset();
-        $scope.searchAction();
-    }
-
-    $scope.newAction = function() {
-        $window.location.href = '#/survey/edit/-1';
-    }
-
-    $scope.pageChanged();
-}]);
-
 myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$window', 'SurveySvc', function($scope, $routeParams, $window, SurveySvc) {
 
     // TODO: replace with proper security
@@ -184,30 +441,4 @@ myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$windo
     }
 
     $scope.refresh();
-}]);
-
-myAppControllers.controller('BirdCountSearchCtrl', ['$scope', '$window', 'BirdCountSearchSvc', function($scope, $window, BirdCountSearchSvc) {
-
-    $scope.birdCountSearchSvc = BirdCountSearchSvc;
-
-    $scope.pageChanged = function() {
-        BirdCountSearchSvc.search();
-    };
-
-    $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
-        BirdCountSearchSvc.searchCriteria.pageNumber = 1;
-        $scope.pageChanged();
-    }
-
-    $scope.resetAction = function() {
-        BirdCountSearchSvc.reset();
-        $scope.searchAction();
-    }
-
-    $scope.newAction = function() {
-        $window.location.href = '#/birdCount/edit/-1';
-    }
-
-    $scope.pageChanged();
 }]);

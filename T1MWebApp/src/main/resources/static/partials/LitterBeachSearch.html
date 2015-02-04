@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Beach Litter Data Sheets Received</h4></div>
+            <table class="table table-hover">
+                <tbody>
+                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Date</h5></td><td><h5>Season</h5></td><td><h5>Notes</h5></td></tr>
+                <tr ng-repeat="litterBeach in litterBeachSearchSvc.searchResponse.results">
+                    <td>{{litterBeach.dataSheetId}}</td>
+                    <td>{{litterBeach.surveyId}}</td>
+                    <td>{{litterBeach.date}}</td>
+                    <td>{{litterBeach.season}}</td>
+                    <td>{{litterBeach.notes}}</td>
+                </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+                </tbody>
+            </table>
+            <pagination
+                    max-size="4"
+                    boundary-links="true"
+                    ng-change="pageChanged()"
+                    ng-model="litterBeachSearchSvc.searchCriteria.pageNumber"
+                    items-per-page="litterBeachSearchSvc.searchCriteria.pageSize"
+                    total-items="litterBeachSearchSvc.searchResponse.total"
+                    num-pages="litterBeachSearchSvc.searchResponse.numPages">
+            </pagination>
+        </div>
+    </div>
+</div>

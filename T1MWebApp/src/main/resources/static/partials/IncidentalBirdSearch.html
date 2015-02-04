@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Incidental Bird Data Sheets Received</h4></div>
+            <table class="table table-hover">
+                <tbody>
+                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Species</h5></td><td><h5>Number</h5></td><td><h5>Notes</h5></td></tr>
+                <tr ng-repeat="incidentalBird in incidentalBirdSearchSvc.searchResponse.results">
+                    <td>{{incidentalBird.dataSheetId}}</td>
+                    <td>{{incidentalBird.surveyId}}</td>
+                    <td>{{incidentalBird.species}}</td>
+                    <td>{{incidentalBird.numberObserved}}</td>
+                    <td>{{incidentalBird.notes}}</td>
+                </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+                </tbody>
+            </table>
+            <pagination
+                    max-size="4"
+                    boundary-links="true"
+                    ng-change="pageChanged()"
+                    ng-model="incidentalBirdSearchSvc.searchCriteria.pageNumber"
+                    items-per-page="incidentalBirdSearchSvc.searchCriteria.pageSize"
+                    total-items="incidentalBirdSearchSvc.searchResponse.total"
+                    num-pages="incidentalBirdSearchSvc.searchResponse.numPages">
+            </pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>BD Bird Instances Received</h4></div>
+            <table class="table table-hover">
+                <tbody>
+                <tr><td><h5>Instance ID</h5></td><td><h5>Data Sheet ID</h5></td><td><h5>Species</h5></td><td><h5>Distance</h5></td><td><h5>Notes</h5></td></tr>
+                <tr ng-repeat="bdBird in bdBirdSearchSvc.searchResponse.results">
+                    <td>{{bdBird.instanceId}}</td>
+                    <td>{{bdBird.dataSheetId}}</td>
+                    <td>{{bdBird.species}}</td>
+                    <td>{{bdBird.distance}}</td>
+                    <td>{{bdBird.notes}}</td>
+                </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+                </tbody>
+            </table>
+            <pagination
+                    max-size="4"
+                    boundary-links="true"
+                    ng-change="pageChanged()"
+                    ng-model="bdBirdSearchSvc.searchCriteria.pageNumber"
+                    items-per-page="bdBirdSearchSvc.searchCriteria.pageSize"
+                    total-items="bdBirdSearchSvc.searchResponse.total"
+                    num-pages="bdBirdSearchSvc.searchResponse.numPages">
+            </pagination>
+        </div>
+    </div>
+</div>

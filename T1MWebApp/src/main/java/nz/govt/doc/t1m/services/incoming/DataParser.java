@@ -22,6 +22,8 @@ public class DataParser {
     protected LitterParser litterParser;
     @Autowired
     protected BirdInstanceParser birdInstanceParser;
+    @Autowired
+    protected LitterInstanceParser litterInstanceParser;
 
     private DataForm dataForm;
 
@@ -62,8 +64,9 @@ public class DataParser {
             }
         } else if (dataForm.getTyp().equals("litter")) {
             System.out.println("New litter survey found");
+            litterInstanceParser.initialize(dataForm.getInf(), dataForm.getInd());
             for (int i = 0 ; i < dataSheetType.length ; i++) {
-                litterParser.initialize(field[i], data[i], dataForm.getInf(), dataForm.getInd());
+                litterParser.initialize(field[i], data[i]);
                 litterParser.saveEntity(dataSheetType[i], surveyId);
             }
         } else System.out.println("Bad survey type received");

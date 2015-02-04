@@ -29,20 +29,16 @@ public class LitterParser {
 
     private String[] field;
     private String[] data;
-    private String[][] instanceField;
-    private String[][] instanceData;
 
-    public void initialize(String[] field, String[] data, String[][] instanceField, String[][] instanceData) {
+    public void initialize(String[] field, String[] data) {
         this.field = field;
         this.data = data;
-        this.instanceField = instanceField;
-        this.instanceData = instanceData;
     }
 
     public DataSheetEntity saveEntity(String dataSheetName, Integer surveyId) {
         if (dataSheetName.equals("litterBeach")) return litterBeach(surveyId);
         else if (dataSheetName.equals("litterLarge")) return litterLarge(surveyId);
-        else if (dataSheetName.equals("BeachCharacterization")) return beachCharacterization(surveyId);
+        else if (dataSheetName.equals("beachCharacterization")) return beachCharacterization(surveyId);
         else {
             System.out.println("Bad litter data sheet type(s) received");
             return null;
@@ -110,7 +106,7 @@ public class LitterParser {
         BeachCharacterizationEntity beachCharacterizationEntity = new BeachCharacterizationEntity();
         beachCharacterizationEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
-            System.out.println(field[i] + ": " + data[i]);
+            //System.out.println(field[i] + ": " + data[i]);
             try {
                 Class[] paramString = new Class[1];
                 paramString[0] = String.class;

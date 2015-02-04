@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Beach Characterization Data Sheets Received</h4></div>
+            <table class="table table-hover">
+                <tbody>
+                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Beach ID</h5></td><td><h5>Location</h5></td><td><h5>Notes</h5></td></tr>
+                <tr ng-repeat="beachCharacterization in beachCharacterizationSearchSvc.searchResponse.results">
+                    <td>{{beachCharacterization.dataSheetId}}</td>
+                    <td>{{beachCharacterization.surveyId}}</td>
+                    <td>{{beachCharacterization.beachId}}</td>
+                    <td>{{beachCharacterization.location}}</td>
+                    <td>{{beachCharacterization.notes}}</td>
+                </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+                </tbody>
+            </table>
+            <pagination
+                    max-size="4"
+                    boundary-links="true"
+                    ng-change="pageChanged()"
+                    ng-model="beachCharacterizationSearchSvc.searchCriteria.pageNumber"
+                    items-per-page="beachCharacterizationSearchSvc.searchCriteria.pageSize"
+                    total-items="beachCharacterizationSearchSvc.searchResponse.total"
+                    num-pages="beachCharacterizationSearchSvc.searchResponse.numPages">
+            </pagination>
+        </div>
+    </div>
+</div>
