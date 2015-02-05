@@ -4,11 +4,11 @@
             <div class="panel-heading"><h4>Large Litter Data Sheets Received</h4></div>
             <table class="table table-hover">
                 <tbody>
-                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Date</h5></td><td><h5>Season</h5></td><td><h5>Notes</h5></td></tr>
+                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Last Survey Date</h5></td><td><h5>Season</h5></td><td><h5>Notes</h5></td></tr>
                 <tr ng-repeat="litterLarge in litterLargeSearchSvc.searchResponse.results">
                     <td>{{litterLarge.dataSheetId}}</td>
                     <td>{{litterLarge.surveyId}}</td>
-                    <td>{{litterLarge.date}}</td>
+                    <td>{{litterLarge.lastSurveyDate}}</td>
                     <td>{{litterLarge.season}}</td>
                     <td>{{litterLarge.notes}}</td>
                 </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>

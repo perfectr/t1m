@@ -32,7 +32,7 @@ public class LitterLargeEntity extends DataSheetEntity {
         return surveyId;
     }
 
-    private String date;
+    private String lastSurveyDate;
     private String latitudeStart;
     private String longitudeStart;
     private String latitudeEnd;
@@ -47,12 +47,12 @@ public class LitterLargeEntity extends DataSheetEntity {
     private String personsSurveying;
     private String notes;
 
-    public String getDate() {
-        return date;
+    public String getLastSurveyDate() {
+        return lastSurveyDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setLastSurveyDate(String lastSurveyDate) {
+        this.lastSurveyDate = lastSurveyDate;
     }
 
     public String getLatitudeStart() {
