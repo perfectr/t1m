@@ -118,13 +118,12 @@ function populateInstances(surveyRecord, instances){
 function sendSurveyRecordToServer(recordService){
     var surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"), false);
     
-    
     var necessaryFields = [
-        {field:"sli", defaultValue:""},
-        {field:"sdt", defaultValue:""},
-        {field:"edt", defaultValue:""},
-        {field:"obs", defaultValue:""},
-        {field:"typ", defaultValue:""},
+        {field:"sli", defaultValue:"null"},
+        {field:"sdt", defaultValue:"null"},
+        {field:"edt", defaultValue:"null"},
+        {field:"obs", defaultValue:"null"},
+        {field:"typ", defaultValue:"null"},
         {field:"dst", defaultValue:[]},
         {field:"fld", defaultValue:[]},
         {field:"dat", defaultValue:[]},
@@ -146,7 +145,9 @@ function sendSurveyRecordToServer(recordService){
     return recordService.$save();
 }
 
-
+/*
+    test function that adds test data including litter instances to the survey record.
+*/
 function testSaveDataSheetToSurveyRecord(){
     var testSurveyRecord =  {sli:"AD175",sdt:"2015-02-04",edt:"2015-02-05",obs:"John Doe",typ:"litter",dst:[],fld:[],dat:[],inf:[],ind:[]};
 

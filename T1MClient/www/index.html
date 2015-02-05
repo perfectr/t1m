@@ -37,31 +37,16 @@
         <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mCtrl">
             <div class="inner">
                 <h1>T1 Monitoring</h1>
-<!--
-                <p>{{surveyRecord}}</p>
--->
-                <form name="form" >
-                    <br>
-                    <h4>Sampling Location Identifier:</h4>
-                    <input type="text" class="form-control" id="sli" ng-model="surveyRecord.sli" placeHolder="e.g. AD175">
-                    <h4>Start Date:</h4>
-                    <input type="date" class="form-control" id="startDate" ng-model="surveyRecord.sdt">
-                    <h4>End Date:</h4>
-                    <input type="date" class="form-control" id="endDate" ng-model="surveyRecord.edt">
-                    <h4>Observer:</h4>
-                    <input type="text" class="form-control" id="obs" placeHolder="e.g. John Doe" ng-model="surveyRecord.obs">
-                    <br>
-                  </form>
-                <button ng-click="startSurvey('bird')"  class="btn btn-default">Bird Survey</button>
-                <button ng-click="startSurvey('litter')"  class="btn btn-default">Litter Survey</button>
-                <!--<p id="sli1">{{surveyRecord.sli}}</p>
-                <p id="startDate1">{{surveyRecord.sdt | date:'longDate'}}</p>
-                <p id="endDate1">{{surveyRecord.edt | date:'longDate'}}</p>
-                <p id="obs1" >{{surveyRecord.obs}}</p>-->
-<!--
-                <p>{{surveyRecord}}</p>
--->
+                <p>{{surveys}}</p>
+                <button ng-click="addSurvey('bird')"  class="btn btn-default">Bird Survey</button>
+                <button ng-click="addSurvey('litter')"  class="btn btn-default">Litter Survey</button>
+                <br>
+                <ul class="list-group">
+                    <li ng-repeat="survey in surveys.surveys" class="list-group-item" 
+                        ng-click="loadSurvey(survey.name, survey.type)">{{survey.name}}</li>
+                </ul>
             </div>
+            {{currentSurvey}}
         </div>
         
         <script type="text/javascript" src="cordova.js"></script>

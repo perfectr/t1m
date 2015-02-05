@@ -1,27 +1,48 @@
 var t1mControllers = angular.module('t1mControllers', []);
 
-t1mControllers.controller('t1mCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
-            var storageData = window.localStorage.getItem('birdSurvey');
-             $scope.surveyRecord = new RecordSvc();
+t1mControllers.controller('t1mCtrl', ['$scope', 'RecordSvc',function(, $scope, RecordSvc) {
+    
+    var storedSurveys = window.localStorage.getItem("Surveys");
+    $scope.surveys = angular.fromJson(storedSurveys);
+    if($scope.surveys == null){
+        $scope.surveys = {surveys: [],birdCount:0, litterCount:0};   
+    }
+    
+    $scope.addSurvey = function(type){
+        var surveyName = type+$scope.surveys[type+"Count"];
+        $scope.surveys.surveys.push({name:surveyName, type:type}); 
+        $scope.surveys[type+"Count"] ++;
+        $scope.loadSurvey(surveyName, type);
+    }
+    
+    $scope.loadSurvey = function(surveyName, surveyType){
+        var surveys = angular.toJson($scope.surveys, false);
+        window.localStorage.setItem("Surveys", surveys);
+        window.location = "surveys/"+surveyType+"Survey.html?"+surveyName;
+    }
+    
+    
+   /* var storageData = window.localStorage.getItem('birdSurvey');
+     $scope.surveyRecord = new RecordSvc();
 
-            
-            
-                $scope.startSurvey = function(surveyType){
-                    $scope.surveyRecord.typ = surveyType;
-                    $scope.surveyRecord.dst = [];
-                    $scope.surveyRecord.fld = [];
-                    $scope.surveyRecord.dat = [];
-                    $scope.surveyRecord.inf = [];
-                    $scope.surveyRecord.ind = [];
-                    window.localStorage.setItem(surveyType,angular.toJson($scope.surveyRecord,false));
-                    window.localStorage.setItem("surveyRecord", angular.toJson($scope.surveyRecord,false)); //beach litter saving reference.
-                    window.location = "surveys/"+surveyType+"Survey.html";
-                };
-            }]);
 
-t1mControllers.controller('t1mBirdCtrl', [ '$scope', 'RecordSvc', '$modal', '$timeout', '$window', function($scope, RecordSvc, $modal, $timeout, $window) {
+
+        $scope.startSurvey = function(surveyType){
+            $scope.surveyRecord.typ = surveyType;
+            $scope.surveyRecord.dst = [];
+            $scope.surveyRecord.fld = [];
+            $scope.surveyRecord.dat = [];
+            $scope.surveyRecord.inf = [];
+            $scope.surveyRecord.ind = [];
+            window.localStorage.setItem(surveyType,angular.toJson($scope.surveyRecord,false));
+            window.localStorage.setItem("surveyRecord", angular.toJson($scope.surveyRecord,false)); //beach litter saving reference.
+            window.location = "surveys/"+surveyType+"Survey.html";
+        };*/
+    }]);
+
+t1mControllers.controller('t1mBirdCtrl', [ '$rootScope', '$scope', 'RecordSvc', '$modal', '$timeout', '$window', function($rootScope, $scope, RecordSvc, $modal, $timeout, $window) {
                 $scope.surveyRecord = new RecordSvc();
-
+    $scope.currentSurvey = window.location.search.replace("?","");
                 var s = $scope.surveyRecord;
                 var b = $scope.birdSurvey;
                 
