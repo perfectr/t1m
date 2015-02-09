@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
+        
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/phonegap.css" />
+        <link rel="stylesheet" type="text/css" href="../css/birdSurvey.css" />
+        
+        <title>fiveMinBirdCount</title>
+    </head>
+    <body>
+        <div ng-app="t1mApp" class="app" ng-controller="t1mfiveMinBirdCountCtrl" >
+            <tabset justified='true'>
+                <tab heading='Site' select="intoJson" >
+                    <div class="inner">
+                        <h4>Choose count station</h4>
+                        <p>{{currentSurvey}}</p>
+                        <div class="btn-toolbar">
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'X'">X</label>
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'A'">A</label>
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'D'">D</label>
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'M'">M</label>
+                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'P'">P</label>
+                        </div><br>
+
+                        <button type="button" class="btn btn-default" ng-model="birdSurvey.skip" btn-checkbox btn-checkbox-true=true btn-checkbox-false=false ng-click="skip()">{{birdSurvey.skipButton}}</button>
+                        <br>
+                        <script type="text/ng-template" id="skipStationModalContent.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Reason for skip:</h3>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="form-control" ng-model="reasonSkip"></input>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </script>    
+                        <h4>Enter Start Time:</h4>
+                        <input type="time" class="form-control" ng-model="birdSurvey.time" ng-disabled="birdSurvey.skip">
+                        <h4>Sun</h4>
+                        <select class="form-control" ng-model="birdSurvey.sun" ng-options="opt.value as opt.name for opt in options.sun" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Bright sun immediately overhead in minutes</option>
+                        </select>  
+                        <h4>Temperature</h4>
+                        <select class="form-control" ng-model="birdSurvey.temp" ng-options="opt.value as opt.name for opt in options.temp" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Temperature</option>
+                        </select>
+                        <h4>Precipitation</h4>
+                        <select class="form-control" ng-model="birdSurvey.prec" ng-options="opt.value as opt.name for opt in options.prec" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Precipitation</option>
+                        </select>
+                        <h4>Wind</h4>
+                        <select class="form-control" ng-model="birdSurvey.wind" ng-options="opt.value as opt.name for opt in options.wind" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Wind</option>
+                        </select>
+                        <h4>Other noise</h4>
+                        <select class="form-control" ng-model="birdSurvey.othNoi" ng-options="opt.value as opt.name for opt in options.othNoi" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Other Noise</option>
+                        </select>
+                        <h4>Easting</h4>
+                        <input type="number" class="form-control" ng-model="birdSurvey.east" ng-disabled="birdSurvey.skip" placeholder="Easting">
+                        <h4>Northing</h4>
+                        <input type="number" class="form-control" ng-model="birdSurvey.north" ng-disabled="birdSurvey.skip" placeholder="Northing">
+                        <h4>Elevation</h4>
+                        <input type="number" class="form-control" ng-model="birdSurvey.elev" ng-disabled="birdSurvey.skip" placeholder="Elevation">
+                    
+                        <h4>Position</h4>
+                        <select class="form-control" ng-model="birdSurvey.pos" ng-options="opt.value as opt.name for opt in options.pos" ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>Position</option>
+                        </select>
+                        <h4>Notes</h4>
+                        <input type="text" class="form-control" ng-model="birdSurvey.notes" ng-disabled="birdSurvey.skip" placeholder="Notes">
+                        <br>
+                        <button class="btn btn-default" ng-click="saveAction()">Submit</button>
+                        
+                    </div>
+                </tab>
+                
+                <tab heading='Sightings' select="intoJson()">
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4">
+                            <button class = "btn-lg btn-default btn-wide" ng-click="startCountdown()">{{timer.mins}}:{{timer.secs}}</button>                           </div>
+                        <div class="col-xs-4">
+                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
+                        </div>
+                    </div>
+                    <br><br><div class="row">
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-3">
+                            <button class="btn btn-success btn-circle" ng-click="addBirdModal()">
+                                    <span class="glyphicon glyphicon-plus plusButton" aria-hidden="true"></span>
+                            </button>
+                            <script type="text/ng-template" id="birdModalContent.html">
+                                    <div class="modal-header">
+                                        <div class="input-group">
+                                            <input type="text" class = "form-control" ng-model="birdText" placeholder="Type Bird Name">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="list-group">
+                                            <li ng-repeat="birdSpecie in birdSpecies" class="list-group-item" ng-click="birdPress(birdSpecie.text)">{{birdSpecie.text}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                    </div>
+                                </script>
+                        </div>
+                        <div class="col-xs-4">
+                            <h3>Add Bird</h3>
+                        </div>    
+                        <div class="col-xs-3"></div> 
+                    </div>
+                    <div class="inner">
+                        <br>
+                        <div class ="panel panel-default" style="padding:5%;">
+                                <div>
+                                    <ul class="list-group">
+                                        <li ng-repeat="bird in birds" class="list-group-item" ng-click="addBirdIncrementModal(bird.text)">{{bird.text}}</li>
+                                    </ul>
+                                </div>
+                            <script type="text/ng-template" id="birdIncModalContent.html">
+                                    <div class="modal-header">
+                                        <h4>{{bird.bird}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-xs-3">Near:</div>
+                                            <div class="col-xs-3">{{bird.near}}</div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="nearIncPlus()">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="nearIncMinus()">
+                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-xs-3">Far:</div>
+                                            <div class="col-xs-3">{{bird.far}}</div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="farIncPlus()">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="farIncMinus()">
+                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-xs-3">Very Far:</div>
+                                            <div class="col-xs-3">{{bird.veryFar}}</div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="veryFarIncPlus()">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <button class="btn btn-incrementBird" ng-click="veryFarIncMinus()">
+                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true">
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <input type="text" class="form-control" placeholder="Comments" ng-model="bird.notes">
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-warning" ng-click="ok()">ok</button>
+                                    </div>
+                                </script>
+                        </div>
+                    </div>
+                    <!--<p>{{birdCount}}</p>-->
+                </tab>
+                
+                <tab heading='Incidental' select="intoJson()"><p>{{surveyRecord}}</p></tab>
+                
+            </tabset>
+        </div>
+        
+        <script type="text/javascript" src="../cordova.js"></script>
+        <script type="text/javascript" src="../js/index.js"></script>
+        <script type="text/javascript" src="../js/angular.min.js"></script>
+        <script type="text/javascript" src="../js/angular-resource.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/controllers.js"></script>
+        <script type="text/javascript" src="../js/services.js"></script>
+        <script type="text/javascript">app.initialize();</script>
+        <script type="text/javascript" src="../js/app.js"></script>
+        <script type="text/javascript" src="../js/ui-bootstrap-tpls-0.12.0.min.js"></script>
+
+        
+    </body>
+    
+</html>

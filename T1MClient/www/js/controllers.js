@@ -40,7 +40,29 @@ t1mControllers.controller('t1mCtrl', ['$scope', 'RecordSvc',function($scope, Rec
         };*/
     }]);
 
-t1mControllers.controller('t1mBirdCtrl', [ '$rootScope', '$scope', 'RecordSvc', '$modal', '$timeout', '$window', function($rootScope, $scope, RecordSvc, $modal, $timeout, $window) {
+t1mControllers.controller('t1mBirdSurveyCtrl', ['$scope', 'RecordSvc',function($scope, RecordSvc) {
+    $scope.currentSurvey = window.location.search.replace("?","");
+    var curSurvey = window.localStorage.getItem($scope.currentSurvey);
+    if(curSurvey==null){
+        /*then make a new one*/
+        $scope.curSurveyData = {meta:$scope.currentSurvey+"meta"}
+        $scope.curSurveyMeta = {};
+    }else{
+        /*load it*/
+        $scope.curSurveyData = curSurvey;
+    }
+    
+    $scope.localSave = function(){
+        window.localStorage.setItem($scope.currentSurvey,$scope.curSurveyData);
+        window.localStorage.setItem($scope.curSurveydata.meta,$scope.curSurveyMeta);
+    };
+    $scope.loadDataSheet = function(){
+      window.location="../datasheets/fiveMinBirdCount.html";
+    };
+    
+}]);
+
+t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope', '$scope', 'RecordSvc', '$modal', '$timeout', '$window', function($rootScope, $scope, RecordSvc, $modal, $timeout, $window) {
                 $scope.surveyRecord = new RecordSvc();
     $scope.currentSurvey = window.location.search.replace("?","");
                 var s = $scope.surveyRecord;
