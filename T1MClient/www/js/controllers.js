@@ -53,7 +53,7 @@ t1mControllers.controller('t1mBirdCtrl', [ '$rootScope', '$scope', 'RecordSvc', 
                     $scope.surveyRecord.dat = [[]];
                     $scope.surveyRecord.dst[$scope.surveyRecord.dst.length] = 'birdCount';
                     
-                    var storageData = window.localStorage.getItem('birdSurvey');
+                    var storageData = window.localStorage.getItem('bird');
                     //$scope.surveyRecord = $scope.surveyRecord.concat(angular.fromJson(storageData));
 
                     $scope.birdSurvey = angular.fromJson(storageData);

@@ -4,11 +4,11 @@
             <div class="panel-heading"><h4>Beach Litter Data Sheets Received</h4></div>
             <table class="table table-hover">
                 <tbody>
-                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Date</h5></td><td><h5>Season</h5></td><td><h5>Notes</h5></td></tr>
+                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Last Survey Date</h5></td><td><h5>Season</h5></td><td><h5>Notes</h5></td></tr>
                 <tr ng-repeat="litterBeach in litterBeachSearchSvc.searchResponse.results">
                     <td>{{litterBeach.dataSheetId}}</td>
                     <td>{{litterBeach.surveyId}}</td>
-                    <td>{{litterBeach.date}}</td>
+                    <td>{{litterBeach.lastSurveyDate}}</td>
                     <td>{{litterBeach.season}}</td>
                     <td>{{litterBeach.notes}}</td>
                 </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>

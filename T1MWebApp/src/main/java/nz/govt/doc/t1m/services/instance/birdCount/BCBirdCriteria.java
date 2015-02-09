@@ -41,7 +41,9 @@ public class BCBirdCriteria extends AbstractCriteria {
     }
 
     private String species;
-    private String distance;
+    private String numNear;
+    private String numFar;
+    private String numVFar;
     private String notes;
 
     public String getSpecies() {
@@ -52,12 +54,28 @@ public class BCBirdCriteria extends AbstractCriteria {
         this.species = species;
     }
 
-    public String getDistance() {
-        return distance;
+    public String getNumNear() {
+        return numNear;
     }
 
-    public void setDistance(String distance) {
-        this.distance = distance;
+    public void setNumNear(String numNear) {
+        this.numNear = numNear;
+    }
+
+    public String getNumFar() {
+        return numFar;
+    }
+
+    public void setNumFar(String numFar) {
+        this.numFar = numFar;
+    }
+
+    public String getNumVFar() {
+        return numVFar;
+    }
+
+    public void setNumVFar(String numVFar) {
+        this.numVFar = numVFar;
     }
 
     public String getNotes() {

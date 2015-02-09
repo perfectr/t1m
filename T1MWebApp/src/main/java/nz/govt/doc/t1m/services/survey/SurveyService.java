@@ -35,7 +35,6 @@ public class  SurveyService {
         SurveyEntity surveyResponse = surveyRepository.save(dataParser.getSurvey());
         dataParser.saveDataSheets(surveyResponse.getSurveyId());
         Response res = new Response<>(surveyResponse);
-        System.out.println("Survey data successfully interpreted, sending response package");
         return res;
     }
 
