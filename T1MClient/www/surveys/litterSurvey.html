@@ -18,33 +18,34 @@
     <body>
         <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mLitterSurveyCtrl">
             <h1>Litter Survey</h1>
+            <div class="inner">
             <div class="row">
                 <button id="BeachLitter" ng-click="startDataSheet('litterBeach')"  class="btn btn-default"><b>Beach Litter</b></button>
-                <button ng-click="startDataSheet('beachCharacterization')"  class="btn btn-default"><b>Beach Characterization</b></button>
+                <!--<button ng-click="startDataSheet('beachCharacterization')"  class="btn btn-default"><b>Beach Characterization</b></button>-->
             </div>
-            <br><br>
+            <br>
+            <div class ="panel panel-default" style="padding:5%;">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">Existing Data Sheets</li>
+                    <li ng-repeat="dataSheet in survey.dataSheets" class="list-group-item" 
+                        ng-click="loadDataSheet(dataSheet.name, dataSheet.type)">{{dataSheet.name}}</li>
+                </ul>
+            </div>
             <div class="row">
-                <button ng-click="clearDataSheet('litterBeach')"  class="btn btn-default">Clear Beach Litter</button>
-                <button ng-click="clearDataSheet('beachCharacterization')"  class="btn btn-default">Clear Beach Characterization</button> 
+                <button ng-click="saveSurvey()" class="btn btn-default"><b>Save survey</b></button>
             </div>
-            <br><br>
-            <div class="row">
-                <button ng-click="packageDataSheetIntoSurveyRecord('litterBeach', 'litterBeach')"  
-                        class="btn btn-default">Save Beach Litter</button>
-                <button ng-click="packageDataSheetIntoSurveyRecord('beachCharacterization', 'beachCharacterization')" 
-                        class="btn btn-default">Save Beach Characterization</button>
-            </div>
-            <br> <br>
+            <br>
             <div class="row">
                 <button ng-click="sendToServer()" class="btn btn-default"><b>Send survey</b></button>
             </div>
             
-            <br> <br>
+            <!--<br> <br>
              <div class="row">
                 <button ng-click="testSaveInstances()" class="btn btn-default">test survey</button>
+            </div>-->
             </div>
             
-            {{surveyRecord}}
+            {{survey}}
             <br> <br>
             Response {{response}}
         </div>
