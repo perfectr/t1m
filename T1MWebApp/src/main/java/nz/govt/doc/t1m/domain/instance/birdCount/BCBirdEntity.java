@@ -33,7 +33,9 @@ public class BCBirdEntity extends InstanceEntity {
     }
 
     private String species;
-    private String distance;
+    private String numNear;
+    private String numFar;
+    private String numVFar;
     private String notes;
 
     public String getSpecies() {
@@ -44,12 +46,28 @@ public class BCBirdEntity extends InstanceEntity {
         this.species = species;
     }
 
-    public String getDistance() {
-        return distance;
+    public String getNumNear() {
+        return numNear;
     }
 
-    public void setDistance(String distance) {
-        this.distance = distance;
+    public void setNumNear(String numNear) {
+        this.numNear = numNear;
+    }
+
+    public String getNumFar() {
+        return numFar;
+    }
+
+    public void setNumFar(String numFar) {
+        this.numFar = numFar;
+    }
+
+    public String getNumVFar() {
+        return numVFar;
+    }
+
+    public void setNumVFar(String numVFar) {
+        this.numVFar = numVFar;
     }
 
     public String getNotes() {
@@ -58,5 +76,13 @@ public class BCBirdEntity extends InstanceEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Integer getTotal() {
+        try {
+            return Integer.getInteger(numNear) + Integer.getInteger(numFar) + Integer.getInteger(numVFar);
+        } catch (Exception e) {
+            return -1;
+        }
     }
 }

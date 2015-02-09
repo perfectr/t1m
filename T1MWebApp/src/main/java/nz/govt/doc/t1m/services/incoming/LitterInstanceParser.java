@@ -37,7 +37,7 @@ public class LitterInstanceParser {
             LBItemEntity lbItemEntity = new LBItemEntity();
             lbItemEntity.setDataSheetId(dataSheetId);
             for (int j = 0 ; j < instanceField[count].length ; j++) {
-                //System.out.println(instanceField[count][j] + ": " + instanceData[count][j]);
+//                System.out.println(instanceField[count][j] + ": " + instanceData[count][j]);
                 try {
                     Class[] paramString = new Class[1];
                     paramString[0] = String.class;
@@ -59,7 +59,7 @@ public class LitterInstanceParser {
             LLItemEntity llItemEntity = new LLItemEntity();
             llItemEntity.setDataSheetId(dataSheetId);
             for (int j = 0 ; j < instanceField[count].length ; j++) {
-                //System.out.println(instanceField[count][j] + ": " + instanceData[count][j]);
+//                System.out.println(instanceField[count][j] + ": " + instanceData[count][j]);
                 try {
                     Class[] paramString = new Class[1];
                     paramString[0] = String.class;

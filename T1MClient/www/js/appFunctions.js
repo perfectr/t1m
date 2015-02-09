@@ -7,8 +7,8 @@
     dataSheetSaveKey - the key of the key-value pair that data sheet is saved under in local storage.
     index - the index of the data sheet if it is already saved in the survey record.
 */
-function saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey) {
-    var surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));
+function saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey, surveyStorageKey) {
+    var surveyRecord = angular.fromJson(window.localStorage.getItem(surveyStorageKey));
     
     if(surveyRecord==null){
         return;  

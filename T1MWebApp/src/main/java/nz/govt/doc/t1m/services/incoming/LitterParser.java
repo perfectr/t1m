@@ -54,9 +54,9 @@ public class LitterParser {
         for (int i = 0 ; i < field.length ; i++) {
             if (field[i].equals("Instances")) {
                 numInstances = Integer.parseInt(data[i]);
-                //System.out.println(numInstances + " Instance(s) found");
+//                System.out.println(numInstances + " Instance(s) found");
             } else {
-                //System.out.println(field[i] + ": " + data[i]);
+//                System.out.println(field[i] + ": " + data[i]);
                 try {
                     Class[] paramString = new Class[1];
                     paramString[0] = String.class;
@@ -82,9 +82,9 @@ public class LitterParser {
         for (int i = 0 ; i < field.length ; i++) {
             if (field[i].equals("Instances")) {
                 numInstances = Integer.parseInt(data[i]);
-                //System.out.println(numInstances + " Instance(s) found");
+//                System.out.println(numInstances + " Instance(s) found");
             } else {
-                //System.out.println(field[i] + ": " + data[i]);
+//                System.out.println(field[i] + ": " + data[i]);
                 try {
                     Class[] paramString = new Class[1];
                     paramString[0] = String.class;
@@ -106,7 +106,7 @@ public class LitterParser {
         BeachCharacterizationEntity beachCharacterizationEntity = new BeachCharacterizationEntity();
         beachCharacterizationEntity.setSurveyId(surveyId);
         for (int i = 0 ; i < field.length ; i++) {
-            //System.out.println(field[i] + ": " + data[i]);
+//            System.out.println(field[i] + ": " + data[i]);
             try {
                 Class[] paramString = new Class[1];
                 paramString[0] = String.class;
@@ -114,7 +114,7 @@ public class LitterParser {
                 Method set = bce.getDeclaredMethod("set"+field[i],paramString);
                 set.invoke(beachCharacterizationEntity,data[i]);
             } catch (Exception e) {
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
         beachCharacterizationService.saveBeachCharacterization(beachCharacterizationEntity);

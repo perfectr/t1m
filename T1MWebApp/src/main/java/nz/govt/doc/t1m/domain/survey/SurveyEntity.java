@@ -84,7 +84,7 @@ public class SurveyEntity {
     }
 
     public String getReceivedDString() {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy @ hh:mm:ss");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy @ HH:mm:ss");
         return df.format(receivedD);
     }
 

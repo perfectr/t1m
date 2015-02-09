@@ -429,34 +429,41 @@ t1mControllers.controller('birdIncrementModalCtrl', function ($scope, $modalInst
 /* ================== controllers for beach litter survey ========================= */
 t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
     
-    $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));
-    $scope.toSendSR= {};
     
+    var currentSurvey = window.location.search.replace("?","");
     
-   
-    
-    
-    if($scope.surveyRecord == null){
-        $scope.surveyRecord = {};  
-    };
-        
+    $scope.survey = angular.fromJson(window.localStorage.getItem(currentSurvey));
+    if($scope.survey == null){
+        $scope.survey = {meta:currentSurvey+"Meta", 
+                         dataSheets:[{name:currentSurvey+'beachCharacterization', 
+                                      type:'beachCharacterization'}], 
+                         count:0};
+        window.localStorage.setItem(currentSurvey, angular.toJson($scope.survey, false));
+    }    
+
     $scope.startDataSheet = function(dataSheetType) {
-        window.location = "../dataSheets/"+dataSheetType+".html";
+        var dstName = currentSurvey+dataSheetType+$scope.survey.count;
+        $scope.survey.count ++;
+        $scope.survey.dataSheets.push({name:dstName, type:dataSheetType});
+       // $scope.loadDataSheet(dstName, dataSheetType);
     };
     
-    $scope.clearDataSheet = function(dataSheetType) {
-        window.localStorage.setItem(dataSheetType, "{}");
+    $scope.loadDataSheet = function(dataSheetName, dataSheetType){
+        window.localStorage.setItem(currentSurvey, angular.toJson($scope.survey, false));
+        window.location = "../dataSheets/"+dataSheetType+".html?"+dataSheetName;
     };
+    
+    /*$scope.clearDataSheet = function(dataSheetType) {
+        window.localStorage.setItem(dataSheetType, "{}");
+    };*/
     
     $scope.packageDataSheetIntoSurveyRecord = function (dataSheetType, dataSheetStorageKey){
           saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey);
-          $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));
     };
     
-    $scope.testSaveInstances = function(){
-          testSaveDataSheetToSurveyRecord();
-          $scope.surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"));    
-    };
+    /*$scope.testSaveInstances = function(){
+          testSaveDataSheetToSurveyRecord();  
+    };*/
     
     $scope.sendToServer = function (){
         //TODO need to add validaton so that important fields are filled
@@ -467,9 +474,12 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
 
 
 t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+    
+    var currentDataSheet = window.location.search.replace("?","");
+    
     $scope.litterBeach = {};
 
-    var savedLitterBeach =  window.localStorage.getItem("litterBeach");
+    var savedLitterBeach =  window.localStorage.getItem(currentDataSheet);
     if(savedLitterBeach != null){
         $scope.litterBeach = angular.fromJson(savedLitterBeach);
     };
@@ -492,7 +502,7 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc',function
         };*/
 
     $scope.saveLitterBeach = function(){
-        window.localStorage.setItem("litterBeach", angular.toJson($scope.litterBeach, false));
+        window.localStorage.setItem(currentDataSheet, angular.toJson($scope.litterBeach, false));
     };
     
   
@@ -546,9 +556,12 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc',function
 
 
 t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+    
+    var currentDataSheet = window.location.search.replace("?","");
+    
     $scope.beachCharacterization = {};
 
-    var savedBeachCharacterization =  window.localStorage.getItem("beachCharacterization");
+    var savedBeachCharacterization =  window.localStorage.getItem(currentDataSheet);
     if(savedBeachCharacterization != null){
         $scope.beachCharacterization = angular.fromJson(savedBeachCharacterization);
     };
@@ -594,7 +607,7 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
     };
 
      $scope.saveBeachCharacterization = function(){
-        window.localStorage.setItem("beachCharacterization", angular.toJson($scope.beachCharacterization, false));
+        window.localStorage.setItem(currentDataSheet, angular.toJson($scope.beachCharacterization, false));
     };
     
     $scope.retriveGPS = function(gpsField){
