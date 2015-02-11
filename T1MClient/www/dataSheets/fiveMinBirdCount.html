@@ -30,7 +30,7 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css" />
         <link rel="stylesheet" type="text/css" href="../css/phonegap.css" />
-        <link rel="stylesheet" type="text/css" href="../css/birdSurvey.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fiveMinBirdCount.css" />
         
         <title>fiveMinBirdCount</title>
     </head>
@@ -220,7 +220,59 @@
                     <!--<p>{{birdCount}}</p>-->
                 </tab>
                 
-                <tab heading='Incidental' select="intoJson()"><p>{{surveyRecord}}</p></tab>
+                <tab heading='Radar' select="intoJson()">
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <button class = "btn-lg btn-default btn-wide" ng-click="startCountdown()">
+                                    {{timer.mins}}:{{timer.secs}}
+                                </button>                           
+                            </div>
+                        <div class="col-xs-4">
+                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="radar" ng-click="addTouch($event)" ng-style="{height: $element.offsetWidth}">
+                        <svg class="touches">
+                            <circle ng-repeat="touch in touches" 
+                                    cx="{{touch.x}}" 
+                                    cy="{{touch.y}}" 
+                                    r="0.5em" 
+                                    fill="blue" 
+                                    fill-opacity="0.8"/>
+                        </svg>
+                    </div>
+                        <script type="text/ng-template" id="radarModalContent.html">
+                                    <div class="modal-header">
+                                        <h4>Add Bird</h4>
+                                        <div class="input-group">
+                                            <input type="text" 
+                                                class = "form-control" 
+                                                placeholder="Type Bird Name">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="list-group">
+                                            <li ng-repeat="birdSpecie in birdSpecies" 
+                                                class="list-group-item" 
+                                                ng-click="birdPress(birdSpecie.text)">
+                                                    {{birdSpecie.text}}
+                                            </li>
+                                        </ul>
+                            
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                    </div>
+                        </script>
+                    <p>{{touches}}</p>
+
+                </tab>
                 
             </tabset>
         </div>

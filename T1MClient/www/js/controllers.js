@@ -57,12 +57,23 @@ t1mControllers.controller('t1mBirdSurveyCtrl', ['$scope', 'RecordSvc',function($
         window.localStorage.setItem($scope.curSurveydata.meta,$scope.curSurveyMeta);
     };
     $scope.loadDataSheet = function(){
-      window.location="../datasheets/fiveMinBirdCount.html";
+      window.location="../dataSheets/fiveMinBirdCount.html";
     };
     
 }]);
 
-t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope', '$scope', 'RecordSvc', '$modal', '$timeout', '$window', function($rootScope, $scope, RecordSvc, $modal, $timeout, $window) {
+t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
+                                                      '$scope',
+                                                      'RecordSvc',
+                                                      '$modal',
+                                                      '$timeout',
+                                                      '$window',
+                                                      function($rootScope,
+                                                                $scope,
+                                                                RecordSvc,
+                                                                $modal,
+                                                                $timeout,
+                                                                $window) {
                 $scope.surveyRecord = new RecordSvc();
     $scope.currentSurvey = window.location.search.replace("?","");
                 var s = $scope.surveyRecord;
@@ -120,6 +131,29 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope', '$scope', '
                     }
                     $scope.birdCount.push({bird:bt,near:0,far:0,veryFar:0,notes:""});
                 }
+                
+                $scope.touches = [];
+                $scope.x;
+                $scope.y;
+                $scope.addTouch = function(event){
+                    
+                    $scope.addRadarModal();
+                    $scope.getX(event);
+                    $scope.getY(event);
+                        $scope.touches.push({
+                            "x": $scope.x,
+                            "y": $scope.y
+                        });
+                    
+                };
+                                                          
+                $scope.getX = function(event){
+                    $scope.x = event.offsetX;
+                }; 
+                                                          
+                $scope.getY = function(event){
+                    $scope.y = event.offsetY;
+                };                                          
     
                 
                 $scope.startCountdown = function(){
@@ -127,7 +161,8 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope', '$scope', '
                         $scope.countdown();
                         $scope.timer.started = true;
                     }
-                }
+                };
+                                                          
                 $scope.countdown = function(){
                           stopped = $timeout(function(){
 
@@ -227,8 +262,34 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope', '$scope', '
                 
                 $scope.intoJson = function(){
 
-                    $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['StationId','StartTime','StationSkipped','ReasonSkipped','Sun','Temp','Precipitation','Wind','OtherNoise','Easting','Northing','Elevation','Position','Notes'];
-                    $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [b.rad,b.time,b.skip,b.reasonSkip,b.sun,b.temp,b.prec,b.wind,b.othNoi,b.east,b.north,b.elev,b.pos,b.notes];
+                    $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['StationId',
+                                                                                 'StartTime',
+                                                                                 'StationSkipped',
+                                                                                 'ReasonSkipped',
+                                                                                 'Sun',
+                                                                                 'Temp',
+                                                                                 'Precipitation',
+                                                                                 'Wind',
+                                                                                 'OtherNoise',
+                                                                                 'Easting',
+                                                                                 'Northing',
+                                                                                 'Elevation',
+                                                                                 'Position',
+                                                                                 'Notes'];
+                    $scope.surveyRecord.dat[$scope.surveyRecord.dat.length-1] = [b.rad,
+                                                                                 b.time,
+                                                                                 b.skip,
+                                                                                 b.reasonSkip,
+                                                                                 b.sun,
+                                                                                 b.temp,
+                                                                                 b.prec,
+                                                                                 b.wind,
+                                                                                 b.othNoi,
+                                                                                 b.east,
+                                                                                 b.north,
+                                                                                 b.elev,
+                                                                                 b.pos,
+                                                                                 b.notes];
                     $scope.surveyRecord.inf=[];
                     $scope.surveyRecord.ind=[];
                     /*window.localStorage.setItem(b.typ,angular.toJson($scope.surveyRecord,false));*/
@@ -299,6 +360,23 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope', '$scope', '
                     
                 }
                 
+                $scope.addRadarModal = function(){
+                    
+                    var modalInstance = $modal.open({
+                              templateUrl: 'radarModalContent.html',
+                              controller: 'radarModalInstanceCtrl',
+                              resolve:{
+                                  b: function(){
+                                      return b;
+                                  }
+                              }
+                            });
+                    modalInstance.result.then(function (bt) {
+                            
+                        });
+                    
+                }
+                
                 $scope.saveAction = function(){
                     $scope.intoJson();
                     $scope.surveyRecord.$save();
@@ -316,6 +394,17 @@ t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInsta
 
     $scope.cancel = function () {
         $modalInstance.close(['','true']);
+    };
+});
+
+t1mControllers.controller('radarModalInstanceCtrl', function ($scope, $modalInstance) {
+
+    $scope.ok = function () {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
     };
 });
 
