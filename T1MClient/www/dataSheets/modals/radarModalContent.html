@@ -1,0 +1,32 @@
+<link rel="stylesheet" type="text/css" href="../../css/fiveMinBirdCount.css" />
+
+<div class="modal-header">
+    <h4>Add Bird</h4>
+    <div class="input-group">
+        <input type="text" 
+            class = "form-control" 
+            placeholder="Type Bird Name">
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="button">OK</button>
+        </span>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="panel-body" style="padding:0;">
+        <ul class="list-group">
+            <li class="list-group-item col-xs-6 listItems"
+                ng-repeat="bird in birds" ng-click="addRadarIncrModal(bird)">
+                {{bird.bird}}
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" 
+            ng-click="cancel()"
+            style="display: block;
+                   margin-left: auto;
+                   margin-right: auto;">
+        Cancel
+    </button>
+</div>
