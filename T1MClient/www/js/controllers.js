@@ -597,7 +597,7 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
     $scope.sendToServer = function (){
         //TODO need to add validaton so that important fields are filled
         $scope.saveSurvey();
-        $scope.response = sendSurveyRecordToServer(new RecordSvc, surveyStorageKey);
+        sendSurveyRecordToServer(new RecordSvc, surveyStorageKey);
     }
     
 }]);
@@ -621,18 +621,17 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
             {title: "Litter Data", index: 1}
         ];
     
-    $scope.Instances = [
-        {text: "test Litter Item"}, 
-        {text: "test Litter Item 2"}
-    ];
-    
     $scope.litterBeach = {};
-
+    
     var savedLitterBeach =  window.localStorage.getItem(currentDataSheet);
     if(savedLitterBeach != null){
         $scope.litterBeach = angular.fromJson(savedLitterBeach);
     } else {
-        $scope.litterBeach.Season = $scope.options.seasons[0].value;   
+        $scope.litterBeach.Season = $scope.options.seasons[0].value;  
+        $scope.litterBeach.Instances = {
+        Instances: [],
+        InstanceCount : 0
+        };
     };
 
 
@@ -685,35 +684,72 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
     }
     
     
-     $scope.addLitterModal = function(){
-                    
+    $scope.addLitterModal = function(){
+
         var modalInstance = $modal.open({
-                  templateUrl: '../modals/beachLitterItem.html',
-                  controller: 'beachLitterItemCtrl'
-                });
-        modalInstance.result.then(function (bt) {
-            });
+            templateUrl: '../modals/beachLitterItem.html',
+            controller: 'beachLitterItemCtrl',
+            resolve:{saveName: function(){
+                        return currentDataSheet + "Instance" + $scope.litterBeach.Instances.InstanceCount;
+                        },
+                     litterItem: null
+                    }
+        });
+        modalInstance.result.then(function (litterItem) {
+            if(litterItem == null){
+                return;
+            }
+            $scope.litterBeach.Instances.Instances.push(litterItem);
+            $scope.litterBeach.Instances.InstanceCount++;
+        });
 
     }
-     $scope.loadLitterModal = function(){
+     $scope.loadLitterModal = function(item, index){
+         console.log(index);
+         console.log(litter);
                     
         var modalInstance = $modal.open({
-                  templateUrl: '../modals/beachLitterItem.html',
-                  controller: 'beachLitterItemCtrl'
+                templateUrl: '../modals/beachLitterItem.html',
+                controller: 'beachLitterItemCtrl',
+                resolve:{saveName: null,
+                         litterItem: function(){
+                             return item;
+                         }
+                    }
                 });
-        modalInstance.result.then(function (bt) {
+        modalInstance.result.then(function (litterItem) {
+                $scope.litterBeach.Instances.Instances[index] = litterItem;
             });
 
     }
     
 }]);
 
-t1mControllers.controller('beachLitterItemCtrl', ['$scope', function($scope, $modalInstance){
+t1mControllers.controller('beachLitterItemCtrl', ['$scope', '$modalInstance',
+                                                    function($scope, $modalInstance, saveName, litterItem){
     $scope.SmallLitter = {};
-    $scope.SmallLitter.Img = "";
+    $scope.ImageSrc;
+    
+     
+    if(litterItem != null){  //==================================================================================================================================================================================== it equals null....
+        console.log(item);
+        for(field in litterItem){
+            $scope.SmallLitter[field.key] = field.value;   
+        }
+        console.log($scope.SmallLitter);
+        $scope.$apply();
+        console.log($scope.SmallLitter);
+        $scope.ImageSrc = window.getItem($scope.SmallLitter.ImageSrc);
+    } else {
+        $scope.SmallLitter.ImageSrc = saveName;
+    };
+    
+    $scope.SmallLitter.ImageSrc = saveName;
+    
     
    $scope.onPhotoDataSuccess = function(imageData) {
-        $scope.SmallLitter.Img = "data:image/jpeg;base64," + imageData;
+        $scope.ImageSrc = imageData;
+        window.localStorage.setItem($scope.SmallLitter.ImageSrc, imageData);
         $scope.$apply();
     }
    
@@ -731,32 +767,35 @@ t1mControllers.controller('beachLitterItemCtrl', ['$scope', function($scope, $mo
        specific: []
    };
     
-    $scope.SmallLitter.LitterCode = "text"
-    
     $scope.litterTypeSelected = function(){
         var codeOptions = litterCodeSelection($scope.SmallLitter.Type, null);
         $scope.options.specific = codeOptions;
-        $scope.$apply();
+        $scope.Specific = null;
+        $scope.SmallLitter.Specific = null;
+        $scope.SmallLitter.LitterCode = null;
     }
     
     $scope.litterSpecificSelected = function(){
-        var codeOptions = litterCodeSelection($scope.SmallLitter.Specific.type, $scope.SmallLitter.Specific.value);
+        var codeOptions;
+        if($scope.Specific == null){
+            $scope.SmallLitter.Specific = null;
+            return;
+        }
+        codeOptions = litterCodeSelection($scope.Specific.type, $scope.Specific.value);
         console.log(codeOptions);
         $scope.SmallLitter.Type = codeOptions.type;
-        $scope.SmallLitter.Specific = codeOptions;
+        $scope.SmallLitter.Specific = codeOptions.value;
         $scope.SmallLitter.LitterCode = codeOptions.code;
-        $scope.$apply();
     }
     
     $scope.options.specific = litterCodeSelection(null,null);
-    $scope.$apply();
-
-  $scope.onFail = function(message) {
+    
+    $scope.onFail = function(message) {
       alert('Failed because: ' + message);
     }
 
- // var destinationType = navigator.camera.destinationType;
-  $scope.takePicture = function(){
+    // var destinationType = navigator.camera.destinationType;
+    $scope.takePicture = function(){
        navigator.camera.getPicture($scope.onPhotoDataSuccess, $scope.onFail, 
             { quality: 100,
             destinationType: navigator.camera.DestinationType.DATA_URL,
@@ -767,7 +806,22 @@ t1mControllers.controller('beachLitterItemCtrl', ['$scope', function($scope, $mo
             cameraDirection: navigator.camera.Direction.BACK, 
             saveToPhotoAlbum: false 
        });
-  }
+    }
+  
+    $scope.save = function () {
+        if($scope.SmallLitter.Specific == null){
+            return;
+        }
+        if($scope.SmallLitter.Description == null){
+            $scope.SmallLitter.Description = $scope.SmallLitter.Specific;
+        }
+        $modalInstance.close($scope.SmallLitter);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+  
 }]);
 
 

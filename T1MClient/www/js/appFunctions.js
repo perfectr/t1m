@@ -8,11 +8,11 @@ function saveMetaDataToSurveyRecord(metaDataStorageKey, surveyStorageKey){
 
     
      
-        surveyRecord.sli = null;
-        surveyRecord.sdt = null;
-        surveyRecord.edt = null;
-        surveyRecord.obs = null;
-        surveyRecord.typ = null;
+        surveyRecord.sli = "test";
+        surveyRecord.sdt = "2015-11-11";
+        surveyRecord.edt = "2015-11-11";
+        surveyRecord.obs = "test";
+        surveyRecord.typ = "litter";
         surveyRecord.dst = [];
         surveyRecord.fld = [];
         surveyRecord.dat = [];
@@ -141,14 +141,14 @@ function populateInstances(surveyRecord, instances){
     recordService - a record service that has the server location. 
 */
 function sendSurveyRecordToServer(recordService, surveyStorageKey){
-    var surveyRecord = angular.fromJson(window.localStorage.getItem("surveyRecord"), false);
+    var surveyRecord = angular.fromJson(window.localStorage.getItem(surveyStorageKey), false);
     
     var necessaryFields = [
-        {field:"sli", defaultValue:"null"},
-        {field:"sdt", defaultValue:"null"},
-        {field:"edt", defaultValue:"null"},
-        {field:"obs", defaultValue:"null"},
-        {field:"typ", defaultValue:"null"},
+        {field:"sli", defaultValue:"test"},
+        {field:"sdt", defaultValue:"test"},
+        {field:"edt", defaultValue:"test"},
+        {field:"obs", defaultValue:"test"},
+        {field:"typ", defaultValue:"litterBeach"},
         {field:"dst", defaultValue:[]},
         {field:"fld", defaultValue:[]},
         {field:"dat", defaultValue:[]},
@@ -167,6 +167,7 @@ function sendSurveyRecordToServer(recordService, surveyStorageKey){
     angular.forEach(surveyRecord, function(value, key){
         recordService[key] = value; 
     });
+    console.log(recordService);
     return recordService.$save();
 }
 

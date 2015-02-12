@@ -163,11 +163,10 @@
                             <div class ="panel panel-default" style="padding:5%;">
                                 <div>
                                     <ul class="list-group">
-                                        <li ng-repeat="litter in Instances" class="list-group-item" 
-                                            ng-click="loadLitterModal(litter.text)">{{litter.text}}</li>
+                                        <li ng-repeat="litter in litterBeach.Instances.Instances" class="list-group-item" 
+                                            ng-click="loadLitterModal(litter, $index)">{{litter.Description}}</li>
                                     </ul>
                                 </div>
-
                             </div>
                         </div>
                         <div class="row">
