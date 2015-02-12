@@ -430,6 +430,15 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope, $modalInst
     
     $scope.birds = birds;
     
+    $scope.addBird = function(){
+        for(var i=0; i < $scope.birds.length; i++){
+            if($scope.birds[i].bird==$scope.typedBird){
+                return;
+            }
+        }
+      birds.push({bird:$scope.typedBird,near:0,far:0,veryFar:0,notes:""});  
+    };
+    
     $scope.ok = function () {
         $modalInstance.close();
     };
