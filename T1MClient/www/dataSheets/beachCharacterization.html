@@ -53,10 +53,10 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                <h4><b>Start Location</b></h4>
+                                <h4><b>Location</b></h4>
                             </div>
                             <div class="col-xs-6">
-                                <button class="btn btn-default"  ng-click="retriveGPS('Start')" >Retrive GPS Location</button>
+                                <button class="btn btn-default"  ng-click="retriveGPS()" >Retrive GPS Location</button>
                             </div>
                         </div>
                         <div class="row">
@@ -65,28 +65,11 @@
                                 <h4>Longitude</h4>
                         </div>
                         <div class="col-xs-8">
-                                <input ng-model="beachCharacterization.LatitudeStart" class="form-control" type="number" placeHolder="Lat">
-                                <input ng-model="beachCharacterization.LongitudeStart" class="form-control" type="number" placeHolder="Lon">
+                                <input ng-model="beachCharacterization.Latitude" class="form-control" type="number" placeHolder="Lat">
+                                <input ng-model="beachCharacterization.Longitude" class="form-control" type="number" placeHolder="Lon">
                         </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <h4><b>End Location </b></h4>
-                            </div>
-                            <div class="col-xs-6">
-                                <button class="btn btn-default"  ng-click="retriveGPS('End')">Retrive GPS Location</button>
-                            </div>
-                        </div>
-                            <div class="row">
-                            <div class="col-xs-4">
-                                <h4>Latitude</h4>
-                                <h4>Longitude</h4>
-                            </div>
-                            <div class="col-xs-8">
-                                <input ng-model="beachCharacterization.LatitudeEnd" class="form-control " type="number" placeHolder="Lat">
-                                <input ng-model="beachCharacterization.LongitudeEnd" class="form-control " type="number" placeHolder="Lon">
-                            </div>
-                        </div>
+                        
                         <br/>
                         <div class="row">
                             <div class="col-xs-4">
@@ -96,7 +79,7 @@
                                 <input ng-model="beachCharacterization.CoordSystem" class="form-control" type="text" placeHolder="System">
                             </div>
                         </div>  
-                        <br>  
+                        <br> <br> 
                     </div>
                     </div>
                <!-- </tab>-->
@@ -221,7 +204,9 @@
                                 <h4>Direction</h4>
                             </div>
                             <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.NearestTownDirection" class="form-control" type="number">
+                                <select class="form-control" ng-model="beachCharacterization.NearestTownDirection" 
+                                          ng-options="opt.value as opt.name for opt in options.townDirection">
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -244,8 +229,10 @@
                             <div class="col-xs-5">
                                 <h4>Direction</h4>
                             </div>
-                            <div class="col-xs-7">
-                                <input ng-model="beachCharacterization.NearestRiverDirection" class="form-control" type="number">
+                            <div class="col-xs-7"> 
+                                <select class="form-control" ng-model="beachCharacterization.NearestRiverDirection" 
+                                          ng-options="opt.value as opt.name for opt in options.riverDirection">
+                                </select>
                             </div>
                         </div> 
                         <div class="row">

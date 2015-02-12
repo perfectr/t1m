@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Capture Photo</title>
+
+   
+  </head>
+  <body>
+      <div  ng-app="t1mApp" id="main" ng-controller="t1mImageCtrl" class="inner">
+        <button ng-click="capturePhoto();">Capture Photo</button> <br>
+        <button ng-click="capturePhotoEdit();">Capture orient Photo</button> <br>
+        <button ng-click="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+        <button ng-click="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+        <img style="display:none;" id="smallImage" src="" />
+          <br><br>
+        <img style="display:none;" id="largeImage" src="" />
+      </div>
+    
+     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+      
+      
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/angular-resource.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/controllers.js"></script>
+        <script type="text/javascript" src="js/services.js"></script>
+        <script type="text/javascript">app.initialize();</script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/ui-bootstrap-tpls-0.12.0.min.js"></script>
+      
+    <script type="text/javascript" charset="utf-8">
+        
+    var t1mControllers = angular.module('t1mControllers', []);
+
+        
+    t1mControllers.controller('t1mImageCtrl', ['$scope', 'ImageSvc',function($scope, ImageSvc) {
+            
+      
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
+          // device APIs are available
+        //
+
+      
+
+        // Called when a photo is successfully retrieved
+        //
+        $scope.onPhotoDataSuccess = function(imageData) {
+          // Uncomment to view the base64-encoded image data
+          // console.log(imageData);
+
+          // Get image handle
+          //
+          var smallImage = document.getElementById('smallImage');
+
+          // Unhide image elements
+          //
+          smallImage.style.display = 'block';
+
+          // Show the captured photo
+          // The in-line CSS rules are used to resize the image
+          //
+          smallImage.src = "data:image/jpeg;base64," + imageData;
+
+            
+            var imageSvc = new ImageSvc();
+            imageSvc.img = imageData;
+            imageSvc.$save;
+        }
+
+        // Called when a photo is successfully retrieved
+        //
+        $scope.onPhotoURISuccess = function(imageURI) {
+          // Uncomment to view the image file URI
+          // console.log(imageURI);
+
+          // Get image handle
+          //
+          var largeImage = document.getElementById('largeImage');
+
+          // Unhide image elements
+          //
+          largeImage.style.display = 'block';
+
+          // Show the captured photo
+          // The in-line CSS rules are used to resize the image
+          //
+          largeImage.src = imageURI;
+        }
+
+        // A button will call this function
+        //
+        $scope.capturePhoto = function() {
+          // Take picture using device camera and retrieve image as base64-encoded string
+          navigator.camera.getPicture($scope.onPhotoDataSuccess, $scope.onFail, { quality: 100,
+            destinationType: destinationType.DATA_URL });
+        }
+
+        // A button will call this function
+        //
+        $scope.capturePhotoEdit = function() {
+          // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+          navigator.camera.getPicture($scope.onPhotoDataSuccess, $scope.onFail, { quality: 100,
+            destinationType: destinationType.DATA_URL, correctOrientation: true });
+        }
+
+        // A button will call this function
+        //
+       $scope.getPhoto = function(source) {
+          // Retrieve image file location from specified source
+          navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+            destinationType: destinationType.FILE_URI,
+            sourceType: source });
+        }
+
+        // Called if something bad happens.
+        //
+         $scope.onFail = function(message) {
+          alert('Failed because: ' + message);
+        }
+  }]);
+    </script>
+    
+  </body>
+</html>
