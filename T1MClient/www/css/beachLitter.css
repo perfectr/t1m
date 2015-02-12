@@ -1,3 +1,7 @@
+.glyphicons-lg{
+    font-size: 4em;
+}
+
 @media (min-width: 0px) {
   .nav-justified > li {
     display: table-cell;
