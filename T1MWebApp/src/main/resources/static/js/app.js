@@ -25,7 +25,7 @@ myApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpP
     // disable IE ajax request caching
     $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
 
-  $routeProvider.when('/landing', {templateUrl: '/partials/landing.html', controller: 'LandingCtrl'}); //controller: 'LandingCtrl'});
+  $routeProvider.when('/landing', {templateUrl: '/partials/landing.html', controller: 'ImageSearchCtrl'}); //controller: 'LandingCtrl'});
 //  $routeProvider.when('/contact', {templateUrl: '/partials/ContactUs.html', controller: 'ContactCtrl'});
 //  $routeProvider.when('/person/search',         {templateUrl: '/partials/PersonSearch.html',  controller: 'PersonSearchCtrl'});
 //  $routeProvider.when('/person/edit/:personId', {templateUrl: '/partials/PersonEdit.html',    controller: 'PersonEditCtrl'});

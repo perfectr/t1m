@@ -158,7 +158,7 @@ myAppServices.factory('BirdCountSearchSvc', ['$http', function($http) {
 }]);
 
 myAppServices.factory('BCBirdSvc', ['$resource', function($resource){
-    return $resource('/rest/bcBird/:dataSheetId', {}, {
+    return $resource('/rest/bcBird/:instanceId', {}, {
       query: {method:'GET', params:{surveyId:'search'}, isArray:false}
     });
 }]);
@@ -234,7 +234,7 @@ myAppServices.factory('BirdDistanceSearchSvc', ['$http', function($http) {
 }]);
 
 myAppServices.factory('BDBirdSvc', ['$resource', function($resource){
-    return $resource('/rest/bdBird/:dataSheetId', {}, {
+    return $resource('/rest/bdBird/:instanceId', {}, {
       query: {method:'GET', params:{surveyId:'search'}, isArray:false}
     });
 }]);
@@ -348,7 +348,7 @@ myAppServices.factory('LitterBeachSearchSvc', ['$http', function($http) {
 }]);
 
 myAppServices.factory('LBItemSvc', ['$resource', function($resource){
-    return $resource('/rest/lbItem/:dataSheetId', {}, {
+    return $resource('/rest/lbItem/:instanceId', {}, {
       query: {method:'GET', params:{surveyId:'search'}, isArray:false}
     });
 }]);
@@ -424,7 +424,7 @@ myAppServices.factory('LitterLargeSearchSvc', ['$http', function($http) {
 }]);
 
 myAppServices.factory('LLItemSvc', ['$resource', function($resource){
-    return $resource('/rest/llItem/:dataSheetId', {}, {
+    return $resource('/rest/llItem/:instanceId', {}, {
       query: {method:'GET', params:{surveyId:'search'}, isArray:false}
     });
 }]);
@@ -477,6 +477,46 @@ myAppServices.factory('BeachCharacterizationSearchSvc', ['$http', function($http
 
         search: function(callback) {
             $http.post('/rest/beachCharacterization/search', service.searchCriteria).success(function(response) {
+                service.searchResponse = response;
+                //service.numPages = Math.floor(response.total / response.pageSize) + 1;
+                if(callback) {
+                    callback(response);
+                }
+            });
+        },
+
+        reset: function() {
+            // For various UI databinding reasons we can just blow away service.searchCriteria because that
+            // causes problems, so we need to reset the fields separately.
+            service.searchCriteria.nameCriteria = null;
+            service.searchResponse = {};
+            //service.numPages = 0;
+        }
+    };
+
+    service.reset();
+
+    return service;
+}]);
+
+
+
+myAppServices.factory('ImageSvc', ['$resource', function($resource){
+    return $resource('/rest/image/:imageId', {}, {
+      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+    });
+}]);
+
+myAppServices.factory('ImageSearchSvc', ['$http', function($http) {
+    var service = {
+        searchCriteria: {
+            pageNumber : 1,
+            pageSize : 18,
+            nameCriteria : null
+        },
+
+        search: function(callback) {
+            $http.post('/rest/image/search', service.searchCriteria).success(function(response) {
                 service.searchResponse = response;
                 //service.numPages = Math.floor(response.total / response.pageSize) + 1;
                 if(callback) {

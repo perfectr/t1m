@@ -26,11 +26,17 @@ public class LLItemService {
         return new Response<>(llItemRepository.findOne(llItemId));
     }
 
+//    @Transactional
+//    public Response<LLItemEntity> saveLLItem(LLItemEntity llItemEntity) {
+//        LLItemEntity llItemResponse = llItemRepository.save(llItemEntity);
+//        Response res = new Response<>(llItemResponse);
+//        return res;
+//    }
+
     @Transactional
-    public Response<LLItemEntity> saveLLItem(LLItemEntity llItemEntity) {
+    public LLItemEntity saveLLItem(LLItemEntity llItemEntity) {
         LLItemEntity llItemResponse = llItemRepository.save(llItemEntity);
-        Response res = new Response<>(llItemResponse);
-        return res;
+        return llItemResponse;
     }
 
     public void removeLLItem(Integer llItemId) {

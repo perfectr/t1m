@@ -335,6 +335,48 @@ myAppControllers.controller('BeachCharacterizationSearchCtrl', ['$scope', '$wind
 
 
 
+
+myAppControllers.controller('ImageSearchCtrl', ['$scope', '$window', 'ImageSearchSvc', function($scope, $window, ImageSearchSvc) {
+
+    $scope.imageSearchSvc = ImageSearchSvc;
+
+    $scope.pageChanged = function() {
+        ImageSearchSvc.search();
+    };
+
+    $scope.searchAction = function() {
+        // user clicking the search button always resets the pageNumber
+        ImageSearchSvc.searchCriteria.pageNumber = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.resetAction = function() {
+        ImageSearchSvc.reset();
+        $scope.searchAction();
+    }
+
+    $scope.setImage = function(imageData) {
+        var image = document.getElementById(imageData.imageId);
+        image.style.display = 'block';
+        image.src = "data:image/jpeg;base64," + imageData.imageString;
+    }
+
+    $scope.scaleImage = function(id) {
+        var scale = 1;
+        var height = $('#'+id).height();
+        var width = $('#'+id).width();
+        $('#'+id).height(height*scale);
+        $('#'+id).width(width*scale);
+    }
+
+    $scope.pageChanged();
+}]);
+
+
+
+
+
+
 myAppControllers.controller('PersonEditCtrl', ['$scope', '$routeParams', '$window', 'PersonSvc', function($scope, $routeParams, $window, PersonSvc) {
 
     // TODO: replace with proper security
