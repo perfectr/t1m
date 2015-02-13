@@ -26,11 +26,17 @@ public class LBItemService {
         return new Response<>(lbItemRepository.findOne(lbItemId));
     }
 
+//    @Transactional
+//    public Response<LBItemEntity> saveLBItem(LBItemEntity lbItemEntity) {
+//        LBItemEntity lbItemResponse = lbItemRepository.save(lbItemEntity);
+//        Response res = new Response<>(lbItemResponse);
+//        return res;
+//    }
+
     @Transactional
-    public Response<LBItemEntity> saveLBItem(LBItemEntity lbItemEntity) {
+    public LBItemEntity saveLBItem(LBItemEntity lbItemEntity) {
         LBItemEntity lbItemResponse = lbItemRepository.save(lbItemEntity);
-        Response res = new Response<>(lbItemResponse);
-        return res;
+        return lbItemResponse;
     }
 
     public void removeLBItem(Integer lbItemId) {

@@ -20,6 +20,9 @@ public class LitterInstanceParser {
     @Autowired
     protected LLItemService llItemService;
 
+    @Autowired
+    protected ImageParser imageParser;
+
     private String[][] instanceField;
     private String[][] instanceData;
 
@@ -36,19 +39,25 @@ public class LitterInstanceParser {
             System.out.println("New LBItem instance found");
             LBItemEntity lbItemEntity = new LBItemEntity();
             lbItemEntity.setDataSheetId(dataSheetId);
+            String image = null;
             for (int j = 0 ; j < instanceField[count].length ; j++) {
 //                System.out.println(instanceField[count][j] + ": " + instanceData[count][j]);
-                try {
-                    Class[] paramString = new Class[1];
-                    paramString[0] = String.class;
-                    Class classType = Class.forName("nz.govt.doc.t1m.domain.instance.litterBeach.LBItemEntity");
-                    Method set = classType.getDeclaredMethod("set" + instanceField[count][j], paramString);
-                    set.invoke(lbItemEntity, instanceData[count][j]);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (instanceField[count][j].equals("image") || instanceField[count][j].equals("Image")) {
+                    image = instanceData[count][j];
+                } else {
+                    try {
+                        Class[] paramString = new Class[1];
+                        paramString[0] = String.class;
+                        Class classType = Class.forName("nz.govt.doc.t1m.domain.instance.litterBeach.LBItemEntity");
+                        Method set = classType.getDeclaredMethod("set" + instanceField[count][j], paramString);
+                        set.invoke(lbItemEntity, instanceData[count][j]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-            lbItemService.saveLBItem(lbItemEntity);
+            LBItemEntity res = lbItemService.saveLBItem(lbItemEntity);
+            if (image != null) System.out.println(imageParser.saveImage(res.getInstanceId(),"LBItem",image).getImageString());
             count++;
         }
     }
@@ -70,7 +79,7 @@ public class LitterInstanceParser {
                     e.printStackTrace();
                 }
             }
-            llItemService.saveLLItem(llItemEntity);
+            LLItemEntity res = llItemService.saveLLItem(llItemEntity);
             count++;
         }
     }

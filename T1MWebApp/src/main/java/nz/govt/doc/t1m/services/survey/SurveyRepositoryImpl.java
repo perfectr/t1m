@@ -22,24 +22,17 @@ public class SurveyRepositoryImpl implements SurveyRepositoryCustom {
 
     @Override
     public PagedResponse<SurveyEntity> findByCriteria(SurveyCriteria criteria) {
-
-        String observer = JPAUtils.appendWildcard(criteria.getObserver());
-        String locationId = JPAUtils.appendWildcard(criteria.getLocationId());
         String surveyCriteria = JPAUtils.appendWildcard(criteria.getSurveyCriteria());
 
         QSurveyEntity surveyEntity = QSurveyEntity.surveyEntity;
         JPAQuery query = new JPAQuery(em).from(surveyEntity);
 
-        if(observer != null) {
-            query.where(surveyEntity.observer.like(observer));
-        }
-
-        if(locationId != null) {
-            query.where(surveyEntity.locationId.like(locationId));
-        }
-
         if(surveyCriteria != null) {
-            query.where(surveyEntity.observer.like(surveyCriteria).or(surveyEntity.locationId.like(surveyCriteria)));
+            query.where(
+                    surveyEntity.surveyId.like(surveyCriteria).or(
+                            surveyEntity.observer.like(surveyCriteria).or(
+                                    surveyEntity.locationId.like(surveyCriteria).or(
+                                            surveyEntity.surveyType.like(surveyCriteria)))));
         }
 
         query.orderBy(surveyEntity.receivedD.desc());

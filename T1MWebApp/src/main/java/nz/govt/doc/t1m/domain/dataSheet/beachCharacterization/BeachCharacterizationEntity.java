@@ -36,10 +36,8 @@ public class BeachCharacterizationEntity extends DataSheetEntity {
     private String beachName;
     private String beachLength;
     private String regionName;
-    private String latitudeStart;
-    private String longitudeStart;
-    private String latitudeEnd;
-    private String longitudeEnd;
+    private String latitude;
+    private String longitude;
     private String coordSystem;
     private String substratumType;
     private String substratumUniformity;
@@ -91,36 +89,20 @@ public class BeachCharacterizationEntity extends DataSheetEntity {
         this.regionName = regionName;
     }
 
-    public String getLatitudeStart() {
-        return latitudeStart;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setLatitudeStart(String latitudeStart) {
-        this.latitudeStart = latitudeStart;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
-    public String getLongitudeStart() {
-        return longitudeStart;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLongitudeStart(String longitudeStart) {
-        this.longitudeStart = longitudeStart;
-    }
-
-    public String getLatitudeEnd() {
-        return latitudeEnd;
-    }
-
-    public void setLatitudeEnd(String latitudeEnd) {
-        this.latitudeEnd = latitudeEnd;
-    }
-
-    public String getLongitudeEnd() {
-        return longitudeEnd;
-    }
-
-    public void setLongitudeEnd(String longitudeEnd) {
-        this.longitudeEnd = longitudeEnd;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getCoordSystem() {
