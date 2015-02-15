@@ -539,7 +539,7 @@ t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInsta
     
               $scope.birdPress = function(birdType){
                   $scope.birdText = birdType;
-                  $scope.ok();
+                 /* $scope.ok();*/
               }
     
               $scope.ok = function () {

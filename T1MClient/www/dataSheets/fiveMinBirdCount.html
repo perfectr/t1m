@@ -44,6 +44,80 @@
     <body>
         <div ng-app="t1mApp" class="app" ng-controller="t1mfiveMinBirdCountCtrl" >
             <tabset justified='true'>
+                
+                <tab heading='Plot List' select="intoJson()">
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4">
+                            <button class = "btn-lg btn-default btn-wide" 
+                                    ng-click="startCountdown()">
+                                {{timer.mins}}:{{timer.secs}}
+                            </button>                           
+                        </div>
+                        <div class="col-xs-4">
+                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
+                        </div>
+                    </div>
+                    <br><br><div class="row">
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-3">
+                            <button class="btn btn-success btn-circle" ng-click="addBirdModal()">
+                                    <span class="glyphicon glyphicon-plus plusButton" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="col-xs-4">
+                            <h3 class="addBirdToPlotText">Add Bird to Plot List</h3>
+                        </div>    
+                        <div class="col-xs-3"></div> 
+                    </div>
+                    <div class="inner">
+                        <br>
+                        <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li ng-repeat="bird in birdCount" 
+                                            class="list-group-item col-xs-6 listItems" 
+                                            ng-click="addBirdIncrementModal(bird.bird)">
+                                                {{bird.bird}}
+                                        </li>
+                                    </ul>
+                                </div>
+                        </div>
+                    </div>
+                    <!--<p>{{birdCount}}</p>-->
+                </tab>
+                
+                <tab heading='Radar' select="intoJson()">
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <button class = "btn-lg btn-default btn-wide" ng-click="startCountdown()">
+                                    {{timer.mins}}:{{timer.secs}}
+                                </button>                           
+                            </div>
+                        <div class="col-xs-4">
+                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="radar" ng-click="addTouch($event)" ng-style="{height: $element.offsetWidth}">
+                        <svg class="touches">
+                            <circle ng-repeat="touch in touches" 
+                                    cx="{{touch.x}}" 
+                                    cy="{{touch.y}}" 
+                                    r="0.5em" 
+                                    fill="blue" 
+                                    fill-opacity="0.8"/>
+                        </svg>
+                    </div>
+                        
+                    <!--<p>{{touches}}</p>
+                    <p>{{birdCount}}</p>-->
+
+                </tab>
+                
                 <tab heading='Site' select="intoJson" >
                     <div class="inner">
                         <h4>Choose count station</h4>
@@ -112,19 +186,18 @@
                                ng-model="birdSurvey.north" 
                                ng-disabled="birdSurvey.skip" 
                                placeholder="Northing">
+                        <h4>GDX Fix</h4>
+                        <select class="form-control" 
+                                ng-model="birdSurvey.pos" 
+                                ng-options="opt.value as opt.name for opt in options.pos" 
+                                ng-disabled="birdSurvey.skip">
+                            <option value="" disabled selected>GDX Fix</option>
+                        </select>
                         <h4>Elevation</h4>
                         <input type="number" class="form-control" 
                                ng-model="birdSurvey.elev" 
                                ng-disabled="birdSurvey.skip" 
                                placeholder="Elevation">
-                    
-                        <h4>Position</h4>
-                        <select class="form-control" 
-                                ng-model="birdSurvey.pos" 
-                                ng-options="opt.value as opt.name for opt in options.pos" 
-                                ng-disabled="birdSurvey.skip">
-                            <option value="" disabled selected>Position</option>
-                        </select>
                         <h4>Notes</h4>
                         <input type="text" class="form-control" 
                                ng-model="birdSurvey.notes" 
@@ -135,80 +208,59 @@
                         
                     </div>
                 </tab>
-                
-                <tab heading='Sightings' select="intoJson()">
+                <tab heading='Summary' select="intoJson()">
                     <br>
-                    <div class="row">
-                        <div class="col-xs-4"></div>
-                        <div class="col-xs-4">
-                            <button class = "btn-lg btn-default btn-wide" 
-                                    ng-click="startCountdown()">
-                                {{timer.mins}}:{{timer.secs}}
-                            </button>                           
-                        </div>
-                        <div class="col-xs-4">
-                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
-                        </div>
-                    </div>
-                    <br><br><div class="row">
-                        <div class="col-xs-2"></div>
-                        <div class="col-xs-3">
-                            <button class="btn btn-success btn-circle" ng-click="addBirdModal()">
-                                    <span class="glyphicon glyphicon-plus plusButton" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                        <div class="col-xs-4">
-                            <h3>Add Bird</h3>
-                        </div>    
-                        <div class="col-xs-3"></div> 
-                    </div>
-                    <div class="inner">
-                        <br>
-                        <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <ul class="list-group">
-                                        <li ng-repeat="bird in birdCount" 
-                                            class="list-group-item col-xs-6 listItems" 
-                                            ng-click="addBirdIncrementModal(bird.bird)">
-                                                {{bird.bird}}
-                                        </li>
-                                    </ul>
-                                </div>
-                        </div>
-                    </div>
-                    <!--<p>{{birdCount}}</p>-->
+                    <table class="table table-striped"> 
+                        <tr>
+                            <th>Time</th>
+                            <th>Specie</th>
+                            <th>Distance</th>
+                            <th>Count</th>
+                            <th>Comment</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>4.39</td>
+                            <td>Tui</td>
+                            <td>Far</td>
+                            <td>1</td>
+                            <td></td>
+                            <td><button class="btn btn-danger btn-xs">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>4.25</td>
+                            <td>Tomtit</td>
+                            <td>VeryFar</td>
+                            <td>2</td>
+                            <td>Flyover</td>
+                            <td><button class="btn btn-danger btn-xs">Delete</button></td>
+                        </tr>                        
+                        <tr>
+                            <td>3.54</td>
+                            <td>Chaffinch</td>
+                            <td>Near</td>
+                            <td>1</td>
+                            <td></td>
+                            <td><button class="btn btn-danger btn-xs">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>3.35</td>
+                            <td>Kiwi</td>
+                            <td>Near</td>
+                            <td>1</td>
+                            <td></td>
+                            <td><button class="btn btn-danger btn-xs">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>2.43</td>
+                            <td>Tomtit</td>
+                            <td>Near</td>
+                            <td>1</td>
+                            <td></td>
+                            <td><button class="btn btn-danger btn-xs">Delete</button></td>
+                        </tr> 
+                    </table>
                 </tab>
-                
-                <tab heading='Radar' select="intoJson()">
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-4"></div>
-                            <div class="col-xs-4">
-                                <button class = "btn-lg btn-default btn-wide" ng-click="startCountdown()">
-                                    {{timer.mins}}:{{timer.secs}}
-                                </button>                           
-                            </div>
-                        <div class="col-xs-4">
-                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="radar" ng-click="addTouch($event)" ng-style="{height: $element.offsetWidth}">
-                        <svg class="touches">
-                            <circle ng-repeat="touch in touches" 
-                                    cx="{{touch.x}}" 
-                                    cy="{{touch.y}}" 
-                                    r="0.5em" 
-                                    fill="blue" 
-                                    fill-opacity="0.8"/>
-                        </svg>
-                    </div>
-                        
-                    <!--<p>{{touches}}</p>
-                    <p>{{birdCount}}</p>-->
-
-                </tab>
-                
             </tabset>
         </div>
         
