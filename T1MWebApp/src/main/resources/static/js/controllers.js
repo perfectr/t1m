@@ -70,6 +70,20 @@ myAppControllers.controller('SurveySearchCtrl', ['$scope', '$window', 'SurveySea
         $window.location.href = '#/survey/edit/-1';
     }
 
+    $scope.displayOne = function(id) {
+        $window.location.href = '#/survey/edit/'+id;
+    }
+
+    $scope.getType = function(type) {
+        if (type.indexOf("itter")>-1) { return "Beach Litter Survey" }
+        else if (type.indexOf("ird")>-1) { return "5 Minute Bird Survey" }
+        else { return "Unrecognised Survey Type (" + type + ")" }
+    }
+
+    $scope.capFirst = function(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     $scope.pageChanged();
 }]);
 
@@ -330,6 +344,10 @@ myAppControllers.controller('BeachCharacterizationSearchCtrl', ['$scope', '$wind
         $window.location.href = '#/beachCharacterization/edit/-1';
     }
 
+    $scope.displayOne = function(id) {
+        $window.location.href = '#/beachChar/edit/'+id;
+    }
+
     $scope.pageChanged();
 }]);
 
@@ -481,6 +499,69 @@ myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$windo
                 $scope.refresh();
             }
         });
+    }
+
+    $scope.refresh();
+}]);
+
+myAppControllers.controller('BeachCharEditCtrl', ['$scope', '$routeParams', '$window', 'BeachCharacterizationSvc', function($scope, $routeParams, $window, BeachCharacterizationSvc) {
+
+    // TODO: replace with proper security
+    $scope.currentUser = {};
+    $scope.currentUser.administrator = true;
+
+    $scope.editMode = false;
+
+
+    $scope.refresh = function() {
+        var dataSheetId = $routeParams.dataSheetId;
+        if(dataSheetId > 0) {
+            $scope.selectedBeachCharacterization = BeachCharacterizationSvc.get({dataSheetId: dataSheetId});
+        }
+        else {
+            $scope.selectedBeachCharacterization = new BeachCharacterizationSvc();
+            $scope.editMode = true;
+        }
+    }
+
+    $scope.editAction = function() {
+        console.log("editAction() - clicked");
+        $scope.editMode = true;
+    }
+
+    $scope.cancelAction = function() {
+        console.log("cancelAction() - clicked");
+        $scope.editMode = false;
+
+        if($routeParams.dataSheetId > 0) {
+            // if not new reload the selected report to get rid of any edits
+            $scope.refresh();
+        }
+        else {
+            $window.location.href = '#/beachChar/edit/'+$routeParams.dataSheetId;
+        }
+    }
+
+    $scope.saveAction = function() {
+        $scope.selectedBeachCharacterization.$save(function(data) {
+            console.log("responseMessages = " + data.responseMessages);
+            var hasNoErrors = data.responseMessages.length === 0;
+            if(hasNoErrors) {
+                // redirect the browser with the save report's reportId so that new reports get switched to the right url
+                $window.location.href = '#/beachChar/edit/'+$routeParams.dataSheetId;
+                $scope.editMode = false;
+                $scope.refresh();
+            }
+        });
+    }
+
+    $scope.goBack = function(){
+        $window.location.href = 'beachCharacterization/search';
+        $scope.refresh();
+    }
+
+    $scope.goToSurvey = function(id) {
+        $window.location.href = '#/survey/edit/'+id;
     }
 
     $scope.refresh();

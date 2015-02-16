@@ -1,0 +1,277 @@
+<div class="row">
+    <div class="col-sm-12">
+        <table width="100%;">
+            <tr>
+                <td><h3>Beach Characterization Details</h3></td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr style="margin-top: 0px;"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-repeat="msg in selectedBeachCharacterization.responseMessages">
+            <div class="alert alert-danger" role="alert">{{msg.description}}</div>
+        </div>
+    </div>
+</div>
+
+<!-- View mode -->
+<div ng-hide="editMode">
+    <div class="row" >
+        <dl class="dl-horizontal">
+            <dt>DataSheet ID</dt><dd>{{selectedBeachCharacterization.model.dataSheetId}}</dd>
+            <dt>Survey ID</dt><dd><a ng-click="goToSurvey(selectedBeachCharacterization.model.surveyId)">{{selectedBeachCharacterization.model.surveyId}}</a></dd>
+            <dt>Beach ID</dt><dd>{{selectedBeachCharacterization.model.beachId}}</dd>
+            <dt>Beach Name</dt><dd>{{selectedBeachCharacterization.model.beachName}}</dd>
+            <dt>Beach Length</dt><dd>{{selectedBeachCharacterization.model.beachLength}}</dd>
+            <dt>Region Name</dt><dd>{{selectedBeachCharacterization.model.regionName}}</dd>
+            <dt>Latitude</dt><dd>{{selectedBeachCharacterization.model.latitude}}</dd>
+            <dt>Longitude</dt><dd>{{selectedBeachCharacterization.model.longitude}}</dd>
+            <dt>Coordinates System</dt><dd>{{selectedBeachCharacterization.model.coordSystem}}</dd>
+            <dt>Substratum Type</dt><dd>{{selectedBeachCharacterization.model.substratumType}}</dd>
+            <dt>Substratum Uniformity</dt><dd>{{selectedBeachCharacterization.model.substratumUniformity}}</dd>
+            <dt>Tidal Range</dt><dd>{{selectedBeachCharacterization.model.tidalRange}}</dd>
+            <dt>Tidal Distance</dt><dd>{{selectedBeachCharacterization.model.tidalDistance}}</dd>
+            <dt>Beach Backing</dt><dd>{{selectedBeachCharacterization.model.beachBacking}}</dd>
+            <dt>Location</dt><dd>{{selectedBeachCharacterization.model.location}}</dd>
+            <dt>Major Usage</dt><dd>{{selectedBeachCharacterization.model.majorUsage}}</dd>
+            <dt>Access</dt><dd>{{selectedBeachCharacterization.model.access}}</dd>
+            <dt>Nearest Town</dt><dd>{{selectedBeachCharacterization.model.nearestTown}}</dd>
+            <dt>Nearest Town Distance</dt><dd>{{selectedBeachCharacterization.model.nearestTownDistance}}</dd>
+            <dt>Nearest Town Direction</dt><dd>{{selectedBeachCharacterization.model.nearestTownDirection}}</dd>
+            <dt>Nearest River</dt><dd>{{selectedBeachCharacterization.model.nearestRiver}}</dd>
+            <dt>Nearest River Distance</dt><dd>{{selectedBeachCharacterization.model.nearestRiverDistance}}</dd>
+            <dt>Nearest River Direction</dt><dd>{{selectedBeachCharacterization.model.nearestRiverDirection}}</dd>
+            <dt>Rivers and Creeks</dt><dd>{{selectedBeachCharacterization.model.riversCreeks}}</dd>
+            <dt>Pipes and Drains</dt><dd>{{selectedBeachCharacterization.model.pipesDrains}}</dd>
+            <dt>Notes</dt><dd>{{selectedBeachCharacterization.model.notes}}</dd>
+        </dl>
+    </div>
+</div>
+
+<!-- Edit mode -->
+<div class="row" ng-show="editMode">
+    <div class="col-md-12">
+        <form name="beachCharacterizationForm" role="form" ng-submit="submitForm(beachCharacterizationForm.$invalid)" novalidate autocomplete="off">
+            <div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group required" ng-class="{'has-error' : beachCharacterizationForm.beachIdTxtFld.$invalid && !beachCharacterizationForm.beachIdTxtFld.$pristine}">
+                            <label class="control-label" for="beachIdTxtFld">Beach ID</label>
+                            <input type="text" class="form-control" id="beachIdTxtFld" name="beachIdTxtFld" ng-model="selectedBeachCharacterization.model.beachId" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.beachNameTxtFld.$invalid && !beachCharacterizationForm.beachNameTxtFld.$pristine}">
+                            <label class="control-label" for="beachNameTxtFld">Beach Name</label>
+                            <input type="text" class="form-control" id="beachNameTxtFld" name="beachNameTxtFld" ng-model="selectedBeachCharacterization.model.beachName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.beachLengthTxtFld.$invalid && !beachCharacterizationForm.beachLengthTxtFld.$pristine}">
+                            <label class="control-label" for="beachLengthTxtFld">Beach Length</label>
+                            <input type="text" class="form-control" id="beachLengthTxtFld" name="beachLengthTxtFld" ng-model="selectedBeachCharacterization.model.beachLength">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.regionNameTxtFld.$invalid && !beachCharacterizationForm.regionNameTxtFld.$pristine}">
+                            <label class="control-label" for="regionNameTxtFld">Region Name</label>
+                            <input type="text" class="form-control" id="regionNameTxtFld" name="regionNameTxtFld" ng-model="selectedBeachCharacterization.model.regionName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group required" ng-class="{'has-error' : beachCharacterizationForm.latitudeTxtFld.$invalid && !beachCharacterizationForm.latitudeTxtFld.$pristine}">
+                            <label class="control-label" for="latitudeTxtFld">Latitude</label>
+                            <input type="text" class="form-control" id="latitudeTxtFld" name="latitudeTxtFld" ng-model="selectedBeachCharacterization.model.latitude" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group required" ng-class="{'has-error' : beachCharacterizationForm.longitudeTxtFld.$invalid && !beachCharacterizationForm.longitudeTxtFld.$pristine}">
+                            <label class="control-label" for="longitudeTxtFld">Longitude</label>
+                            <input type="text" class="form-control" id="longitudeTxtFld" name="longitudeTxtFld" ng-model="selectedBeachCharacterization.model.longitude" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group required" ng-class="{'has-error' : beachCharacterizationForm.coordSystemTxtFld.$invalid && !beachCharacterizationForm.coordSystemTxtFld.$pristine}">
+                            <label class="control-label" for="coordSystemTxtFld">Coordinates Sytyem</label>
+                            <input type="text" class="form-control" id="coordSystemTxtFld" name="coordSystemTxtFld" ng-model="selectedBeachCharacterization.model.coordSystem" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.substratumTypeTxtFld.$invalid && !beachCharacterizationForm.substratumTypeTxtFld.$pristine}">
+                            <label class="control-label" for="substratumTypeTxtFld">Substratum Type</label>
+                            <input type="text" class="form-control" id="substratumTypeTxtFld" name="substratumTypeTxtFld" ng-model="selectedBeachCharacterization.model.substratumType" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.substratumUniformityTxtFld.$invalid && !beachCharacterizationForm.substratumUniformityTxtFld.$pristine}">
+                            <label class="control-label" for="substratumUniformityTxtFld">Substratum Uniformity</label>
+                            <input type="text" class="form-control" id="substratumUniformityTxtFld" name="substratumUniformityTxtFld" ng-model="selectedBeachCharacterization.model.substratumUniformity">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.tidalRangeTxtFld.$invalid && !beachCharacterizationForm.tidalRangeTxtFld.$pristine}">
+                            <label class="control-label" for="tidalRangeTxtFld">Tidal Range</label>
+                            <input type="text" class="form-control" id="tidalRangeTxtFld" name="tidalRangeTxtFld" ng-model="selectedBeachCharacterization.model.tidalRange">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.tidalDistanceTxtFld.$invalid && !beachCharacterizationForm.tidalDistanceTxtFld.$pristine}">
+                            <label class="control-label" for="tidalDistanceTxtFld">Tidal Distance</label>
+                            <input type="text" class="form-control" id="tidalDistanceTxtFld" name="tidalDistanceTxtFld" ng-model="selectedBeachCharacterization.model.tidalDistance">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.beachBackingTxtFld.$invalid && !beachCharacterizationForm.beachBackingTxtFld.$pristine}">
+                            <label class="control-label" for="beachBackingTxtFld">Back Backing</label>
+                            <input type="text" class="form-control" id="beachBackingTxtFld" name="beachBackingTxtFld" ng-model="selectedBeachCharacterization.model.beachBacking">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.locationTxtFld.$invalid && !beachCharacterizationForm.locationTxtFld.$pristine}">
+                            <label class="control-label" for="locationTxtFld">Location</label>
+                            <input type="text" class="form-control" id="locationTxtFld" name="locationTxtFld" ng-model="selectedBeachCharacterization.model.location">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.majorUsageTxtFld.$invalid && !beachCharacterizationForm.majorUsageTxtFld.$pristine}">
+                            <label class="control-label" for="majorUsageTxtFld">Major Usage</label>
+                            <input type="text" class="form-control" id="majorUsageTxtFld" name="majorUsageTxtFld" ng-model="selectedBeachCharacterization.model.majorUsage">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.accessTxtFld.$invalid && !beachCharacterizationForm.accessTxtFld.$pristine}">
+                            <label class="control-label" for="accessTxtFld">Access</label>
+                            <input type="text" class="form-control" id="accessTxtFld" name="accessTxtFld" ng-model="selectedBeachCharacterization.model.access">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.nearestTownTxtFld.$invalid && !beachCharacterizationForm.nearestTownTxtFld.$pristine}">
+                            <label class="control-label" for="nearestTownTxtFld">Nearest Town</label>
+                            <input type="text" class="form-control" id="nearestTownTxtFld" name="nearestTownTxtFld" ng-model="selectedBeachCharacterization.model.nearestTown">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.nearestTownDistanceTxtFld.$invalid && !beachCharacterizationForm.nearestTownDistanceTxtFld.$pristine}">
+                            <label class="control-label" for="nearestTownDistanceTxtFld">Nearest Town Distance</label>
+                            <input type="text" class="form-control" id="nearestTownDistanceTxtFld" name="nearestTownDistanceTxtFld" ng-model="selectedBeachCharacterization.model.nearestTownDistance">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.nearestTownDirectionTxtFld.$invalid && !beachCharacterizationForm.nearestTownDirectionTxtFld.$pristine}">
+                            <label class="control-label" for="nearestTownDirectionTxtFld">Nearest Town Direction</label>
+                            <input type="text" class="form-control" id="nearestTownDirectionTxtFld" name="nearestTownDirectionTxtFld" ng-model="selectedBeachCharacterization.model.nearestTownDirection">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.nearestRiverTxtFld.$invalid && !beachCharacterizationForm.nearestRiverTxtFld.$pristine}">
+                            <label class="control-label" for="nearestRiverTxtFld">Nearest River</label>
+                            <input type="text" class="form-control" id="nearestRiverTxtFld" name="nearestRiverTxtFld" ng-model="selectedBeachCharacterization.model.nearestRiver">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.nearestRiverDistanceTxtFld.$invalid && !beachCharacterizationForm.nearestRiverDistanceTxtFld.$pristine}">
+                            <label class="control-label" for="nearestRiverDistanceTxtFld">Nearest River Distance</label>
+                            <input type="text" class="form-control" id="nearestRiverDistanceTxtFld" name="nearestRiverDistanceTxtFld" ng-model="selectedBeachCharacterization.model.nearestRiverDistance">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.nearestRiverDirectionTxtFld.$invalid && !beachCharacterizationForm.nearestRiverDirectionTxtFld.$pristine}">
+                            <label class="control-label" for="nearestRiverDirectionTxtFld">Nearest River Direction</label>
+                            <input type="text" class="form-control" id="nearestRiverDirectionTxtFld" name="nearestRiverDirectionTxtFld" ng-model="selectedBeachCharacterization.model.nearestRiverDirection">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.riversCreeksTxtFld.$invalid && !beachCharacterizationForm.riversCreeksTxtFld.$pristine}">
+                            <label class="control-label" for="riversCreeksTxtFld">Rivers and Creeks</label>
+                            <input type="text" class="form-control" id="riversCreeksTxtFld" name="riversCreeksTxtFld" ng-model="selectedBeachCharacterization.model.riversCreeks">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.pipesDrainsTxtFld.$invalid && !beachCharacterizationForm.pipesDrainsTxtFld.$pristine}">
+                            <label class="control-label" for="pipesDrainsTxtFld">Pipes and Drains</label>
+                            <input type="text" class="form-control" id="pipesDrainsTxtFld" name="pipesDrainsTxtFld" ng-model="selectedBeachCharacterization.model.pipesDrains">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.notesTxtFld.$invalid && !beachCharacterizationForm.notesTxtFld.$pristine}">
+                            <label class="control-label" for="notesTxtFld">Notes</label>
+                            <input type="text" class="form-control" id="notesTxtFld" name="notesTxtFld" ng-model="selectedBeachCharacterization.model.notes">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-8" align="right">
+                    <button type="submit" class="btn btn-primary" ng-click="saveAction(beachCharacterizationForm.$invalid)" ng-disabled="beachCharacterizationForm.$invalid">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="cancelAction()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Mode switching controls -->
+<div class="row" ng-hide="editMode">
+    <div class="col-md-12">
+        <hr>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8" align="right">
+            <button type="button" class="btn btn-primary" ng-click="editAction()" ng-disabled="!(currentUser.dataSheetId == selectedBeachCharacterization.model.dataSheetId || currentUser.administrator)">Edit</button>
+            <button type="button" class="btn btn-default" ng-click="goBack()">Back</button>
+        </div>
+    </div>
+</div>

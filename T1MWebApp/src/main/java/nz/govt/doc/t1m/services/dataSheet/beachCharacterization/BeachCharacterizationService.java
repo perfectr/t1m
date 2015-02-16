@@ -29,8 +29,7 @@ public class BeachCharacterizationService {
     @Transactional
     public Response<BeachCharacterizationEntity> saveBeachCharacterization(BeachCharacterizationEntity beachCharacterizationEntity) {
         BeachCharacterizationEntity beachCharacterizationResponse = beachCharacterizationRepository.save(beachCharacterizationEntity);
-        Response res = new Response<>(beachCharacterizationResponse);
-        return res;
+        return new Response<>(beachCharacterizationResponse);
     }
 
     public void removeBeachCharacterization(Integer beachCharacterizationId) {

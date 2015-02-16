@@ -41,7 +41,8 @@ myApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpP
   $routeProvider.when('/litterLarge/search',                {templateUrl: '/partials/LitterLargeSearch.html',               controller: 'LitterLargeSearchCtrl'});
   $routeProvider.when('/llItem/search',                     {templateUrl: '/partials/LLItemSearch.html',                    controller: 'LLItemSearchCtrl'});
   $routeProvider.when('/beachCharacterization/search',      {templateUrl: '/partials/BeachCharacterizationSearch.html',     controller: 'BeachCharacterizationSearchCtrl'});
-  $routeProvider.otherwise({redirectTo: '/landing'});
+  $routeProvider.when('/beachChar/edit/:dataSheetId',       {templateUrl: '/partials/BeachCharEdit.html',                   controller: 'BeachCharEditCtrl'});
+  $routeProvider.otherwise({redirectTo: '/survey/search'});
 }]);
 
 
