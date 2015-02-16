@@ -740,7 +740,9 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
             resolve:{saveName: function(){
                         return currentDataSheet + "Instance" + $scope.litterBeach.Instances.InstanceCount;
                         },
-                     litterItem: null
+                     sLitter: function(){
+                        return null;
+                        }
                     }
         });
         modalInstance.result.then(function (litterItem) {
@@ -752,56 +754,33 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
         });
 
     }
-     $scope.loadLitterModal = function(item, index){
-         console.log(index);
-         console.log(litter);
-                    
+     $scope.loadLitterModal = function(index){
+         var SmallLitter = $scope.litterBeach.Instances.Instances[index];
         var modalInstance = $modal.open({
                 templateUrl: '../modals/beachLitterItem.html',
                 controller: 'beachLitterItemCtrl',
-                resolve:{saveName: null,
-                         litterItem: function(){
-                             return item;
+                resolve:{saveName: function(){
+                            return currentDataSheet + "Instance" + $scope.litterBeach.Instances.InstanceCount;
+                        },
+                         sLitter: function(){
+                             return SmallLitter;
                          }
                     }
                 });
         modalInstance.result.then(function (litterItem) {
-                $scope.litterBeach.Instances.Instances[index] = litterItem;
+                //$scope.litterBeach.Instances.Instances[index] = litterItem;
             });
 
     }
     
 }]);
 
-t1mControllers.controller('beachLitterItemCtrl', ['$scope', '$modalInstance',
-                                                    function($scope, $modalInstance, saveName, litterItem){
-    $scope.SmallLitter = {};
-    $scope.ImageSrc;
+t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance, saveName, sLitter){
     
-     
-    if(litterItem != null){  //==================================================================================================================================================================================== it equals null....
-        console.log(item);
-        for(field in litterItem){
-            $scope.SmallLitter[field.key] = field.value;   
-        }
-        console.log($scope.SmallLitter);
-        $scope.$apply();
-        console.log($scope.SmallLitter);
-        $scope.ImageSrc = window.getItem($scope.SmallLitter.ImageSrc);
-    } else {
-        $scope.SmallLitter.ImageSrc = saveName;
-    };
+    $scope.ImageSrc = [];
     
-    $scope.SmallLitter.ImageSrc = saveName;
-    
-    
-   $scope.onPhotoDataSuccess = function(imageData) {
-        $scope.ImageSrc = imageData;
-        window.localStorage.setItem($scope.SmallLitter.ImageSrc, imageData);
-        $scope.$apply();
-    }
-   
-   $scope.options = {
+    $scope.positiveButton = "Add";
+    $scope.options = {
         types: [{type:"Plastic"},
                 {type:"Foamed Plastic"},
                 {type:"Cloth"},
@@ -812,31 +791,52 @@ t1mControllers.controller('beachLitterItemCtrl', ['$scope', '$modalInstance',
                 {type:"Wood"},
                 {type:"Other"}           
               ],
-       specific: []
+        specific: []
    };
+
+    $scope.options.specific = litterCodeSelection(null,null);
     
+   if(sLitter==null){
+        $scope.SmallLitter = {};
+        $scope.SmallLitter.ImageSrc = [];
+
+    } else {
+        $scope.SmallLitter = sLitter;
+        for(var i = 0; i < $scope.SmallLitter.ImageSrc.length; i++){
+            $scope.ImageSrc.push(window.localStorage.getItem($scope.SmallLitter.ImageSrc[i]));
+        }
+        $scope.Specific = litterCodeSelectionByCode($scope.SmallLitter.LitterCode);
+        $scope.Type = $scope.Specific.type;
+        $scope.positiveButton = "Save";
+    }                                            
+    
+   $scope.onPhotoDataSuccess = function(imageData) {
+        var imageStoreName = saveName + "Image" + $scope.SmallLitter.ImageSrc.length;
+        $scope.SmallLitter.ImageSrc.push(imageStoreName);
+        $scope.ImageSrc.push(imageData);
+        $scope.$apply();
+        window.localStorage.setItem(imageStoreName, imageData);
+    }
+   
     $scope.litterTypeSelected = function(){
-        var codeOptions = litterCodeSelection($scope.SmallLitter.Type, null);
+        var codeOptions = litterCodeSelection($scope.Type, null);
         $scope.options.specific = codeOptions;
         $scope.Specific = null;
-        $scope.SmallLitter.Specific = null;
         $scope.SmallLitter.LitterCode = null;
     }
     
     $scope.litterSpecificSelected = function(){
         var codeOptions;
         if($scope.Specific == null){
-            $scope.SmallLitter.Specific = null;
             return;
         }
-        codeOptions = litterCodeSelection($scope.Specific.type, $scope.Specific.value);
-        console.log(codeOptions);
-        $scope.SmallLitter.Type = codeOptions.type;
-        $scope.SmallLitter.Specific = codeOptions.value;
-        $scope.SmallLitter.LitterCode = codeOptions.code;
+        codeOption = litterCodeSelection($scope.Specific.type, $scope.Specific.value);
+        $scope.Type = codeOption.type;
+        $scope.Specific = codeOption;
+        $scope.SmallLitter.LitterCode = codeOption.code;
     }
     
-    $scope.options.specific = litterCodeSelection(null,null);
+    
     
     $scope.onFail = function(message) {
       alert('Failed because: ' + message);
@@ -857,11 +857,8 @@ t1mControllers.controller('beachLitterItemCtrl', ['$scope', '$modalInstance',
     }
   
     $scope.save = function () {
-        if($scope.SmallLitter.Specific == null){
-            return;
-        }
         if($scope.SmallLitter.Description == null){
-            $scope.SmallLitter.Description = $scope.SmallLitter.Specific;
+            $scope.SmallLitter.Description = $scope.Specific.value;
         }
         $modalInstance.close($scope.SmallLitter);
     };
@@ -870,7 +867,7 @@ t1mControllers.controller('beachLitterItemCtrl', ['$scope', '$modalInstance',
         $modalInstance.dismiss('cancel');
     };
   
-}]);
+});
 
 
 t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {

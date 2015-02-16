@@ -31,7 +31,6 @@ function saveMetaDataToSurveyRecord(metaDataStorageKey, surveyStorageKey){
 function saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey, surveyStorageKey) {
     var surveyRecord = angular.fromJson(window.localStorage.getItem(surveyStorageKey));
     
-    surveyRecord.test = " " +dataSheetStorageKey;
     window.localStorage.setItem(surveyStorageKey, angular.toJson(surveyRecord, false));
     
     if(surveyRecord==null){
@@ -98,7 +97,10 @@ function saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey, surveyS
     surveyRecord - the surveyRecord that is to be populated
     instances - the array of instances to be added to the surveyRecord
 */
-function populateInstances(surveyRecord, instances){
+function populateInstances(surveyRecord, data){
+    
+    var instances = data.Instances;
+    
     if(surveyRecord == null){
         return 0;   
     }
@@ -126,6 +128,16 @@ function populateInstances(surveyRecord, instances){
         var instanceField = [];
         var instanceData = [];
         for (field in instance){
+            if(field == "ImageSrc"){
+                var images = instance[field];
+                for(var i = 0; i < images.length; i++){
+                    var imageData = window.localStorage.getItem(images[i]);
+                    if(imageData == null){ continue;}
+                    instanceField.push("Image" + i);   
+                    instanceData.push(window.localStorage.getItem(images[i]));
+                }
+                continue;
+            }
             instanceField.push(field);
             instanceData.push(instance[field]);
         }
@@ -167,7 +179,6 @@ function sendSurveyRecordToServer(recordService, surveyStorageKey){
     angular.forEach(surveyRecord, function(value, key){
         recordService[key] = value; 
     });
-    console.log(recordService);
     return recordService.$save();
 }
 
@@ -251,6 +262,19 @@ var litterCodes = [
         {code:"OT04", type:"Other", value:"Batteries (torch type)"},
         {code:"OT05", type:"Other", value:"Other (specify)"}
     ];
+
+function litterCodeSelectionByCode(code){
+    console.log("code = " + code);
+    var listCode;
+    for (var i = 0; i < litterCodes.length; i++){
+        listCode = litterCodes[i];
+        if(listCode.code == code){
+            console.log("found a code");
+            return listCode;   
+        }
+    }
+    return null;
+}
 
 function litterCodeSelection(type, specific){
     if(type == null){
