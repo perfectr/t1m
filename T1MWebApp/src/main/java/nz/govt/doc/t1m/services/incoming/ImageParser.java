@@ -30,7 +30,7 @@ public class ImageParser {
     }
 
     public ImageEntity saveImage(Integer id, String type, String image) {
-        System.out.println("!!--- ER MAH GERD I ACTUALLY GOT THE PHOTO ---!!");
+        System.out.println("New image found");
         ImageEntity imageEntity = new ImageEntity();
         imageEntity.setInstanceId(id);
         imageEntity.setInstanceType(type);

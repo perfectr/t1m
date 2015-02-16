@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by McCaulC on 3/02/2015.
@@ -39,11 +41,11 @@ public class LitterInstanceParser {
             System.out.println("New LBItem instance found");
             LBItemEntity lbItemEntity = new LBItemEntity();
             lbItemEntity.setDataSheetId(dataSheetId);
-            String image = null;
+            List<String> images = new ArrayList<String>();
             for (int j = 0 ; j < instanceField[count].length ; j++) {
 //                System.out.println(instanceField[count][j] + ": " + instanceData[count][j]);
-                if (instanceField[count][j].equals("image") || instanceField[count][j].equals("Image")) {
-                    image = instanceData[count][j];
+                if (instanceField[count][j].startsWith("Image")) {
+                    images.add(instanceData[count][j]);
                 } else {
                     try {
                         Class[] paramString = new Class[1];
@@ -52,12 +54,16 @@ public class LitterInstanceParser {
                         Method set = classType.getDeclaredMethod("set" + instanceField[count][j], paramString);
                         set.invoke(lbItemEntity, instanceData[count][j]);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
+                        System.out.println(e.toString());
                     }
                 }
             }
             LBItemEntity res = lbItemService.saveLBItem(lbItemEntity);
-            if (image != null) System.out.println(imageParser.saveImage(res.getInstanceId(),"LBItem",image).getImageString());
+            if (!images.isEmpty()) {
+                for (String image : images)
+                    System.out.println("Image array length: " + imageParser.saveImage(res.getInstanceId(),"LBItem",image).getImage().length);
+            }
             count++;
         }
     }

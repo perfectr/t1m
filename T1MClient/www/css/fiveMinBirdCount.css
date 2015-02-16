@@ -96,3 +96,7 @@ svg circle {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.addBirdToPlotText {
+    margin-top:0.2em;
+}

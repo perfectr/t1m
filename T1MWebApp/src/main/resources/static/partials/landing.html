@@ -5,8 +5,7 @@
             <table class="table table-hover">
                 <tbody>
                     <tr ng-repeat="image in imageSearchSvc.searchResponse.results">
-                        <td>{{image.imageId}}</td>
-                        <td>{{image.imageName}}</td>
+                        <td>InstanceId: {{image.instanceId}}</td>
                         <td>
                             <img style="display:none;" id="{{image.imageId}}"/>
                             {{setImage(image)}}
