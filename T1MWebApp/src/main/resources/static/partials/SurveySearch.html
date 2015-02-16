@@ -12,27 +12,26 @@
             </div>
             <table class="table table-hover">
                 <tbody>
-                <tr><td><h5>Survey ID</h5></td><td><h5>Observer Name</h5></td><td><h5>Location</h5></td><td><h5>Start Date</h5></td><td><h5>End Date</h5></td><td><h5>Survey Type</h5></td><td><h5>Received Timestamp</h5></td></tr>
-                <tr ng-repeat="survey in surveySearchSvc.searchResponse.results">
-                    <td>{{survey.surveyId}}</td>
-                    <td>{{survey.observer}}</td>
-                    <td>{{survey.locationId}}</td>
-                    <td>{{survey.startDString}}</td>
-                    <td>{{survey.endDString}}</td>
-                    <td>{{survey.surveyType}}</td>
+                <tr><td><b>Survey Type</b></td><td><b>Observer Name</b></td><td><b>Location</b></td><td><b>Received</b></td></tr>
+                <tr ng-repeat="survey in surveySearchSvc.searchResponse.results" ng-click="displayOne(survey.surveyId)">
+                    <td>{{getType(survey.surveyType)}}</td>
+                    <td>{{capFirst(survey.observer)}}</td>
+                    <td>{{capFirst(survey.locationId)}}</td>
                     <td>{{survey.receivedDString}}</td>
-                </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+                </tr>
                 </tbody>
             </table>
-            <pagination
-                    max-size="4"
-                    boundary-links="true"
-                    ng-change="pageChanged()"
-                    ng-model="surveySearchSvc.searchCriteria.pageNumber"
-                    items-per-page="surveySearchSvc.searchCriteria.pageSize"
-                    total-items="surveySearchSvc.searchResponse.total"
-                    num-pages="surveySearchSvc.searchResponse.numPages">
-            </pagination>
+            <div class="panel-body">
+                <pagination
+                        max-size="4"
+                        boundary-links="true"
+                        ng-change="pageChanged()"
+                        ng-model="surveySearchSvc.searchCriteria.pageNumber"
+                        items-per-page="surveySearchSvc.searchCriteria.pageSize"
+                        total-items="surveySearchSvc.searchResponse.total"
+                        num-pages="surveySearchSvc.searchResponse.numPages">
+                </pagination>
+            </div>
         </div>
     </div>
 </div>

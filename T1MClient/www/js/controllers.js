@@ -240,6 +240,8 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                         $scope.timer.alerted = true;
                     });
                   };
+                    
+                
     
                 $scope.options = {
                      sun: [
@@ -342,11 +344,32 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                         });
                 }
                 
+                $scope.editBirdSummary = function(bird){
+                    var modalInstance = $modal.open({
+                              templateUrl: 'modals/editSummaryModalContent.html',
+                              controller: 'SummaryModalInstanceCtrl',
+                              resolve:{
+                                  bird: function(){
+                                  return bird;
+                                }
+                              }
+                            });
+                    modalInstance.result.then(function (b) {
+                            var index = $scope.radarBirds.indexOf(b);
+                            if(index > -1){
+                                $scope.radarBirds.splice(index,1);
+                            }
+                        });
+                }
+                
+                //TEMPORARY ARRAY TO STORE THE RADAR DOTS-- should intergrate into birdCount
+                $scope.radarBirds = [];
+                
                 $scope.addBirdModal = function(){
                     
                     var modalInstance = $modal.open({
                               templateUrl: 'modals/birdModalContent.html',
-                              controller: 'birdModalInstanceCtrl'
+                              controller: 'birdModalInstanceCtrl',
                             });
                     modalInstance.result.then(function (bt) {
                             if(bt!=null){
@@ -393,7 +416,17 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                               resolve:{
                                   birds: function(){
                                       return $scope.birdCount;
+                                  },
+                                  bds: function(){
+                                      return $scope.radarBirds;
+                                  },
+                                  ct: function(){
+                                      var secs = $scope.timer.secs;
+                                      var mins = $scope.timer.mins;
+                                      var curTime = ""+mins+"."+secs;
+                                      return curTime;
                                   }
+                              
                               }
                             });
                     modalInstance.result.then(function (bt) {
@@ -426,7 +459,33 @@ t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInsta
     };
 });
 
-t1mControllers.controller('radarModalInstanceCtrl', function ($scope, $modalInstance, birds, $modal) {
+t1mControllers.controller('SummaryModalInstanceCtrl', function ($scope, $modalInstance, bird) {
+    
+    $scope.bird = bird;
+    $scope.b = {};
+    $scope.b.b = $scope.bird.bird;
+    $scope.b.c = $scope.bird.count;
+    $scope.b.comm = $scope.bird.comment;
+    
+    
+    $scope.ok = function () {
+        $scope.bird.bird = $scope.b.b;
+        $scope.bird.count = $scope.b.c;
+        $scope.bird.comment = $scope.b.comm;
+        $modalInstance.close();
+    };
+    
+    $scope.delete = function(){
+      //$window.confirm();
+      $modalInstance.close($scope.bird);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.close();
+    };
+});
+
+t1mControllers.controller('radarModalInstanceCtrl', function ($scope, $modalInstance, birds, $modal, bds, ct) {
     
     $scope.birds = birds;
     
@@ -445,7 +504,10 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope, $modalInst
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-    
+    $scope.addRadarbird = function(b){
+        bds.push({time:ct,bird:b.bird,dist:"(distance)",count:1,comment:""});
+        $scope.ok();
+    }
     $scope.addRadarIncrModal = function(b){
                     $scope.ok();
                     var modalInstance = $modal.open({
@@ -490,7 +552,7 @@ t1mControllers.controller('radarIncrModalInstanceCtrl', function ($scope, $modal
 
 t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInstance) {
                 
-            $scope.birdSpecies = [
+                $scope.birdSpecies = [
                             {text:'Bellbird'},
                             {text:'Blackbird'},
                             {text:'Blue Duck'},
@@ -539,7 +601,7 @@ t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInsta
     
               $scope.birdPress = function(birdType){
                   $scope.birdText = birdType;
-                 /* $scope.ok();*/
+                  $scope.ok();
               }
     
               $scope.ok = function () {

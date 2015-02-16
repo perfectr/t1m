@@ -38,6 +38,13 @@ public class  SurveyService {
         return res;
     }
 
+    @Transactional
+    public Response<SurveyEntity> saveSurvey(SurveyEntity survey) {
+        SurveyEntity surveyResponse = surveyRepository.save(survey);
+        return new Response<>(surveyResponse);
+    }
+
+
     public void removeSurvey(Integer surveyId) {
         surveyRepository.delete(surveyId);
     }

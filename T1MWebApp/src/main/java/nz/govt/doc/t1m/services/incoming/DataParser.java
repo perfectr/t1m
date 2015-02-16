@@ -55,14 +55,14 @@ public class DataParser {
     }
 
     public void saveDataSheets(Integer surveyId) {
-        if (dataForm.getTyp().equals("bird")) {
+        if (dataForm.getTyp().contains("ird")) {
             System.out.println("New bird survey found");
             birdInstanceParser.initialize(dataForm.getInf(), dataForm.getInd());
             for (int i = 0 ; i < dataSheetType.length ; i++) {
                 birdParser.initialize(field[i], data[i]);
                 birdParser.saveEntity(dataSheetType[i], surveyId);
             }
-        } else if (dataForm.getTyp().equals("litter")) {
+        } else if (dataForm.getTyp().contains("itter")) {
             System.out.println("New litter survey found");
             litterInstanceParser.initialize(dataForm.getInf(), dataForm.getInd());
             for (int i = 0 ; i < dataSheetType.length ; i++) {
