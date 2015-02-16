@@ -6,13 +6,24 @@
 function saveMetaDataToSurveyRecord(metaDataStorageKey, surveyStorageKey){
     var surveyRecord = angular.fromJson(window.localStorage.getItem(surveyStorageKey));
 
-    
+    var metaData = angular.fromJson(window.localStorage.getItem(metaDataStorageKey));
      
+     angular.forEach(metaData, function(value, key){
+        surveyRecord[key] = value;
+     });
+    
+    if(surveyRecord.sli == null){
         surveyRecord.sli = "test";
-        surveyRecord.sdt = "2015-11-11";
-        surveyRecord.edt = "2015-11-11";
+    } 
+    if(surveyRecord.sdt == null){
+        surveyRecord.sdt = "1970-01-01";
+    } 
+    if(surveyRecord.edt == null){
+        surveyRecord.edt = "1970-01-01";
+    } 
+    if(surveyRecord.obs == null){
         surveyRecord.obs = "test";
-        surveyRecord.typ = "litter";
+    } 
         surveyRecord.dst = [];
         surveyRecord.fld = [];
         surveyRecord.dat = [];
