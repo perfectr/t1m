@@ -264,12 +264,10 @@ var litterCodes = [
     ];
 
 function litterCodeSelectionByCode(code){
-    console.log("code = " + code);
     var listCode;
     for (var i = 0; i < litterCodes.length; i++){
         listCode = litterCodes[i];
         if(listCode.code == code){
-            console.log("found a code");
             return listCode;   
         }
     }
