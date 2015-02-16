@@ -362,9 +362,10 @@ myAppControllers.controller('ImageSearchCtrl', ['$scope', '$window', 'ImageSearc
     }
 
     $scope.scaleImage = function(id) {
-        var scale = 1;
+        var scale = 0.5;
         var height = $('#'+id).height();
         var width = $('#'+id).width();
+        scale = 500/height;
         $('#'+id).height(height*scale);
         $('#'+id).width(width*scale);
     }

@@ -164,11 +164,12 @@
                                 <div>
                                     <ul class="list-group">
                                         <li ng-repeat="litter in litterBeach.Instances.Instances" class="list-group-item" 
-                                            ng-click="loadLitterModal(litter, $index)">{{litter.Description}}</li>
+                                            ng-click="loadLitterModal($index)">{{litter.Description}}</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                            <br>
                         <div class="row">
                             <div class="col-xs-5">
                                 <h4>Notes</h4>
@@ -191,8 +192,8 @@
                 <!--</tab>
             </tabset>-->
             
-            <!--<p>{{litterBeach}}</p>
-            <p>{{testLitterBeach}}</p>-->
+            <p>{{litterBeach}}</p>
+            <!--<p>{{testLitterBeach}}</p>-->
         </div>
         
         <script type="text/javascript" src="../cordova.js"></script>
