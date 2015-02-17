@@ -30,10 +30,8 @@ public class LitterBeachController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public Response<LitterBeachEntity> saveLitterBeach(@RequestBody String json) {
-        //return litterBeachService.saveLitterBeach(new LitterBeachEntity());
-        System.out.println(json);
-        return null;
+    public Response<LitterBeachEntity> saveLitterBeach(@RequestBody Response<LitterBeachEntity> request) {
+        return new Response<>(litterBeachService.saveLitterBeach(request.getModel()));
     }
 
     @RequestMapping(value = "/{litterBeachId}", method = RequestMethod.DELETE)

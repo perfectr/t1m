@@ -110,6 +110,10 @@ myAppControllers.controller('BirdCountSearchCtrl', ['$scope', '$window', 'BirdCo
         $window.location.href = '#/birdCount/edit/-1';
     }
 
+    $scope.displayOne = function(id) {
+        $window.location.href = '#/birdCount/edit/'+id;
+    }
+
     $scope.pageChanged();
 }]);
 
@@ -134,6 +138,10 @@ myAppControllers.controller('BCBirdSearchCtrl', ['$scope', '$window', 'BCBirdSea
 
     $scope.newAction = function() {
         $window.location.href = '#/bcBird/edit/-1';
+    }
+
+    $scope.displayOne = function(id) {
+        $window.location.href = '#/bcBird/edit/'+id;
     }
 
     $scope.pageChanged();
@@ -240,6 +248,10 @@ myAppControllers.controller('LitterBeachSearchCtrl', ['$scope', '$window', 'Litt
         $window.location.href = '#/litterBeach/edit/-1';
     }
 
+    $scope.displayOne = function(id) {
+        $window.location.href = '#/litterBeach/edit/'+id;
+    }
+
     $scope.pageChanged();
 }]);
 
@@ -264,6 +276,10 @@ myAppControllers.controller('LBItemSearchCtrl', ['$scope', '$window', 'LBItemSea
 
     $scope.newAction = function() {
         $window.location.href = '#/lbItem/edit/-1';
+    }
+
+    $scope.displayOne = function(id) {
+        $window.location.href = '#/lbItem/edit/'+id;
     }
 
     $scope.pageChanged();
@@ -352,8 +368,6 @@ myAppControllers.controller('BeachCharacterizationSearchCtrl', ['$scope', '$wind
 }]);
 
 
-
-
 myAppControllers.controller('ImageSearchCtrl', ['$scope', '$window', 'ImageSearchSvc', function($scope, $window, ImageSearchSvc) {
 
     $scope.imageSearchSvc = ImageSearchSvc;
@@ -390,8 +404,6 @@ myAppControllers.controller('ImageSearchCtrl', ['$scope', '$window', 'ImageSearc
 
     $scope.pageChanged();
 }]);
-
-
 
 
 
@@ -501,6 +513,11 @@ myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$windo
         });
     }
 
+    $scope.goBack = function(){
+        $window.location.href = '#/survey/search';
+        $scope.refresh();
+    }
+
     $scope.refresh();
 }]);
 
@@ -556,12 +573,120 @@ myAppControllers.controller('BeachCharEditCtrl', ['$scope', '$routeParams', '$wi
     }
 
     $scope.goBack = function(){
-        $window.location.href = 'beachCharacterization/search';
+        $window.location.href = '#/beachCharacterization/search';
         $scope.refresh();
     }
 
     $scope.goToSurvey = function(id) {
         $window.location.href = '#/survey/edit/'+id;
+    }
+
+    $scope.refresh();
+}]);
+
+myAppControllers.controller('BirdCountEditCtrl', ['$scope', '$routeParams', '$window', 'BirdCountSvc', function($scope, $routeParams, $window, BirdCountSvc) {
+
+    // TODO: replace with proper security
+    $scope.currentUser = {};
+    $scope.currentUser.administrator = true;
+
+    $scope.editMode = false;
+
+    $scope.refresh = function() {
+        var dataSheetId = $routeParams.dataSheetId;
+        if(dataSheetId > 0) {
+            $scope.selectedBirdCount = BirdCountSvc.get({dataSheetId: dataSheetId});
+        }
+    }
+
+    $scope.goBack = function(){
+        $window.location.href = '#/birdCount/search';
+        $scope.refresh();
+    }
+
+    $scope.goToSurvey = function(id) {
+        $window.location.href = '#/survey/edit/'+id;
+    }
+
+    $scope.refresh();
+}]);
+
+myAppControllers.controller('BCBirdEditCtrl', ['$scope', '$routeParams', '$window', 'BCBirdSvc', function($scope, $routeParams, $window, BCBirdSvc) {
+
+    // TODO: replace with proper security
+    $scope.currentUser = {};
+    $scope.currentUser.administrator = true;
+
+    $scope.editMode = false;
+
+    $scope.refresh = function() {
+        var instanceId = $routeParams.instanceId;
+        if(instanceId > 0) {
+            $scope.selectedBCBird = BCBirdSvc.get({instanceId: instanceId});
+        }
+    }
+
+    $scope.goBack = function(){
+        $window.location.href = '#/bcBird/search';
+        $scope.refresh();
+    }
+
+    $scope.goToDataSheet = function(id) {
+        $window.location.href = '#/birdCount/edit/'+id;
+    }
+
+    $scope.refresh();
+}]);
+
+myAppControllers.controller('LitterBeachEditCtrl', ['$scope', '$routeParams', '$window', 'LitterBeachSvc', function($scope, $routeParams, $window, LitterBeachSvc) {
+
+    // TODO: replace with proper security
+    $scope.currentUser = {};
+    $scope.currentUser.administrator = true;
+
+    $scope.editMode = false;
+
+    $scope.refresh = function() {
+        var dataSheetId = $routeParams.dataSheetId;
+        if(dataSheetId > 0) {
+            $scope.selectedLitterBeach = LitterBeachSvc.get({dataSheetId: dataSheetId});
+        }
+    }
+
+    $scope.goBack = function(){
+        $window.location.href = '#/litterBeach/search';
+        $scope.refresh();
+    }
+
+    $scope.goToSurvey = function(id) {
+        $window.location.href = '#/survey/edit/'+id;
+    }
+
+    $scope.refresh();
+}]);
+
+myAppControllers.controller('LBItemEditCtrl', ['$scope', '$routeParams', '$window', 'LBItemSvc', function($scope, $routeParams, $window, LBItemSvc) {
+
+    // TODO: replace with proper security
+    $scope.currentUser = {};
+    $scope.currentUser.administrator = true;
+
+    $scope.editMode = false;
+
+    $scope.refresh = function() {
+        var instanceId = $routeParams.instanceId;
+        if(instanceId > 0) {
+            $scope.selectedLBItem = LBItemSvc.get({instanceId: instanceId});
+        }
+    }
+
+    $scope.goBack = function(){
+        $window.location.href = '#/lbItem/search';
+        $scope.refresh();
+    }
+
+    $scope.goToDataSheet = function(id) {
+        $window.location.href = '#/litterBeach/edit/'+id;
     }
 
     $scope.refresh();

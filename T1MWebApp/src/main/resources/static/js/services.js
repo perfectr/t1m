@@ -121,7 +121,7 @@ myAppServices.factory('SurveySearchSvc', ['$http', function($http) {
 
 myAppServices.factory('BirdCountSvc', ['$resource', function($resource){
     return $resource('/rest/birdCount/:dataSheetId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{dataSheetId:'search'}, isArray:false}
     });
 }]);
 
@@ -159,7 +159,7 @@ myAppServices.factory('BirdCountSearchSvc', ['$http', function($http) {
 
 myAppServices.factory('BCBirdSvc', ['$resource', function($resource){
     return $resource('/rest/bcBird/:instanceId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{instanceId:'search'}, isArray:false}
     });
 }]);
 
@@ -197,7 +197,7 @@ myAppServices.factory('BCBirdSearchSvc', ['$http', function($http) {
 
 myAppServices.factory('BirdDistanceSvc', ['$resource', function($resource){
     return $resource('/rest/birdDistance/:dataSheetId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{dataSheetId:'search'}, isArray:false}
     });
 }]);
 
@@ -235,7 +235,7 @@ myAppServices.factory('BirdDistanceSearchSvc', ['$http', function($http) {
 
 myAppServices.factory('BDBirdSvc', ['$resource', function($resource){
     return $resource('/rest/bdBird/:instanceId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{instanceId:'search'}, isArray:false}
     });
 }]);
 
@@ -273,7 +273,7 @@ myAppServices.factory('BDBirdSearchSvc', ['$http', function($http) {
 
 myAppServices.factory('IncidentalBirdSvc', ['$resource', function($resource){
     return $resource('/rest/incidentalBird/:dataSheetId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{dataSheetId:'search'}, isArray:false}
     });
 }]);
 
@@ -311,7 +311,7 @@ myAppServices.factory('IncidentalBirdSearchSvc', ['$http', function($http) {
 
 myAppServices.factory('LitterBeachSvc', ['$resource', function($resource){
     return $resource('/rest/litterBeach/:dataSheetId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{dataSheetId:'search'}, isArray:false}
     });
 }]);
 
@@ -349,7 +349,7 @@ myAppServices.factory('LitterBeachSearchSvc', ['$http', function($http) {
 
 myAppServices.factory('LBItemSvc', ['$resource', function($resource){
     return $resource('/rest/lbItem/:instanceId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{instanceId:'search'}, isArray:false}
     });
 }]);
 
@@ -387,7 +387,7 @@ myAppServices.factory('LBItemSearchSvc', ['$http', function($http) {
 
 myAppServices.factory('LitterLargeSvc', ['$resource', function($resource){
     return $resource('/rest/litterLarge/:dataSheetId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{dataSheetId:'search'}, isArray:false}
     });
 }]);
 
@@ -425,7 +425,7 @@ myAppServices.factory('LitterLargeSearchSvc', ['$http', function($http) {
 
 myAppServices.factory('LLItemSvc', ['$resource', function($resource){
     return $resource('/rest/llItem/:instanceId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{instanceId:'search'}, isArray:false}
     });
 }]);
 
@@ -463,7 +463,7 @@ myAppServices.factory('LLItemSearchSvc', ['$http', function($http) {
 
 myAppServices.factory('BeachCharacterizationSvc', ['$resource', function($resource){
     return $resource('/rest/beachCharacterization/:dataSheetId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{dataSheetId:'search'}, isArray:false}
     });
 }]);
 
@@ -503,7 +503,7 @@ myAppServices.factory('BeachCharacterizationSearchSvc', ['$http', function($http
 
 myAppServices.factory('ImageSvc', ['$resource', function($resource){
     return $resource('/rest/image/:imageId', {}, {
-      query: {method:'GET', params:{surveyId:'search'}, isArray:false}
+      query: {method:'GET', params:{imageId:'search'}, isArray:false}
     });
 }]);
 

@@ -29,10 +29,8 @@ public class BirdCountController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public Response<BirdCountEntity> saveBirdCount(@RequestBody String json) {
-        //return birdCountService.saveBirdCount(new BirdCountEntity());
-        System.out.println(json);
-        return null;
+    public Response<BirdCountEntity> saveBirdCount(@RequestBody Response<BirdCountEntity> request) {
+        return new Response<>(birdCountService.saveBirdCount(request.getModel()));
     }
 
     @RequestMapping(value = "/{birdCountId}", method = RequestMethod.DELETE)

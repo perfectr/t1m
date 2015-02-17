@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-sm-12">
+        <table width="100%;">
+            <tr><td><h3>Small Litter Details</h3></td></tr>
+            <tr><td colspan="2"><hr style="margin-top: 0px;"></td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-repeat="msg in selectedPerson.responseMessages">
+            <div class="alert alert-danger" role="alert">{{msg.description}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row" >
+    <dl class="dl-horizontal">
+        <dt>DataSheet ID</dt><dd>{{selectedLitterBeach.model.dataSheetId}}</dd>
+        <dt>Survey ID</dt><dd><a ng-click="goToSurvey(selectedLitterBeach.model.surveyId)">{{selectedLitterBeach.model.surveyId}}</a></dd>
+        <dt>Last Survey Date</dt><dd>{{selectedLitterBeach.model.lastSurveyDate}}</dd>
+        <dt>Latitude Start</dt><dd>{{selectedLitterBeach.model.latitudeStart}}</dd>
+        <dt>Longitude Start</dt><dd>{{selectedLitterBeach.model.longitudeStart}}</dd>
+        <dt>Latitude End</dt><dd>{{selectedLitterBeach.model.latitudeEnd}}</dd>
+        <dt>Longitude End</dt><dd>{{selectedLitterBeach.model.longitudeEnd}}</dd>
+        <dt>Coordinates System</dt><dd>{{selectedLitterBeach.model.coordSystem}}</dd>
+        <dt>Time Start</dt><dd>{{selectedLitterBeach.model.timeStart}}</dd>
+        <dt>Time End</dt><dd>{{selectedLitterBeach.model.timeEnd}}</dd>
+        <dt>Season</dt><dd>{{selectedLitterBeach.model.season}}</dd>
+        <dt>Storm Activity</dt><dd>{{selectedLitterBeach.model.stormActivity}}</dd>
+        <dt>Beach Length</dt><dd>{{selectedLitterBeach.model.beachLength}}</dd>
+        <dt>Beach Width</dt><dd>{{selectedLitterBeach.model.beachWidth}}</dd>
+        <dt>Persons Surveying</dt><dd>{{selectedLitterBeach.model.personsSurveying}}</dd>
+        <dt>Notes</dt><dd>{{selectedLitterBeach.model.notes}}</dd>
+    </dl>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <hr>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8" align="right">
+            <button type="button" class="btn btn-default" ng-click="goBack()">Back</button>
+        </div>
+    </div>
+</div>

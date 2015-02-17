@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-sm-12">
+        <table width="100%;">
+            <tr><td><h3>Bird Count Details</h3></td></tr>
+            <tr><td colspan="2"><hr style="margin-top: 0px;"></td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-repeat="msg in selectedPerson.responseMessages">
+            <div class="alert alert-danger" role="alert">{{msg.description}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row" >
+    <dl class="dl-horizontal">
+        <dt>DataSheet ID</dt><dd>{{selectedBirdCount.model.dataSheetId}}</dd>
+        <dt>Survey ID</dt><dd><a ng-click="goToSurvey(selectedBirdCount.model.surveyId)">{{selectedBirdCount.model.surveyId}}</a></dd>
+        <dt>Station ID</dt><dd>{{selectedLitterBeach.model.stationId}}</dd>
+        <dt>Was Skipped</dt><dd>{{selectedLitterBeach.model.stationSkipped}}</dd>
+        <dt>Reason for Skipping</dt><dd>{{selectedLitterBeach.model.reasonSkipped}}</dd>
+        <dt>Start Time</dt><dd>{{selectedLitterBeach.model.startTime}}</dd>
+        <dt>Temperature</dt><dd>{{selectedLitterBeach.model.temp}}</dd>
+        <dt>Sun</dt><dd>{{selectedLitterBeach.model.sun}}</dd>
+        <dt>Precipitation</dt><dd>{{selectedLitterBeach.model.precipitation}}</dd>
+        <dt>Wind</dt><dd>{{selectedLitterBeach.model.wind}}</dd>
+        <dt>Other Noise</dt><dd>{{selectedLitterBeach.model.otherNoise}}</dd>
+        <dt>GPS Unit</dt><dd>{{selectedLitterBeach.model.gpsUnit}}</dd>
+        <dt>Easting</dt><dd>{{selectedLitterBeach.model.easting}}</dd>
+        <dt>Northing</dt><dd>{{selectedLitterBeach.model.northing}}</dd>
+        <dt>Position</dt><dd>{{selectedLitterBeach.model.position}}</dd>
+        <dt>Elevation</dt><dd>{{selectedLitterBeach.model.elevation}}</dd>
+        <dt>Notes</dt><dd>{{selectedLitterBeach.model.notes}}</dd>
+    </dl>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <hr>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8" align="right">
+            <button type="button" class="btn btn-default" ng-click="goBack()">Back</button>
+        </div>
+    </div>
+</div>
