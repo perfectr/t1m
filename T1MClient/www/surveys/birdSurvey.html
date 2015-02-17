@@ -35,60 +35,65 @@
         <title>birdSurvey</title>
     </head>
     <body>
-        <div ng-app="t1mApp" class="app" ng-controller="t1mBirdSurveyCtrl" >
-            <h3>{{currentSurvey}}</h3>
-            <!--<h4>{{curSurveyData}}</h4>
-            <h4>{{curSurveyMeta}}</h4>-->
-            <tabset justified='true'>
-                <tab heading='Data Sheets'>
-                    <div class="inner">
-                        <br>
-                        <div class ="panel panel-default" style="padding:5%;">
-                            <ul class="list-group">
-                                <li class="list-group-item list-group-item-info">Data sheets</li>
-                                <li class="list-group-item" ng-click="loadDataSheet()">Incidental Bird Sighting</li>
-                                <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station X</li>
-                                <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station X</li>
-                                <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station A</li>
-                                <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station A</li>
-                                <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station D</li>
-                                <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station D</li>
-                                <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station M</li>
-                                <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station M</li>     
-                                <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station P</li> 
-                                <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station P</li>                        
-                            </ul>
+        <div class="container-fluid">
+            <div class="row" style="background: #90AE57;">
+                <img src="../img/t1monitor_logo_small.png">
+            </div>
+            <div ng-app="t1mApp" class="app" ng-controller="t1mBirdSurveyCtrl" >
+                <h3>{{currentSurvey}}</h3>
+                <!--<h4>{{curSurveyData}}</h4>
+                <h4>{{curSurveyMeta}}</h4>-->
+                <tabset justified='true'>
+                    <tab heading='Data Sheets'>
+                        <div class="inner">
+                            <br>
+                            <div class ="panel panel-default" style="padding:5%;">
+                                <ul class="list-group">
+                                    <li class="list-group-item list-group-item-info">Data sheets</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">Incidental Bird Sighting</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station X</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station X</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station A</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station A</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station D</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station D</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station M</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station M</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">Dist. Station P</li>
+                                    <li class="list-group-item" ng-click="loadDataSheet()">5MBC Station P</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </tab>
-                <tab heading="Survey Info/Upload">
-                    <div class="inner">
-                        <br>
-                        <div class ="panel panel-default" style="padding:5%;">
-                            <form>
-                                <div class="form-group">
-                                    <label>Recorder</label>
-                                    <input type="text" class="form-control" ng-model="curSurveyMeta.recorder">
-                                </div>
-                                <div class="form-group">
-                                    <label>Start Date</label>
-                                    <input type="date" class="form-control" ng-model="curSurveyMeta.startDate">
-                                </div>
-                                <div class="form-group">
-                                    <label>End Date</label>
-                                    <input type="date" class="form-control" ng-model="curSurveyMeta.endDate">
-                                </div>
-                                <div class="form-group">
-                                    <label>Location</label>
-                                    <input type="text" class="form-control" ng-model="curSurveyMeta.location">
-                                </div>
-                                <button class="btn btn-info">Submit</button>
-                            </form>
-                        </div>    
-                    </div>    
-                </tab>
+                    </tab>
+                    <tab heading="Survey Info/Upload">
+                        <div class="inner">
+                            <br>
+                            <div class ="panel panel-default" style="padding:5%;">
+                                <form>
+                                    <div class="form-group">
+                                        <label>Recorder</label>
+                                        <input type="text" class="form-control" ng-model="curSurveyMeta.recorder">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Start Date</label>
+                                        <input type="date" class="form-control" ng-model="curSurveyMeta.startDate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>End Date</label>
+                                        <input type="date" class="form-control" ng-model="curSurveyMeta.endDate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <input type="text" class="form-control" ng-model="curSurveyMeta.location">
+                                    </div>
+                                    <button class="btn btn-info">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </tab>
 
-            </tabset>
+                </tabset>
+            </div>
         </div>
         
         <script type="text/javascript" src="../cordova.js"></script>
