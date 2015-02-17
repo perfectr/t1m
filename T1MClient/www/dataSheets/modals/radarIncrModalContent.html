@@ -5,14 +5,14 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-xs-3">Count:</div>
-        <div class="col-xs-3">{{count}}</div>
-        <div class="col-xs-3">
+        <div class="col-xs-4"><input class="form-control" type="number" ng-model="count"></div>
+        <div class="col-xs-2">
             <button class="btn btn-incrementBird" ng-click="countInc('plus')">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true">
                 </span>
             </button>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-2">
             <button class="btn btn-incrementBird" ng-click="countInc('min')">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true">
                 </span>

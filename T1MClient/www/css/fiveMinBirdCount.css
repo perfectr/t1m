@@ -97,6 +97,7 @@ svg circle {
     text-overflow: ellipsis;
 }
 
+
 .addBirdToPlotText {
     margin-top:0.2em;
 }
@@ -105,4 +106,12 @@ svg circle {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.listButton {
+     
+}
+
+.formNumber {
+    width: 3em;
 }

@@ -102,7 +102,10 @@
                         </div>
                     </div>
                     <br>
-                    <div class="radar" ng-click="addTouch($event)" ng-style="{height: $element.offsetWidth}">
+                    <div class="radar" 
+                         id="radar" 
+                         ng-click="addTouch($event)" 
+                         ng-style="{height: $element.offsetWidth}">
                         <svg class="touches">
                             <circle ng-repeat="touch in touches" 
                                     cx="{{touch.x}}" 
@@ -112,12 +115,6 @@
                                     fill-opacity="0.8"/>
                         </svg>
                     </div>
-                    
-                    <p>{{radarBirds}}hi</p>
-                    <br>
-                    <p>{{touches}}</p>
-                    <p>{{birdCount}}</p>
-
                 </tab>
                 
                 <tab heading='Site' select="intoJson" >
@@ -227,7 +224,6 @@
                         </tr>
                     </table>
                     <p style="color:grey;">(Touch a row to edit)</p>
-                    <p>{{radarBirds}}</p>
                 </tab>
                 
             </tabset>

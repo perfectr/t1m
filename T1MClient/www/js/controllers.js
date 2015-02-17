@@ -158,11 +158,21 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                     $scope.birdCount.push({bird:bt,near:0,far:0,veryFar:0,notes:""});
                 }
                 
+                
+                //initialising radar.
+                
+                $scope.radar = {};
+                $scope.radar.height;         
+                $scope.radar.center;
+
+                
+                
                 $scope.touches = [];
                 $scope.x;
                 $scope.y;
-                $scope.addTouch = function(event){
+                $scope.addTouch = function(event, element){
                     
+                    $scope.doRadarHeight();
                     $scope.getX(event);
                     $scope.getY(event);
                     $scope.addRadarModal();
@@ -173,6 +183,17 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                         });*/
                     
                 };
+                                                          
+                $scope.doRadarHeight = function(){
+                    $scope.radar.height = document.getElementById("radar").clientHeight;
+                    $scope.radar.width = document.getElementById("radar").clientWidth;
+                    if($scope.radar.height < $scope.radar.width){
+                        $scope.radar.center = $scope.radar.height/2;
+                    } else {
+                        $scope.radar.center = $scope.radar.width/2;
+                    }
+                    
+                }
                                                           
                 $scope.getX = function(event){
                     $scope.x = event.offsetX;
@@ -375,7 +396,6 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                         });
                 }
                 
-                //TEMPORARY ARRAY TO STORE THE RADAR DOTS-- should intergrate into birdCount
                 $scope.radarBirds = [];
                 
                 $scope.addBirdModal = function(){
@@ -447,6 +467,9 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                                   },
                                   y: function(){
                                       return $scope.y;
+                                  },
+                                  radius: function(){
+                                      return $scope.radar.center;
                                   }
                                   
                               
@@ -517,7 +540,8 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
                                                                ct, 
                                                                touches,
                                                                x,
-                                                               y) {
+                                                               y,
+                                                               radius) {
     
     $scope.birds = birds;
     
@@ -537,11 +561,26 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
         $modalInstance.dismiss('cancel');
     };
     $scope.addRadarbird = function(b){
-        bds.push({time:ct,bird:b.bird,dist:"(distance)",count:1,comment:"","x":x, "y":y});
+        
+        var xSq = Math.pow((x-radius),2);
+        var ySq = Math.pow((y-radius),2);
+        var distance = Math.sqrt((ySq+xSq));
+        var dis;
+        if(distance < radius*0.4){
+            dis="Near";
+        } else if(distance < radius*0.8){
+            dis="Far";
+        } else {
+            dis="Very Far";
+        }
+        
+        
+        bds.push({time:ct,bird:b.bird,dist:dis,count:1,comment:"","x":x, "y":y});
         touches.push({"x": x, "y": y});
         $scope.$apply;
         $scope.ok();
     }
+    
     $scope.addRadarIncrModal = function(b){
                     $scope.ok();
                     var modalInstance = $modal.open({
@@ -563,7 +602,7 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
 t1mControllers.controller('radarIncrModalInstanceCtrl', function ($scope, $modalInstance, bird) {
     
     $scope.bird = bird;
-    $scope.count = 0;
+    $scope.count = 1;
     
     $scope.countInc = function(v){
         if(v=='min'){
