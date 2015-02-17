@@ -30,7 +30,6 @@ myAppControllers.controller('PersonSearchCtrl', ['$scope', '$window', 'PersonSea
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         PersonSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -56,7 +55,6 @@ myAppControllers.controller('SurveySearchCtrl', ['$scope', '$window', 'SurveySea
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         SurveySearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -96,7 +94,6 @@ myAppControllers.controller('BirdCountSearchCtrl', ['$scope', '$window', 'BirdCo
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         BirdCountSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -126,7 +123,6 @@ myAppControllers.controller('BCBirdSearchCtrl', ['$scope', '$window', 'BCBirdSea
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         BCBirdSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -156,7 +152,6 @@ myAppControllers.controller('BirdDistanceSearchCtrl', ['$scope', '$window', 'Bir
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         BirdDistanceSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -182,7 +177,6 @@ myAppControllers.controller('BDBirdSearchCtrl', ['$scope', '$window', 'BDBirdSea
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         BDBirdSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -208,7 +202,6 @@ myAppControllers.controller('IncidentalBirdSearchCtrl', ['$scope', '$window', 'I
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         IncidentalBirdSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -234,7 +227,6 @@ myAppControllers.controller('LitterBeachSearchCtrl', ['$scope', '$window', 'Litt
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         LitterBeachSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -264,7 +256,6 @@ myAppControllers.controller('LBItemSearchCtrl', ['$scope', '$window', 'LBItemSea
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         LBItemSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -294,7 +285,6 @@ myAppControllers.controller('LitterLargeSearchCtrl', ['$scope', '$window', 'Litt
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         LitterLargeSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -320,7 +310,6 @@ myAppControllers.controller('LLItemSearchCtrl', ['$scope', '$window', 'LLItemSea
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         LLItemSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -346,7 +335,6 @@ myAppControllers.controller('BeachCharacterizationSearchCtrl', ['$scope', '$wind
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         BeachCharacterizationSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -377,7 +365,6 @@ myAppControllers.controller('ImageSearchCtrl', ['$scope', '$window', 'ImageSearc
     };
 
     $scope.searchAction = function() {
-        // user clicking the search button always resets the pageNumber
         ImageSearchSvc.searchCriteria.pageNumber = 1;
         $scope.pageChanged();
     }
@@ -394,12 +381,15 @@ myAppControllers.controller('ImageSearchCtrl', ['$scope', '$window', 'ImageSearc
     }
 
     $scope.scaleImage = function(id) {
-        var scale = 0.5;
+        var scale = 1;
         var height = $('#'+id).height();
         var width = $('#'+id).width();
-        scale = 500/height;
-        $('#'+id).height(height*scale);
-        $('#'+id).width(width*scale);
+        if (height > width) { scale = 500/height; }
+        else { scale = 500/width; }
+        if (scale < 1) {
+            $('#'+id).height(height*scale);
+            $('#'+id).width(width*scale);
+        }
     }
 
     $scope.pageChanged();
@@ -438,7 +428,6 @@ myAppControllers.controller('PersonEditCtrl', ['$scope', '$routeParams', '$windo
         $scope.editMode = false;
 
         if($routeParams.personId > 0) {
-            // if not new reload the selected report to get rid of any edits
             $scope.refresh();
         }
         else {
@@ -451,7 +440,6 @@ myAppControllers.controller('PersonEditCtrl', ['$scope', '$routeParams', '$windo
             console.log("responseMessages = " + data.responseMessages);
             var hasNoErrors = data.responseMessages.length === 0;
             if(hasNoErrors) {
-                // redirect the browser with the save report's reportId so that new reports get switched to the right url
                 $window.location.href = '#/person/edit/' + data.model.personId;
                 $scope.editMode = false;
                 $scope.refresh();
@@ -464,7 +452,6 @@ myAppControllers.controller('PersonEditCtrl', ['$scope', '$routeParams', '$windo
 
 myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$window', 'SurveySvc', function($scope, $routeParams, $window, SurveySvc) {
 
-    // TODO: replace with proper security
     $scope.currentUser = {};
     $scope.currentUser.administrator = true;
 
@@ -492,7 +479,6 @@ myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$windo
         $scope.editMode = false;
 
         if($routeParams.surveyId > 0) {
-            // if not new reload the selected report to get rid of any edits
             $scope.refresh();
         }
         else {
@@ -505,7 +491,6 @@ myAppControllers.controller('SurveyEditCtrl', ['$scope', '$routeParams', '$windo
             console.log("responseMessages = " + data.responseMessages);
             var hasNoErrors = data.responseMessages.length === 0;
             if(hasNoErrors) {
-                // redirect the browser with the save report's reportId so that new reports get switched to the right url
                 $window.location.href = '#/survey/search';
                 $scope.editMode = false;
                 $scope.refresh();
@@ -551,7 +536,6 @@ myAppControllers.controller('BeachCharEditCtrl', ['$scope', '$routeParams', '$wi
         $scope.editMode = false;
 
         if($routeParams.dataSheetId > 0) {
-            // if not new reload the selected report to get rid of any edits
             $scope.refresh();
         }
         else {
@@ -564,7 +548,6 @@ myAppControllers.controller('BeachCharEditCtrl', ['$scope', '$routeParams', '$wi
             console.log("responseMessages = " + data.responseMessages);
             var hasNoErrors = data.responseMessages.length === 0;
             if(hasNoErrors) {
-                // redirect the browser with the save report's reportId so that new reports get switched to the right url
                 $window.location.href = '#/beachChar/edit/'+$routeParams.dataSheetId;
                 $scope.editMode = false;
                 $scope.refresh();
@@ -586,7 +569,6 @@ myAppControllers.controller('BeachCharEditCtrl', ['$scope', '$routeParams', '$wi
 
 myAppControllers.controller('BirdCountEditCtrl', ['$scope', '$routeParams', '$window', 'BirdCountSvc', function($scope, $routeParams, $window, BirdCountSvc) {
 
-    // TODO: replace with proper security
     $scope.currentUser = {};
     $scope.currentUser.administrator = true;
 
@@ -613,7 +595,6 @@ myAppControllers.controller('BirdCountEditCtrl', ['$scope', '$routeParams', '$wi
 
 myAppControllers.controller('BCBirdEditCtrl', ['$scope', '$routeParams', '$window', 'BCBirdSvc', function($scope, $routeParams, $window, BCBirdSvc) {
 
-    // TODO: replace with proper security
     $scope.currentUser = {};
     $scope.currentUser.administrator = true;
 
@@ -640,7 +621,6 @@ myAppControllers.controller('BCBirdEditCtrl', ['$scope', '$routeParams', '$windo
 
 myAppControllers.controller('LitterBeachEditCtrl', ['$scope', '$routeParams', '$window', 'LitterBeachSvc', function($scope, $routeParams, $window, LitterBeachSvc) {
 
-    // TODO: replace with proper security
     $scope.currentUser = {};
     $scope.currentUser.administrator = true;
 
@@ -667,7 +647,6 @@ myAppControllers.controller('LitterBeachEditCtrl', ['$scope', '$routeParams', '$
 
 myAppControllers.controller('LBItemEditCtrl', ['$scope', '$routeParams', '$window', 'LBItemSvc', function($scope, $routeParams, $window, LBItemSvc) {
 
-    // TODO: replace with proper security
     $scope.currentUser = {};
     $scope.currentUser.administrator = true;
 
