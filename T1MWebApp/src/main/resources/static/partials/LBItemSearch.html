@@ -1,17 +1,17 @@
 <div class="row">
     <div class="col-md-8">
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>BL Item Instances Received</h4></div>
+            <div class="panel-heading"><h4>Small Litter Item Instances Received</h4></div>
             <table class="table table-hover">
                 <tbody>
                 <tr><td><h5>Instance ID</h5></td><td><h5>Data Sheet ID</h5></td><td><h5>Litter Code</h5></td><td><h5>Description</h5></td><td><h5>Notes</h5></td></tr>
-                <tr ng-repeat="lbItem in lbItemSearchSvc.searchResponse.results">
+                <tr ng-repeat="lbItem in lbItemSearchSvc.searchResponse.results" ng-click="displayOne(lbItem.instanceId)">
                     <td>{{lbItem.instanceId}}</td>
                     <td>{{lbItem.dataSheetId}}</td>
                     <td>{{lbItem.litterCode}}</td>
                     <td>{{lbItem.description}}</td>
                     <td>{{lbItem.notes}}</td>
-                </tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+                </tr>
                 </tbody>
             </table>
             <pagination
