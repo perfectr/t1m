@@ -1,11 +1,8 @@
-
-<h2>Survey Edit</h2>
-
 <div class="row">
     <div class="col-sm-12">
         <table width="100%;">
             <tr>
-                <td><h3>Selected Survey</h3></td>
+                <td><h3>Survey Details</h3></td>
             </tr>
             <tr>
                 <td colspan="2"><hr style="margin-top: 0px;"></td>
@@ -26,8 +23,13 @@
 <div ng-hide="editMode">
     <div class="row" >
         <dl class="dl-horizontal">
-            <dt>Name</dt>
-            <dd>{{selectedSurvey.model.observer}}&nbsp;{{selectedSurvey.model.locationId}}</dd>
+            <dt>Survey ID</dt><dd>{{selectedSurvey.model.surveyId}}</dd>
+            <dt>Survey Type</dt><dd>{{selectedSurvey.model.surveyType}}</dd>
+            <dt>Observer</dt><dd>{{selectedSurvey.model.observer}}</dd>
+            <dt>Location</dt><dd>{{selectedSurvey.model.locationId}}</dd>
+            <dt>Start Date</dt><dd>{{selectedSurvey.model.startDString}}</dd>
+            <dt>End Date</dt><dd>{{selectedSurvey.model.endDString}}</dd>
+            <dt>Received</dt><dd>{{selectedSurvey.model.receivedDString}}</dd>
         </dl>
     </div>
 </div>
@@ -42,12 +44,6 @@
                         <div class="form-group required" ng-class="{'has-error' : surveyForm.observerTxtFld.$invalid && !surveyForm.observerTxtFld.$pristine}">
                             <label class="control-label" for="observerTxtFld">Observer</label>
                             <input type="text" class="form-control" id="observerTxtFld" name="observerTxtFld" ng-model="selectedSurvey.model.observer" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group required" ng-class="{'has-error' : surveyForm.locationIdTxtFld.$invalid && !surveyForm.locationIdTxtFld.$pristine}">
-                            <label class="control-label" for="locationIdTxtFld">Location ID</label>
-                            <input type="text" class="form-control" id="locationIdTxtFld" name="locationIdTxtFld" ng-model="selectedSurvey.model.locationId" required>
                         </div>
                     </div>
                 </div>
@@ -74,7 +70,7 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-8" align="right">
-            <button type="button" class="btn btn-primary" ng-click="editAction()" ng-disabled="!(currentUser.surveyId == selectedSurvey.model.surveyId || currentUser.administrator)">Edit</button>
+            <!--<button type="button" class="btn btn-primary" ng-click="editAction()" ng-disabled="!(currentUser.surveyId == selectedSurvey.model.surveyId || currentUser.administrator)">Edit</button>-->
         </div>
     </div>
 </div>

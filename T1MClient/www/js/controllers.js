@@ -698,6 +698,13 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
     
     $scope.survey = angular.fromJson(window.localStorage.getItem(currentSurvey));
     
+    $scope.meta = {};  
+    
+    if($scope.survey != null){ 
+        $scope.meta = angular.fromJson(window.localStorage.getItem($scope.survey.meta));
+    }
+    
+    $scope.meta.typ = "litter";
     
     if($scope.survey == null){
         $scope.survey = {meta:currentSurvey+"Meta", 
@@ -706,6 +713,18 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
                          count:0};
         window.localStorage.setItem(currentSurvey, angular.toJson($scope.survey, false));
     }  
+    
+     $scope.tabs = [
+        {title:"Survey Info", index: 0},
+        {title:"Data Sheets", index: 1},
+        {title:"Upload", index: 2}
+    ];
+    
+    $scope.selectTab = function(index){
+        window.mySwipe.slide(index, 500);
+        window.localStorage.setItem($scope.survey.meta, angular.toJson($scope.meta, false));
+    };
+    
     
     $scope.beachChar = angular.fromJson(window.localStorage.getItem($scope.survey.dataSheets[0].name));
 
@@ -895,6 +914,9 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
    if(sLitter==null){
         $scope.SmallLitter = {};
         $scope.SmallLitter.ImageSrc = [];
+        $scope.SmallLitter.Count = 0;
+        $scope.SmallLitter.Weight = 0;
+        
 
     } else {
         $scope.SmallLitter = sLitter;
@@ -953,6 +975,7 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
     }
   
     $scope.save = function () {
+        if(!isValid()){ return;}
         if($scope.SmallLitter.Description == null){
             $scope.SmallLitter.Description = $scope.Specific.value;
         }
@@ -962,6 +985,30 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+    
+    $scope.inValid = {};
+    
+    var isValid = function(){
+        $scope.inValid ={};
+        var invalidFields = [];
+        if($scope.Specific == null){
+            invalidFields.push({level: 1, value:"specific"});
+            $scope.inValid.specific = true;
+        }
+        if($scope.SmallLitter.Count < 1 && $scope.SmallLitter.Weight < 1){
+            invalidFields.push({level: 1, value:"Count or Weight"});
+            $scope.inValid.count = true;
+            $scope.inValid.weight = true;
+        }
+        if($scope.Specific.value.toLowerCase().indexOf("specify") > -1){
+            if($scope.SmallLitter.Description == null){
+                invalidFields.push({level: 1, value:""});
+            }
+        }
+        
+        
+        return false;   
+    }
   
 });
 

@@ -37,6 +37,12 @@ public class SurveyController {
         return surveyService.saveSurvey(dataForm);
     }
 
+//    @RequestMapping(method = RequestMethod.POST)
+//    @ResponseBody
+//    public Response<SurveyEntity> saveSurvey(@RequestBody Response<SurveyEntity> request) {
+//        return surveyService.saveSurvey(request.getModel());
+//    }
+
     @RequestMapping(value = "/{surveyId}", method = RequestMethod.DELETE)
     public void removeSurvey(@PathVariable(value = "surveyId") Integer surveyId) {
         surveyService.removeSurvey(surveyId);

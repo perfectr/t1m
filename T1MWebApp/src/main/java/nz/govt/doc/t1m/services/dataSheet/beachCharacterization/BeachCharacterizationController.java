@@ -30,10 +30,8 @@ public class BeachCharacterizationController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public Response<BeachCharacterizationEntity> saveBeachCharacterization(@RequestBody String json) {
-        //return beachCharacterizationService.saveBeachCharacterization(new BeachCharacterizationEntity());
-        System.out.println(json);
-        return null;
+    public Response<BeachCharacterizationEntity> saveBeachCharacterization(@RequestBody Response<BeachCharacterizationEntity> request) {
+        return beachCharacterizationService.saveBeachCharacterization(request.getModel());
     }
 
     @RequestMapping(value = "/{beachCharacterizationId}", method = RequestMethod.DELETE)
