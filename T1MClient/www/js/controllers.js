@@ -138,6 +138,8 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                 }
                 $scope.initializeRecord();            
                 
+                                                          
+                $scope.alarm = new Media("../sounds/alarm.mp3");                                           
                 $scope.timer = {};
                 $scope.timer.mins = 5;    
                 $scope.timer.secs = "00";
