@@ -23,15 +23,17 @@
             <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mBeachCharacterizationCtrl">
                <div>
 
-                <tabset class="row" justified="true">
+                <tabset class="row">
                     <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="selectTab(tab.index)"  active="tab.active"> </tab>
                 </tabset>
 
                 <div id="slider" class="swipe">
                     <div class="swipe-wrap">
                         <div>
-                        <div class="inner">
-                            <div class="form-horizontal">
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-11">
+                                <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="BeachId" >Beach Id</label>
                                     <div class="col-sm-8">
@@ -93,55 +95,60 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
+                    </div>
+                </div>
             <!-- new tab containing beach characteristics -->
-                        <div>
-                        <div class="inner">
+                <div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-11">
                             <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="BeachLength" >Total beach length</label>
-                                    <div class="col-sm-8">
-                                        <input id="BeachLength" ng-model="beachCharacterization.BeachLength" class="form-control" type="number" placeHolder="m">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="SubstratumType" >Substratum type</label>
-                                    <div class="col-sm-8">
-                                        <input id="SubstratumType" ng-model="beachCharacterization.SubstratumType" class="form-control" type="text" placeHolder="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="SubstratumUniformity" >Substratum uniformity</label>
-                                    <div class="col-sm-8">
-                                        <input id="SubstratumUniformity" ng-model="beachCharacterization.SubstratumUniformity" class="form-control" type="number" placeHolder="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="TidalRange" >Tidal range</label>
-                                    <div class="col-sm-8">
-                                        <input id="TidalRange" ng-model="beachCharacterization.TidalRange" class="form-control" type="number" placeHolder="m">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="TidalDistance" >Tidal distance</label>
-                                    <div class="col-sm-8">
-                                        <input id="TidalDistance" ng-model="beachCharacterization.TidalDistance" class="form-control" type="number" placeHolder="m">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="BeachBacking" >Back of beach</label>
-                                    <div class="col-sm-8">
-                                        <input id="BeachBacking" ng-model="beachCharacterization.BeachBacking" class="form-control" type="text" placeHolder="">
-                                    </div>
-                                </div>
-
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="BeachLength" >Total beach length</label>
+                            <div class="col-sm-8">
+                                <input id="BeachLength" ng-model="beachCharacterization.BeachLength" class="form-control" type="number" placeHolder="m">
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="SubstratumType" >Substratum type</label>
+                            <div class="col-sm-8">
+                                <input id="SubstratumType" ng-model="beachCharacterization.SubstratumType" class="form-control" type="text" placeHolder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="SubstratumUniformity" >Substratum uniformity</label>
+                            <div class="col-sm-8">
+                                <input id="SubstratumUniformity" ng-model="beachCharacterization.SubstratumUniformity" class="form-control" type="number" placeHolder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="TidalRange" >Tidal range</label>
+                            <div class="col-sm-8">
+                                <input id="TidalRange" ng-model="beachCharacterization.TidalRange" class="form-control" type="number" placeHolder="m">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="TidalDistance" >Tidal distance</label>
+                            <div class="col-sm-8">
+                                <input id="TidalDistance" ng-model="beachCharacterization.TidalDistance" class="form-control" type="number" placeHolder="m">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="BeachBacking" >Back of beach</label>
+                            <div class="col-sm-8">
+                                <input id="BeachBacking" ng-model="beachCharacterization.BeachBacking" class="form-control" type="text" placeHolder="">
+                            </div>
+                        </div>
 
+                    </div>
                         </div>
-                        </div>
+                    </div>
+                </div>
             <!-- new tab containing the source characteristics -->
-                        <div>
-                        <div class="inner">
+                <div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-11">
 
                             <div class="form-horizontal">
                                 <div class="form-group">
@@ -238,20 +245,23 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="Notes" >Other notes</label>
+                                        <div class="col-sm-8">
+                                            <textarea id="Notes" ng-model="beachCharacterization.Notes" class="form-control col-sm-8" rows="3"></textarea>
+                                        </div>
+                                    </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label" for="Notes">Other notes</label>
-                                <div class="col-sm-8">
-                                    <textarea id="Notes" ng-model="beachCharacterization.Notes" class="form-control col-sm-8" rows="3"></textarea>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary" ng-click="saveClicked()">Save</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                    <button type="button" class="btn btn-primary" ng-click="saveClicked()">Save</button>
-                            </div>
-                        </div>                    
+                        </div>
                     </div>
-                </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
