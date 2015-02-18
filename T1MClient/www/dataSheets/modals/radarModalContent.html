@@ -20,18 +20,18 @@
                  ng-click="addRadarbird(bird)">
                 
                 <span class="pull-right">
-                    <button class="btn btn-xs btn-default" ng-click="addRadarIncrModal(bird)">
+                    <button class="btn btn-xs btn-default" 
+                            ng-click="addRadarIncrModal(bird); $event.stopPropagation();">
                         <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
                     </button>
                 </span>
                 {{bird.bird}}
             </li>
-            
-
-            
-            
         </ul>
     </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-block" ng-click="addRadarbird(null)">Unknown</button>
 </div>
 <div class="modal-footer">
     <button class="btn btn-warning" 

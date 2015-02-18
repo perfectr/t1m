@@ -46,19 +46,6 @@
             <tabset justified='true'>
                 
                 <tab heading='Plot List' select="intoJson()">
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-4"></div>
-                        <div class="col-xs-4">
-                            <button class = "btn-lg btn-default btn-wide" 
-                                    ng-click="startCountdown()">
-                                {{timer.mins}}:{{timer.secs}}
-                            </button>                           
-                        </div>
-                        <div class="col-xs-4">
-                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
-                        </div>
-                    </div>
                     <br><br><div class="row">
                         <div class="col-xs-2"></div>
                         <div class="col-xs-3">
@@ -66,10 +53,10 @@
                                     <span class="glyphicon glyphicon-plus plusButton" aria-hidden="true"></span>
                             </button>
                         </div>
-                        <div class="col-xs-4">
+                        <div class="col-xs-5">
                             <h3 class="addBirdToPlotText">Add Bird to Plot List</h3>
                         </div>    
-                        <div class="col-xs-3"></div> 
+                        <div class="col-xs-2"></div> 
                     </div>
                     <div class="inner">
                         <br>
@@ -77,8 +64,7 @@
                                 <div class="panel-body">
                                     <ul class="list-group">
                                         <li ng-repeat="bird in birdCount" 
-                                            class="list-group-item col-xs-6 listItems" 
-                                            ng-click="addBirdIncrementModal(bird.bird)">
+                                            class="list-group-item col-xs-6 listItems" >
                                                 {{bird.bird}}
                                         </li>
                                     </ul>
@@ -97,9 +83,9 @@
                                     {{timer.mins}}:{{timer.secs}}
                                 </button>                           
                             </div>
-                        <div class="col-xs-4">
-                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
-                        </div>
+                            <div class="col-xs-4">
+                                <button class = "btn btn-danger" ng-click="reset()">Reset</button>
+                            </div>
                     </div>
                     <br>
                     <div class="radar" 
@@ -107,14 +93,20 @@
                          ng-click="addTouch($event)" 
                          ng-style="{height: $element.offsetWidth}">
                         <svg class="touches">
-                            <circle ng-repeat="touch in touches" 
-                                    cx="{{touch.x}}" 
-                                    cy="{{touch.y}}" 
-                                    r="0.5em" 
-                                    fill="blue" 
-                                    fill-opacity="0.8"/>
+                            <text ng-repeat="touch in touches"
+                                  text-anchor="middle"
+                                  dominant-baseline="middle"
+                                  font-weight="900"
+                                  fill="{{touch.col}}"
+                                  font-size="1.2em"
+                                  x="{{touch.x}}"
+                                  y="{{touch.y}}"
+                                  style="pointer-events: none;">
+                                {{touch.bird}}
+                            </text>
                         </svg>
                     </div>
+                    <!--<p>{{touches}}</p>-->
                 </tab>
                 
                 <tab heading='Site' select="intoJson" >

@@ -260,6 +260,9 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                     setTimeout(function() {
                       $window.alert('Time\'s up!');
                         $scope.timer.alerted = true;
+                        if($scope.radarBirds.length == 0){
+                            $window.confirm("There were no bird sightings at this station.");
+                        }
                     });
                   };
                     
@@ -295,19 +298,28 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                         {name: "Snow", value: "Snow"}],
                     
                     wind: [
-                        {name: "Leaves still/move silently", value: "Leaves still/move silently"}, 
-                        {name: "Leaves rustle", value: "Leaves rustle"},
-                        {name: "Leaves and branches in constant motion", value: "Leaves and branches in constant motion"},
-                        {name: "Branches or trees sway", value: "Branches or trees sway"}],
+                        {name: "Leaves still/move silently", 
+                         value: "Leaves still/move silently"}, 
+                        {name: "Leaves rustle", 
+                         value: "Leaves rustle"},
+                        {name: "Leaves and branches in constant motion", 
+                        value: "Leaves and branches in constant motion"},
+                        {name: "Branches or trees sway", 
+                         value: "Branches or trees sway"}],
                     
                     othNoi: [
-                        {name: "Not important", value: "Not important"}, 
-                        {name: "Moderate", value: "Moderate"},
-                        {name: "Loud", value: "Loud"}],
+                        {name: "Not important", 
+                         value: "Not important"}, 
+                        {name: "Moderate", 
+                         value: "Moderate"},
+                        {name: "Loud",
+                         value: "Loud"}],
                     
                     pos: [
-                        {name: "Single", value: "Single"}, 
-                        {name: "Averaged", value: "Averaged"}]
+                        {name: "Single", 
+                         value: "Single"}, 
+                        {name: "Averaged", 
+                         value: "Averaged"}]
                 };
                 
                 $scope.intoJson = function(){
@@ -544,6 +556,55 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
                                                                radius) {
     
     $scope.birds = birds;
+    $scope.birdAbrev = {
+        "Brown Creeper":"BC",
+        "Blue Duck":"BD",
+        "Bellbird":"BE",
+        "Blackbird":"BL",
+        "Chaffinch":"CH",
+        "Californian Quail":"CQ",
+        "Dunnock (Hedge Sparrow)":"DU",
+        "Falcon (NZ)":"FA",
+        "Fernbird":"FE",
+        "Fantail":"FT",
+        "Goldfinch":"GD",
+        "Greenfinch":"GN",
+        "Gray Warbler":"GW",
+        "Harrier Hawk":"HH",
+        "House Sparrow":"HS",
+        "Kea":"KE",
+        "Kingfisher (NZ)":"KF",
+        "Kiwi (* specify)":"KI",
+        "Kaka":"KK",
+        "Long Tail Cuckoo":"LC",
+        "Magpie (Australian)":"MG",
+        "Morepork":"MP",
+        "Indian Myna":"MY",
+        "Oystercatcher (* specify)":"OC",
+        "Paradise Shelduck":"PD",
+        "Parakeet (* specify)":"PK",
+        "Pukeko":"PU",
+        "Robin":"RB",
+        "Redpoll":"RD",
+        "Rifleman":"RM",
+        "Rock Pigeon (Feral)":"RP",
+        "Eastern Rosella":"RS",
+        "Rock Wren":"RW",
+        "Shining Cuckoo":"SC",
+        "Silvereye":"SE",
+        "Spur Wing Plover":"SP",
+        "Starling":"ST",
+        "Song Thrush":"TH",
+        "Tomtit":"TT",
+        "Tui":"TU",
+        "Whitehead":"WH",
+        "Weka":"WK",
+        "Wood Pigeon (Kereru)":"WP",
+        "Welcome Swallow":"WS",
+        "Yellowhead":"YH",
+        "Yellow Hammer":"YL",
+        "Unknown":"?"
+    };
     
     $scope.addBird = function(){
         for(var i=0; i < $scope.birds.length; i++){
@@ -560,40 +621,82 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+    $scope.birdAbrev;
+    $scope.setBirdAbrev
+    
     $scope.addRadarbird = function(b){
         
         var xSq = Math.pow((x-radius),2);
         var ySq = Math.pow((y-radius),2);
         var distance = Math.sqrt((ySq+xSq));
-        var dis;
+        $scope.dis;
         if(distance < radius*0.4){
-            dis="Near";
+            $scope.dis="Near";
         } else if(distance < radius*0.8){
-            dis="Far";
+            $scope.dis="Far";
         } else {
-            dis="Very Far";
+            $scope.dis="Very Far";
         }
         
+        $scope.birdName;
+        if(b != null){
+            $scope.birdName = b.bird;
+        } else {
+            $scope.birdName = "Unknown";
+        }
         
-        bds.push({time:ct,bird:b.bird,dist:dis,count:1,comment:"","x":x, "y":y});
-        touches.push({"x": x, "y": y});
+        bds.push({time:ct,bird:$scope.birdName,dist:$scope.dis,count:1,comment:"","x":x, "y":y});
+        touches.push({"x": x, "y": y,"bird":$scope.birdAbrev[$scope.birdName], col:"blue"});
         $scope.$apply;
         $scope.ok();
     }
     
     $scope.addRadarIncrModal = function(b){
                     $scope.ok();
+        
+                    var xSq = Math.pow((x-radius),2);
+                        var ySq = Math.pow((y-radius),2);
+                        var distance = Math.sqrt((ySq+xSq));
+                        $scope.dis;
+                        if(distance < radius*0.4){
+                            $scope.dis="Near";
+                        } else if(distance < radius*0.8){
+                            $scope.dis="Far";
+                        } else {
+                            $scope.dis="Very Far";
+                        }
+        
+                    $scope.newBird = {time:ct,bird:b.bird,dist:$scope.dis,count:1,comment:"","x":x, "y":y};
                     var modalInstance = $modal.open({
                               templateUrl: 'modals/radarIncrModalContent.html',
                               controller: 'radarIncrModalInstanceCtrl',
                               resolve:{
                                   bird: function(){
-                                      return b;
+                                      return $scope.newBird;
                                   }
                               }
                             });
-                    modalInstance.result.then(function (bt) {
-                            
+                    modalInstance.result.then(function () {
+
+                        bds.push($scope.newBird);
+                        var colour;
+                        if($scope.newBird.count > 1){
+                            colour = "saddlebrown";
+                        }else {
+                            colour = "blue";
+                        }
+                        
+                        touches.push({"x": $scope.newBird.x, 
+                                      "y": $scope.newBird.y,
+                                      "bird":$scope.birdAbrev[$scope.newBird.bird],
+                                      "col":colour});
+                        $scope.$apply;
+                        $scope.ok();
+                        
+                        
+                        
+                        
+                        
                         });
                     
                 };
@@ -602,16 +705,15 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
 t1mControllers.controller('radarIncrModalInstanceCtrl', function ($scope, $modalInstance, bird) {
     
     $scope.bird = bird;
-    $scope.count = 1;
     
     $scope.countInc = function(v){
         if(v=='min'){
-            if($scope.count > 0){
-                $scope.count--;
+            if($scope.bird.count > 1){
+                $scope.bird.count--;
             }
         }
         if(v=='plus'){
-            $scope.count++;
+            $scope.bird.count++;
         }
     };
     
