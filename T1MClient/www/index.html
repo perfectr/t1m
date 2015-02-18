@@ -42,8 +42,14 @@
                 <div class="inner">
                     <!--<p>{{surveys}}</p>-->
                     <p>Select type of survey to create:</p>
-                    <button ng-click="addSurvey('bird')"  class="btn btn-default">Bird Survey</button>
-                    <button ng-click="addSurvey('litter')"  class="btn btn-default">Litter Survey</button>
+                    <button ng-click="addSurvey('bird')"  class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        Bird Survey
+                    </button>
+                    <button ng-click="addSurvey('litter')"  class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        Litter Survey
+                    </button>
                     <br>
                     <br>
                     <p>Or, edit previously created survey:</p>
