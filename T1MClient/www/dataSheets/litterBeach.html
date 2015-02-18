@@ -48,7 +48,7 @@
                                     <h4><b>Start Location</b></h4>
                                 </div>
                                 <div class="col-xs-6">
-                                    <button class="btn btn-default" ng-click="retriveGPS('Start')">Retrive GPS Location</button>
+                                    <button class="btn btn-default" ng-click="retriveGPS('Start')">Retrieve GPS Location</button>
                                 </div>
                             </div>
                             <div class="row">
@@ -66,7 +66,7 @@
                                     <h4><b>End Location </b></h4>
                                 </div>
                                 <div class="col-xs-6">
-                                    <button class="btn btn-default" ng-click="retriveGPS('End')">Retrive GPS Location</button>
+                                    <button class="btn btn-default" ng-click="retriveGPS('End')">Retrieve GPS Location</button>
                                 </div>
                             </div>
                                 <div class="row">
@@ -82,7 +82,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <h4>Coordiante System</h4>
+                                    <h4>Coordinate System</h4>
                                 </div>
                                 <div class="col-xs-6">
                                     <input ng-model="litterBeach.CoordSystem" class="form-control" type="text">
@@ -163,8 +163,9 @@
                             <div class ="panel panel-default" style="padding:5%;">
                                 <div>
                                     <ul class="list-group">
-                                        <li ng-repeat="litter in litterBeach.Instances.Instances" class="list-group-item" 
-                                            ng-click="loadLitterModal($index)">{{litter.Description}}</li>
+                                        <li ng-repeat="litter in litterBeach.Instances.Instances" 
+                                            class="list-group-item" ng-style="litter.colour"
+                                            ng-click="loadLitterModal($index)">{{litter.specific}}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -214,9 +215,7 @@
                 continuous: false,
                 callback: function(index, elem) {
                     var scope = angular.element($("#main")).scope();
-                    scope.$apply(function(){
-                        scope.tabs[index].active = true;     
-                    })
+                        scope.tabs[index].active = true;   
                 }   
             });
         </script>

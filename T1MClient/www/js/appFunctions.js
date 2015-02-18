@@ -134,18 +134,18 @@ function populateInstances(surveyRecord, data){
     var count = 0; // count to return the number of instances added.
     
     // for each instance we populate a field and data array to be added to inf and ind
-    for(i = 0; i < instances.length; i++){
-        var instance = instances[i];
+    for(var i = 0; i < instances.length; i++){
+        var instance = angular.fromJson(window.localStorage.getItem(instances[i].saveName));
         var instanceField = [];
         var instanceData = [];
         for (field in instance){
             if(field == "ImageSrc"){
                 var images = instance[field];
-                for(var i = 0; i < images.length; i++){
+                for(var j = 0; j < images.length; j++){
                     var imageData = window.localStorage.getItem(images[i]);
                     if(imageData == null){ continue;}
                     instanceField.push("Image" + i);   
-                    instanceData.push(window.localStorage.getItem(images[i]));
+                    instanceData.push(imageData);
                 }
                 continue;
             }

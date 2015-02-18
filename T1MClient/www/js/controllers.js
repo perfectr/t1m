@@ -1016,24 +1016,24 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
     
     
     $scope.addLitterModal = function(){
-
+        var saveName = currentDataSheet + "Instance" + $scope.litterBeach.Instances.InstanceCount;
         var modalInstance = $modal.open({
             templateUrl: '../modals/beachLitterItem.html',
             controller: 'beachLitterItemCtrl',
             resolve:{saveName: function(){
-                        return currentDataSheet + "Instance" + $scope.litterBeach.Instances.InstanceCount;
-                        },
-                     sLitter: function(){
-                        return null;
+                        return saveName;
                         }
                     }
         });
-        modalInstance.result.then(function (litterItem) {
-            if(litterItem == null){
-                return;
-            }
-            $scope.litterBeach.Instances.Instances.push(litterItem);
+        modalInstance.result.then(function (data) {
+            var invalidColour = {'background-color': 'green'};
+            if(data.invalidLevel == 1 || data.invalidLevel == 2){ invalidColour = {'background-color': 'red'}}
+            if(data.invalidLevel == 3){invalidColour = {'background-color': 'orange'}}
+            var SmallLitter = {saveName: saveName, specific: data.specific, invalidLevel: data.invalidLevel,
+                               colour: invalidColour};
+            $scope.litterBeach.Instances.Instances.push(SmallLitter);
             $scope.litterBeach.Instances.InstanceCount++;
+            $scope.saveLitterBeach();
         });
 
     }
@@ -1043,22 +1043,25 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
                 templateUrl: '../modals/beachLitterItem.html',
                 controller: 'beachLitterItemCtrl',
                 resolve:{saveName: function(){
-                            return currentDataSheet + "Instance" + $scope.litterBeach.Instances.InstanceCount;
-                        },
-                         sLitter: function(){
-                             return SmallLitter;
-                         }
+                            return SmallLitter.saveName;
+                        }
                     }
                 });
-        modalInstance.result.then(function (litterItem) {
-                //$scope.litterBeach.Instances.Instances[index] = litterItem;
+        modalInstance.result.then(function (data) {
+                var invalidColour =  {'background-color': 'green'};
+                if(data.invalidLevel == 1 || data.invalidLevel == 2){ invalidColour = {'background-color': 'red'}}
+                if(data.invalidLevel == 3){invalidColour = {'background-color': 'orange'}}
+                SmallLitter.colour = invalidColour;
+                SmallLitter.specific = data.specific;
+                SmallLitter.invalidLevel = data.invalidLevel;
+                $scope.saveLitterBeach();
             });
 
     }
     
 }]);
 
-t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance, saveName, sLitter){
+t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance, $modal, $q, saveName){
     
     $scope.ImageSrc = [];
     
@@ -1078,32 +1081,26 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
    };
 
     $scope.options.specific = litterCodeSelection(null,null);
+    $scope.SmallLitter = angular.fromJson(window.localStorage.getItem(saveName));
     
-   if(sLitter==null){
-        $scope.SmallLitter = {};
+   if($scope.SmallLitter==null){
+       $scope.SmallLitter = {};
         $scope.SmallLitter.ImageSrc = [];
         $scope.SmallLitter.Count = 0;
         $scope.SmallLitter.Weight = 0;
-        
-
     } else {
-        $scope.SmallLitter = sLitter;
-        for(var i = 0; i < $scope.SmallLitter.ImageSrc.length; i++){
-            $scope.ImageSrc.push(window.localStorage.getItem($scope.SmallLitter.ImageSrc[i]));
-        }
         $scope.Specific = litterCodeSelectionByCode($scope.SmallLitter.LitterCode);
         $scope.Type = $scope.Specific.type;
         $scope.positiveButton = "Save";
-    }                                            
+    }            
     
-   $scope.onPhotoDataSuccess = function(imageData) {
-        var imageStoreName = saveName + "Image" + $scope.SmallLitter.ImageSrc.length;
-        $scope.SmallLitter.ImageSrc.push(imageStoreName);
-        $scope.ImageSrc.push(imageData);
-        $scope.$apply();
-        window.localStorage.setItem(imageStoreName, imageData);
+    $scope.specificValue = function(){
+        if($scope.Specific == null){ return " ";}
+        var value = $scope.Specific.value;
+        if(value == null){ return " ";}
+        return value;
     }
-   
+       
     $scope.litterTypeSelected = function(){
         var codeOptions = litterCodeSelection($scope.Type, null);
         $scope.options.specific = codeOptions;
@@ -1122,7 +1119,13 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
         $scope.SmallLitter.LitterCode = codeOption.code;
     }
     
-    
+     $scope.onPhotoDataSuccess = function(imageData) {
+        var imageStoreName = saveName + "Image" + $scope.SmallLitter.ImageSrc.length;
+        $scope.SmallLitter.ImageSrc.push(imageStoreName);
+        $scope.ImageSrc.push(imageData);
+        $scope.$apply();
+        window.localStorage.setItem(imageStoreName, imageData);
+    }
     
     $scope.onFail = function(message) {
       alert('Failed because: ' + message);
@@ -1130,13 +1133,15 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
 
     // var destinationType = navigator.camera.destinationType;
     $scope.takePicture = function(){
+        if($scope.ImageSrc.length >= 3){ return;}
+        
        navigator.camera.getPicture($scope.onPhotoDataSuccess, $scope.onFail, 
             { quality: 100,
             destinationType: navigator.camera.DestinationType.DATA_URL,
             correctOrientation: true,
             allowEdit: true, 
-            targetWidth: 1280, 
-            targetHeight: 1280, 
+            targetWidth: 1000, 
+            targetHeight: 1000, 
             cameraDirection: navigator.camera.Direction.BACK, 
             saveToPhotoAlbum: false 
        });
@@ -1144,40 +1149,160 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
   
     $scope.save = function () {
         if(!isValid()){ return;}
-        if($scope.SmallLitter.Description == null){
-            $scope.SmallLitter.Description = $scope.Specific.value;
-        }
-        $modalInstance.close($scope.SmallLitter);
+        $scope.saveAndClose(999);
     };
+    
+    $scope.saveAndClose = function(level){
+        window.localStorage.setItem(saveName, angular.toJson($scope.SmallLitter, false));
+        $modalInstance.close({specific: $scope.Specific.value, invalidLevel: level});
+    }
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
     
-    $scope.inValid = {};
+    $scope.invalid = {};
     
     var isValid = function(){
-        $scope.inValid ={};
+        $scope.invalid ={};
         var invalidFields = [];
         if($scope.Specific == null){
-            invalidFields.push({level: 1, value:"specific"});
-            $scope.inValid.specific = true;
+            invalidFields.push({level: 1, value:"Specific field must be entered"});
+            $scope.invalid.specific = true;
+            launchItemValidationModal(invalidFields);
+            return false;
         }
-        if($scope.SmallLitter.Count < 1 && $scope.SmallLitter.Weight < 1){
-            invalidFields.push({level: 1, value:"Count or Weight"});
-            $scope.inValid.count = true;
-            $scope.inValid.weight = true;
-        }
-        if($scope.Specific.value.toLowerCase().indexOf("specify") > -1){
-            if($scope.SmallLitter.Description == null){
-                invalidFields.push({level: 1, value:""});
+        
+         if($scope.Specific != null){
+            if($scope.Specific.value.toLowerCase().indexOf("specify") > -1){
+                if($scope.SmallLitter.Description == null || $scope.SmallLitter.Description == ""){
+                    invalidFields.push({level: 1, value:"If specific field contains \"specify\", Description must not be empty"});
+                    $scope.invalid.description = true;
+                    launchItemValidationModal(invalidFields);
+                    return false;   // return as it is a level 1 invalid field.
+                }
             }
         }
         
+        if($scope.SmallLitter.Count < 1 && $scope.SmallLitter.Weight < 1){
+            invalidFields.push({level: 2, value:"Either count or weight (or both) must be entered"});
+            $scope.invalid.count = true;
+            $scope.invalid.weight = true;
+        }
         
+        if($scope.SmallLitter.Description == null || $scope.SmallLitter.Description == ""){
+            invalidFields.push({level: 3, value:"A description should be entered"});
+            $scope.invalid.description = true;
+        }
+       
+        if(invalidFields.length > 0){
+            launchItemValidationModal(invalidFields);
         return false;   
+        } 
+        
+        return true;
     }
+    
+    function launchItemValidationModal(invalidFields){
+        if(invalidFields.length == 0){
+            return true;   
+        }else{
+            var modalInstance = $modal.open({
+                templateUrl: '../modals/beachLitterItemValidation.html',
+                controller: 'beachLitterItemValidCtrl',
+                resolve:{invalidFields: function(){
+                            return invalidFields;
+                            },
+                         positiveButton: function(){
+                            return $scope.positiveButton;
+                            },
+                        }
+            }); 
+            modalInstance.result.then(function (level) {
+                $scope.saveAndClose(level);
+            });
+        }
+    }
+    
+    
+    function asyncImageLoad(){
+        var deferred = $q.defer(); 
+        var imageSrc = [];
+        for(var i = 0; i < $scope.SmallLitter.ImageSrc.length; i++){
+            var imgSrc = window.localStorage.getItem($scope.SmallLitter.ImageSrc[i]);
+            if(imgSrc != null){
+            imageSrc.push(imgSrc);
+            } else {
+                deferred.reject("no data at image save location");
+            }
+        }
+        deferred.resolve(imageSrc);
+        return deferred.promise;
+    }
+    
+    var promise = asyncImageLoad();
+    promise.then(function(imgSrc){
+        $scope.ImageSrc = imgSrc;
+    }, function(errorMessage){
+        console.log(errorMessage);
+    });
+    
   
+});
+
+t1mControllers.controller('beachLitterItemValidCtrl', function($scope, $modalInstance, invalidFields, positiveButton){
+    if(invalidFields == null){
+        return;
+    }
+    
+    $scope.positiveButton = positiveButton;
+    $scope.showPositiveButton = true;
+    
+    $scope.criticalFields = [];
+    $scope.mandatoryFields = [];
+    $scope.warningFields = [];
+    
+    $scope.criticalFieldsShow = false;
+    $scope.mandatoryFieldsShow = false;
+    $scope.warningFieldsShow = false;
+    
+    var level = 999;
+    
+    for(var i = 0; i < invalidFields.length; i++){
+        var field = invalidFields[i];
+        if(field.level < level){ level = field.level;}
+        switch(field.level){
+                case 1:
+                    $scope.criticalFields.push(field.value);
+                    break;
+                case 2:
+                    $scope.mandatoryFields.push(field.value);
+                    break;
+                case 3:
+                    $scope.warningFields.push(field.value);
+                    break;
+        }
+    }
+    
+    if($scope.criticalFields.length > 0){
+        $scope.criticalFieldsShow = true;   
+        $scope.showPositiveButton = false;
+    }
+    if($scope.mandatoryFields.length > 0){
+        $scope.mandatoryFieldsShow = true;   
+    }
+     if($scope.warningFields.length > 0){
+        $scope.warningFieldsShow = true;   
+    }
+    
+    $scope.saveClicked = function(){
+        $modalInstance.close(level);   
+    }
+    
+    $scope.cancelClicked = function(){
+        $modalInstance.dismiss('cancel');
+    }
+    
 });
 
 
@@ -1186,11 +1311,6 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
     var currentDataSheet = window.location.search.replace("?","");
     
     $scope.beachCharacterization = {};
-
-    var savedBeachCharacterization =  window.localStorage.getItem(currentDataSheet);
-    if(savedBeachCharacterization != null){
-        $scope.beachCharacterization = angular.fromJson(savedBeachCharacterization);
-    };
 
     $scope.options = {
         location: [
@@ -1233,11 +1353,16 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
         {title: "Beach Char.", index: 1},
         {title: "Source Char.", index: 2 }
     ];
-
-    $scope.beachCharacterization.Location = $scope.options.location[0].value;
-    $scope.beachCharacterization.MajorUsage = $scope.options.majorUsage[0].value;
-    $scope.beachCharacterization.NearestTownDirection = $scope.options.townDirection[0].value;
-    $scope.beachCharacterization.NearestRiverDirection = $scope.options.riverDirection[0].value;
+    
+    var savedBeachCharacterization =  window.localStorage.getItem(currentDataSheet);
+    if(savedBeachCharacterization != null){
+        $scope.beachCharacterization = angular.fromJson(savedBeachCharacterization);
+    } else {
+        $scope.beachCharacterization.Location = $scope.options.location[0].value;
+        $scope.beachCharacterization.MajorUsage = $scope.options.majorUsage[0].value;
+        $scope.beachCharacterization.NearestTownDirection = $scope.options.townDirection[0].value;
+        $scope.beachCharacterization.NearestRiverDirection = $scope.options.riverDirection[0].value;
+    }
 
     $scope.selectTab = function(index){
         window.mySwipe.slide(index, 500);
@@ -1252,6 +1377,11 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
                 return tab.select;   
             }
         }
+    };
+    
+    $scope.saveClicked = function(){
+        $scope.saveBeachCharacterization();  
+        history.back();
     };
 
      $scope.saveBeachCharacterization = function(){

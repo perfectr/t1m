@@ -29,12 +29,11 @@
 
                 <div id="slider" class="swipe">
                     <div class="swipe-wrap">
-                    <!--<tab heading="Sampling Area" select="saveTab()" class="">-->
                         <div>
                             <br>
                             <div class="row">
                                 <div class="col-xs-11">
-                                    <div class="form-horizontal">
+                                <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="BeachId" >Beach Id</label>
                                     <div class="col-sm-8">
@@ -83,7 +82,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label" for="CoordSystem" >Coordinate system</label>
                                                         <div class="col-sm-6">
-                                                            <input id="CoordSystem" ng-model="" class="form-control" type="text" placeHolder="System">
+                                                            <input id="CoordSystem" ng-model="beachCharacterization.CoordSystem" class="form-control" type="text" placeHolder="System">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -95,179 +94,173 @@
                                     </div>
                                 </div>
                             </div>
-                                </div>
-                            </div>
                         </div>
-                   <!-- </tab>-->
-
+                    </div>
+                </div>
             <!-- new tab containing beach characteristics -->
-                    <!--<tab heading="Beach Char." select="saveTab()" class="">-->
-                        <div>
-                            <br>
-                            <div class="row">
-                                <div class="col-xs-11">
-                                    <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="BeachLength" >Total beach length</label>
-                                    <div class="col-sm-8">
-                                        <input id="BeachLength" ng-model="beachCharacterization.BeachLength" class="form-control" type="number" placeHolder="m">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="SubstratumType" >Substratum type</label>
-                                    <div class="col-sm-8">
-                                        <input id="SubstratumType" ng-model="beachCharacterization.SubstratumType" class="form-control" type="text" placeHolder="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="SubstratumUniformity" >Substratum uniformity</label>
-                                    <div class="col-sm-8">
-                                        <input id="SubstratumUniformity" ng-model="beachCharacterization.SubstratumUniformity" class="form-control" type="number" placeHolder="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="TidalRange" >Tidal range</label>
-                                    <div class="col-sm-8">
-                                        <input id="TidalRange" ng-model="beachCharacterization.TidalRange" class="form-control" type="number" placeHolder="m">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="TidalDistance" >Tidal distance</label>
-                                    <div class="col-sm-8">
-                                        <input id="TidalDistance" ng-model="beachCharacterization.TidalDistance" class="form-control" type="number" placeHolder="m">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="BeachBacking" >Back of beach</label>
-                                    <div class="col-sm-8">
-                                        <input id="BeachBacking" ng-model="beachCharacterization.BeachBacking" class="form-control" type="text" placeHolder="">
-                                    </div>
-                                </div>
-
-                            </div>
-                                </div>
+                <div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="BeachLength" >Total beach length</label>
+                            <div class="col-sm-8">
+                                <input id="BeachLength" ng-model="beachCharacterization.BeachLength" class="form-control" type="number" placeHolder="m">
                             </div>
                         </div>
-                    <!--</tab>-->
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="SubstratumType" >Substratum type</label>
+                            <div class="col-sm-8">
+                                <input id="SubstratumType" ng-model="beachCharacterization.SubstratumType" class="form-control" type="text" placeHolder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="SubstratumUniformity" >Substratum uniformity</label>
+                            <div class="col-sm-8">
+                                <input id="SubstratumUniformity" ng-model="beachCharacterization.SubstratumUniformity" class="form-control" type="number" placeHolder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="TidalRange" >Tidal range</label>
+                            <div class="col-sm-8">
+                                <input id="TidalRange" ng-model="beachCharacterization.TidalRange" class="form-control" type="number" placeHolder="m">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="TidalDistance" >Tidal distance</label>
+                            <div class="col-sm-8">
+                                <input id="TidalDistance" ng-model="beachCharacterization.TidalDistance" class="form-control" type="number" placeHolder="m">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="BeachBacking" >Back of beach</label>
+                            <div class="col-sm-8">
+                                <input id="BeachBacking" ng-model="beachCharacterization.BeachBacking" class="form-control" type="text" placeHolder="">
+                            </div>
+                        </div>
+
+                    </div>
+                        </div>
+                    </div>
+                </div>
             <!-- new tab containing the source characteristics -->
-                    <!--<tab heading="Source Char." select="saveTab()" class="">-->
-                        <div>
-                            <br>
-                            <div class="row">
-                                <div class="col-xs-11">
+                <div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-11">
 
-                                    <div class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label" for="Location" >Location</label>
-                                            <div class="col-sm-8">
-                                                <select id="Location" class="form-control" ng-model="beachCharacterization.Location"
-                                                        ng-options="opt.value as opt.name for opt in options.location">
-                                                </select>
-                                            </div>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="Location" >Location</label>
+                                    <div class="col-sm-8">
+                                        <select id="Location" class="form-control" ng-model="beachCharacterization.Location"
+                                                ng-options="opt.value as opt.name for opt in options.location">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="MajorUsage" >Major usage</label>
+                                    <div class="col-sm-8">
+                                        <select id="MajorUsage" class="form-control" ng-model="beachCharacterization.MajorUsage"
+                                                ng-options="opt.value as opt.name for opt in options.majorUsage">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="Access" >Access</label>
+                                    <div class="col-sm-8">
+                                        <input id="Access" ng-model="beachCharacterization.Access" class="form-control" type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Nearest Town</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="NearestTown" >Town name</label>
+                                        <div class="col-sm-8">
+                                            <input id="NearestTown" ng-model="beachCharacterization.NearestTown" class="form-control" type="text" placeHolder="">
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label" for="MajorUsage" >Major usage</label>
-                                            <div class="col-sm-8">
-                                                <select id="MajorUsage" class="form-control" ng-model="beachCharacterization.MajorUsage"
-                                                        ng-options="opt.value as opt.name for opt in options.majorUsage">
-                                                </select>
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="NearestTownDistance" >Distance</label>
+                                        <div class="col-sm-8">
+                                            <input id="NearestTownDistance" ng-model="beachCharacterization.NearestTownDistance" class="form-control" type="number" placeHolder="km">
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label" for="Access" >Access</label>
-                                            <div class="col-sm-8">
-                                                <input id="Access" ng-model="beachCharacterization.Access" class="form-control" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="NearestTownDirection" >Direction</label>
+                                        <div class="col-sm-8">
+                                            <select id="NearestTownDirection" class="form-control" ng-model="beachCharacterization.NearestTownDirection"
+                                                    ng-options="opt.value as opt.name for opt in options.townDirection">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Nearest River</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="NearestRiver" >River name</label>
+                                        <div class="col-sm-8">
+                                            <input id="NearestRiver" ng-model="beachCharacterization.NearestRiver" class="form-control" type="text" placeHolder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="NearestRiverDistance" >Distance</label>
+                                        <div class="col-sm-8">
+                                            <input id="NearestRiverDistance" ng-model="beachCharacterization.NearestRiverDistance" class="form-control" type="number" placeHolder="km">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="NearestRiverDirection" >Direction</label>
+                                        <div class="col-sm-8">
+                                            <select id="NearestRiverDirection" class="form-control" ng-model="beachCharacterization.NearestRiverDirection"
+                                                    ng-options="opt.value as opt.name for opt in options.riverDirection">
+                                            </select>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"  >River input to beach</label>
+                                        <div class="col-sm-8">
+                                            <div class="btn-toolbar">
+                                                <label class="btn btn-default" ng-model="beachCharacterization.RiversCreeks" btn-radio="'true'">Yes</label>
+                                                <label class="btn btn-default" ng-model="beachCharacterization.RiversCreeks" btn-radio="'false'">No</label>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Nearest Town</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label" for="NearestTown" >Town name</label>
-                                                <div class="col-sm-8">
-                                                    <input id="NearestTown" ng-model="beachCharacterization.NearestTown" class="form-control" type="text" placeHolder="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label" for="NearestTownDistance" >Distance</label>
-                                                <div class="col-sm-8">
-                                                    <input id="NearestTownDistance" ng-model="beachCharacterization.NearestTownDistance" class="form-control" type="number" placeHolder="km">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label" for="NearestTownDirection" >Direction</label>
-                                                <div class="col-sm-8">
-                                                    <select id="NearestTownDirection" class="form-control" ng-model="beachCharacterization.NearestTownDirection"
-                                                            ng-options="opt.value as opt.name for opt in options.townDirection">
-                                                    </select>
-                                                </div>
-                                            </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="PipesDrains" >Pipes/Drains</label>
+                                        <div class="col-sm-8">
+                                            <input id="PipesDrains" ng-model="beachCharacterization.PipesDrains" class="form-control" type="number">
                                         </div>
                                     </div>
-
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Nearest River</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label" for="NearestRiver" >River name</label>
-                                                <div class="col-sm-8">
-                                                    <input id="NearestRiver" ng-model="beachCharacterization.NearestRiver" class="form-control" type="text" placeHolder="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label" for="NearestRiverDistance" >Distance</label>
-                                                <div class="col-sm-8">
-                                                    <input id="NearestRiverDistance" ng-model="beachCharacterization.NearestRiverDistance" class="form-control" type="number" placeHolder="km">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label" for="NearestRiverDirection" >Direction</label>
-                                                <div class="col-sm-8">
-                                                    <select id="NearestRiverDirection" class="form-control" ng-model="beachCharacterization.NearestRiverDirection"
-                                                            ng-options="opt.value as opt.name for opt in options.riverDirection">
-                                                    </select>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label"  >River input to beach</label>
-                                                <div class="col-sm-8">
-                                                    <div class="btn-toolbar">
-                                                        <label class="btn btn-default" ng-model="beachCharacterization.RiversCreeks" btn-radio="'true'">Yes</label>
-                                                        <label class="btn btn-default" ng-model="beachCharacterization.RiversCreeks" btn-radio="'false'">No</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label" for="PipesDrains" >Pipes/Drains</label>
-                                                <div class="col-sm-8">
-                                                    <input id="PipesDrains" ng-model="beachCharacterization.PipesDrains" class="form-control" type="number">
-                                                </div>
-                                            </div>
+                                </div>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="Notes" >Other notes</label>
+                                        <div class="col-sm-8">
+                                            <textarea id="Notes" ng-model="beachCharacterization.Notes" class="form-control col-sm-8" rows="3"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-sm-4 control-label" for="OtherNotes" >Other notes</label>
-                                        <div class="col-sm-8">
-                                            <textarea id="OtherNotes" ng-model="beachCharacterization.OtherNotes" class="form-control col-sm-8" rows="3"></textarea>
-                                        </div>
+                                        <button type="button" class="btn btn-primary" ng-click="saveClicked()">Save</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    <!--</tab>-->
-                </div>
-               <!-- </tabset>-->
-                </div>
-                    <div class="inner">
-                       <!-- <p>{{beachCharacterization}}</p>-->
+                    </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -290,9 +283,7 @@
                 continuous: false,
                 callback: function(index, elem) {
                     var scope = angular.element($("#main")).scope();
-                    scope.$apply(function(){
                         scope.tabs[index].active = true;     
-                    })
                 }   
             });
         
