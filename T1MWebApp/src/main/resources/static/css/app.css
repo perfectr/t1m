@@ -45,6 +45,11 @@ body {
   }
 }
 
+/* navbar is the main header across the top of the app */
+.navbar-default {
+  background-color: #90AE57 !important;
+}
+
 /* Sidebar navigation */
 .nav-sidebar {
   margin-right: -21px; /* 20px padding + 1px border */
@@ -58,12 +63,9 @@ body {
 
 .nav-sidebar > .active > a {
   color: #fff;
-  background-color: #67652f !important;
+  background-color: #B9D18C !important;
 }
 
-.navbar-default {
-  background-color: #eae1dc !important;
-}
 
 /*
  * Main content

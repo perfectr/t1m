@@ -30,10 +30,8 @@ public class BCBirdController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public Response<BCBirdEntity> saveBCBird(@RequestBody String json) {
-        //return bcBirdService.saveBCBird(new BCBirdEntity());
-        System.out.println(json);
-        return null;
+    public Response<BCBirdEntity> saveBCBird(@RequestBody Response<BCBirdEntity> request) {
+        return bcBirdService.saveBCBird(request.getModel());
     }
 
     @RequestMapping(value = "/{bcBirdId}", method = RequestMethod.DELETE)

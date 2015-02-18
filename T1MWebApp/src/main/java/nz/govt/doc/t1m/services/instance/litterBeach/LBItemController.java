@@ -30,10 +30,8 @@ public class LBItemController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public Response<LBItemEntity> saveLBItem(@RequestBody String json) {
-        //return lbItemService.saveLBItem(new LBItemEntity());
-        System.out.println(json);
-        return null;
+    public Response<LBItemEntity> saveLBItem(@RequestBody Response<LBItemEntity> request) {
+        return new Response<>(lbItemService.saveLBItem(request.getModel()));
     }
 
     @RequestMapping(value = "/{lbItemId}", method = RequestMethod.DELETE)

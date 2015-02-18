@@ -43,17 +43,16 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
         }
 
         String[] resourceRoots = new String[]{
-                //"bower_components",
+                "bower_components",
                 "css",
-                //"img",
-                //"js",
-                //"partials",
-                //"app",
+                "img",
+                "js",
+                "partials",
         };
 
         for(String nextResourceRoot : resourceRoots) {
             String pathPattern = "/resources/" + version + "/" + nextResourceRoot + "/**";
-            String resourceLocation = "classpath:/static/" + nextResourceRoot + "/**";
+            String resourceLocation = "classpath:/static/" + nextResourceRoot + "/";
             registry.addResourceHandler(pathPattern).addResourceLocations(resourceLocation).setCachePeriod(cachePeriod);
             log.info("Adding resource mapping: " + pathPattern + " -> " + resourceLocation);
         }

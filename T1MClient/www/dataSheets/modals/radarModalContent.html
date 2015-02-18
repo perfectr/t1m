@@ -16,9 +16,20 @@
     <div class="panel-body" style="padding:0;">
         <ul class="list-group">
             <li class="list-group-item col-xs-6 listItems"
-                ng-repeat="bird in birds" ng-click="addRadarbird(bird)">
+                ng-repeat="bird in birds"
+                 ng-click="addRadarbird(bird)">
+                
+                <span class="pull-right">
+                    <button class="btn btn-xs btn-default" ng-click="addRadarIncrModal(bird)">
+                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                    </button>
+                </span>
                 {{bird.bird}}
             </li>
+            
+
+            
+            
         </ul>
     </div>
 </div>

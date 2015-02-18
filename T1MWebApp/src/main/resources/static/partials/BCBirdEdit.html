@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-sm-12">
+        <table width="100%;">
+            <tr><td><h3>Bird Count Bird Details</h3></td></tr>
+            <tr><td colspan="2"><hr style="margin-top: 0px;"></td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-repeat="msg in selectedPerson.responseMessages">
+            <div class="alert alert-danger" role="alert">{{msg.description}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row" >
+    <dl class="dl-horizontal">
+        <dt>Instance ID</dt><dd>{{selectedBCBird.model.instanceId}}</dd>
+        <dt>DataSheet ID</dt><dd><a ng-click="goToDataSheet(selectedBCBird.model.dataSheetId)">{{selectedBCBird.model.dataSheetId}}</a></dd>
+        <dt>Species</dt><dd>{{selectedBCBird.model.species}}</dd>
+        <dt>Number Near</dt><dd>{{selectedBCBird.model.numNear}}</dd>
+        <dt>Number Far</dt><dd>{{selectedBCBird.model.numFar}}</dd>
+        <dt>Number Very Far</dt><dd>{{selectedBCBird.model.numVFar}}</dd>
+        <dt>Notes</dt><dd>{{selectedBCBird.model.notes}}</dd>
+    </dl>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <hr>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8" align="right">
+            <button type="button" class="btn btn-default" ng-click="goBack()">Back</button>
+        </div>
+    </div>
+</div>

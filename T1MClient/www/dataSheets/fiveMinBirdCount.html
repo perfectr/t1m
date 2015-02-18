@@ -42,195 +42,204 @@
         <title>fiveMinBirdCount</title>
     </head>
     <body>
-        <div ng-app="t1mApp" class="app" ng-controller="t1mfiveMinBirdCountCtrl" >
-            <tabset justified='true'>
-                
-                <tab heading='Plot List' select="intoJson()">
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-4"></div>
-                        <div class="col-xs-4">
-                            <button class = "btn-lg btn-default btn-wide" 
-                                    ng-click="startCountdown()">
-                                {{timer.mins}}:{{timer.secs}}
-                            </button>                           
-                        </div>
-                        <div class="col-xs-4">
-                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
-                        </div>
-                    </div>
-                    <br><br><div class="row">
-                        <div class="col-xs-2"></div>
-                        <div class="col-xs-3">
-                            <button class="btn btn-success btn-circle" ng-click="addBirdModal()">
-                                    <span class="glyphicon glyphicon-plus plusButton" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                        <div class="col-xs-4">
-                            <h3 class="addBirdToPlotText">Add Bird to Plot List</h3>
-                        </div>    
-                        <div class="col-xs-3"></div> 
-                    </div>
-                    <div class="inner">
-                        <br>
-                        <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <ul class="list-group">
-                                        <li ng-repeat="bird in birdCount" 
-                                            class="list-group-item col-xs-6 listItems" 
-                                            ng-click="addBirdIncrementModal(bird.bird)">
-                                                {{bird.bird}}
-                                        </li>
-                                    </ul>
+        <div class="container-fluid">
+            <div class="row" style="background: #90AE57;">
+                <img src="../img/t1monitor_logo_small.png">
+            </div>
+            <div class="row">
+                <div ng-app="t1mApp" class="app" ng-controller="t1mfiveMinBirdCountCtrl" >
+                    <tabset justified='true'>
+
+                        <tab heading='Plot List' select="intoJson()">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Timer</div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <button class = "btn btn-default btn-wide" ng-click="startCountdown()">
+                                                        {{timer.mins}}:{{timer.secs}}
+                                                    </button>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <button class = "btn btn-danger  btn-wide" ng-click="reset()">Reset</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                        </div>
-                    </div>
-                    <!--<p>{{birdCount}}</p>-->
-                </tab>
-                
-                <tab heading='Radar' select="intoJson()">
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-4"></div>
-                            <div class="col-xs-4">
-                                <button class = "btn-lg btn-default btn-wide" ng-click="startCountdown()">
-                                    {{timer.mins}}:{{timer.secs}}
-                                </button>                           
                             </div>
-                        <div class="col-xs-4">
-                            <button class = "btn btn-danger" ng-click="reset()">Reset</button>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="radar" ng-click="addTouch($event)" ng-style="{height: $element.offsetWidth}">
-                        <svg class="touches">
-                            <circle ng-repeat="touch in touches" 
-                                    cx="{{touch.x}}" 
-                                    cy="{{touch.y}}" 
-                                    r="0.5em" 
-                                    fill="blue" 
-                                    fill-opacity="0.8"/>
-                        </svg>
-                    </div>
-                    
-                    <p>{{radarBirds}}hi</p>
-                    <br>
-                    <p>{{touches}}</p>
-                    <p>{{birdCount}}</p>
+                            <div class="row">
+                                <div class="col-xs-1"></div>
+                                <div class="col-xs-3">
+                                    <button class="btn btn-success btn-circle" ng-click="addBirdModal()">
+                                        <span class="glyphicon glyphicon-plus plusButton" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="col-xs-7">
+                                    <h3 class="addBirdToPlotText">Add bird to list</h3>
+                                </div>
+                                <div class="col-xs-1"></div>
+                            </div>
+                            <div class="inner">
+                                <br>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <ul class="list-group">
+                                            <li ng-repeat="bird in birdCount"
+                                                class="list-group-item col-xs-6 listItems"
+                                                ng-click="addBirdIncrementModal(bird.bird)">
+                                                {{bird.bird}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<p>{{birdCount}}</p>-->
+                        </tab>
 
-                </tab>
-                
-                <tab heading='Site' select="intoJson" >
-                    <div class="inner">
-                        <h4>Choose count station</h4>
-                        <p>{{currentSurvey}}</p>
-                        <div class="btn-toolbar">
-                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'X'">X</label>
-                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'A'">A</label>
-                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'D'">D</label>
-                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'M'">M</label>
-                            <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'P'">P</label>
-                        </div><br>
+                        <tab heading='Radar' select="intoJson()">
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-4"></div>
+                                <div class="col-xs-4">
+                                    <button class = "btn-lg btn-default btn-wide" ng-click="startCountdown()">
+                                        {{timer.mins}}:{{timer.secs}}
+                                    </button>
+                                </div>
+                                <div class="col-xs-4">
+                                    <button class = "btn btn-danger" ng-click="reset()">Reset</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="radar"
+                                 id="radar"
+                                 ng-click="addTouch($event)"
+                                 ng-style="{height: $element.offsetWidth}">
+                                <svg class="touches">
+                                    <circle ng-repeat="touch in touches"
+                                            cx="{{touch.x}}"
+                                            cy="{{touch.y}}"
+                                            r="0.5em"
+                                            fill="blue"
+                                            fill-opacity="0.8"/>
+                                </svg>
+                            </div>
+                        </tab>
 
-                        <button type="button" 
-                                class="btn btn-default" 
-                                ng-model="birdSurvey.skip" 
-                                btn-checkbox btn-checkbox-true=true 
-                                btn-checkbox-false=false 
-                                ng-click="skip()">
-                            {{birdSurvey.skipButton}}
-                        </button>
-                        <br>  
-                        <h4>Enter Start Time:</h4>
-                        <input type="time" class="form-control" ng-model="birdSurvey.time" ng-disabled="birdSurvey.skip">
-                        <h4>Sun</h4>
-                        <select class="form-control" 
-                                ng-model="birdSurvey.sun" 
-                                ng-options="opt.value as opt.name for opt in options.sun" 
-                                ng-disabled="birdSurvey.skip">
-                            <option value="" disabled selected>Bright sun immediately overhead in minutes</option>
-                        </select>  
-                        <h4>Temperature</h4>
-                        <select class="form-control"
-                                ng-model="birdSurvey.temp" 
-                                ng-options="opt.value as opt.name for opt in options.temp" 
-                                ng-disabled="birdSurvey.skip">
-                            <option value="" disabled selected>Temperature</option>
-                        </select>
-                        <h4>Precipitation</h4>
-                        <select class="form-control" 
-                                ng-model="birdSurvey.prec" 
-                                ng-options="opt.value as opt.name for opt in options.prec" 
-                                ng-disabled="birdSurvey.skip">
-                            <option value="" disabled selected>Precipitation</option>
-                        </select>
-                        <h4>Wind</h4>
-                        <select class="form-control" 
-                                ng-model="birdSurvey.wind" 
-                                ng-options="opt.value as opt.name for opt in options.wind" 
-                                ng-disabled="birdSurvey.skip">
-                            <option value="" disabled selected>Wind</option>
-                        </select>
-                        <h4>Other noise</h4>
-                        <select class="form-control" 
-                                ng-model="birdSurvey.othNoi" 
-                                ng-options="opt.value as opt.name for opt in options.othNoi" 
-                                ng-disabled="birdSurvey.skip">
-                            <option value="" disabled selected>Other Noise</option>
-                        </select>
-                        <h4>Easting</h4>
-                        <input type="number" class="form-control" 
-                               ng-model="birdSurvey.east" 
-                               ng-disabled="birdSurvey.skip" 
-                               placeholder="Easting">
-                        <h4>Northing</h4>
-                        <input type="number" class="form-control" 
-                               ng-model="birdSurvey.north" 
-                               ng-disabled="birdSurvey.skip" 
-                               placeholder="Northing">
-                        <h4>GDX Fix</h4>
-                        <select class="form-control" 
-                                ng-model="birdSurvey.pos" 
-                                ng-options="opt.value as opt.name for opt in options.pos" 
-                                ng-disabled="birdSurvey.skip">
-                            <option value="" disabled selected>GDX Fix</option>
-                        </select>
-                        <h4>Elevation</h4>
-                        <input type="number" class="form-control" 
-                               ng-model="birdSurvey.elev" 
-                               ng-disabled="birdSurvey.skip" 
-                               placeholder="Elevation">
-                        <h4>Notes</h4>
-                        <input type="text" class="form-control" 
-                               ng-model="birdSurvey.notes" 
-                               ng-disabled="birdSurvey.skip" 
-                               placeholder="Notes">
-                        <br>
-                        <button class="btn btn-default" ng-click="saveAction()">Submit</button>
-                        
-                    </div>
-                </tab>
-                <tab heading='Summary' select="intoJson()">
-                    <br>
-                    <table class="table table-striped table-bordered"> 
-                        <tr>
-                            <th>Time</th>
-                            <th>Specie</th>
-                            <th>Distance</th>
-                            <th>Count</th>
-                        </tr>
-                        <tr ng-repeat="bird in radarBirds" ng-click="editBirdSummary(bird)">
-                            <td>{{bird.time}}</td>
-                            <td>{{bird.bird}}</td>
-                            <td>{{bird.dist}}</td>
-                            <td>{{bird.count}}</td>
-                        </tr>
-                    </table>
-                    <p style="color:grey;">(Touch a row to edit)</p>
-                    <p>{{radarBirds}}</p>
-                </tab>
-                
-            </tabset>
+                        <tab heading='Site' select="intoJson" >
+                            <div class="inner">
+                                <h4>Choose count station</h4>
+                                <p>{{currentSurvey}}</p>
+                                <div class="btn-toolbar">
+                                    <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'X'">X</label>
+                                    <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'A'">A</label>
+                                    <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'D'">D</label>
+                                    <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'M'">M</label>
+                                    <label class="btn btn-default" ng-model="birdSurvey.rad" btn-radio="'P'">P</label>
+                                </div><br>
+
+                                <button type="button"
+                                        class="btn btn-default"
+                                        ng-model="birdSurvey.skip"
+                                        btn-checkbox btn-checkbox-true=true
+                                        btn-checkbox-false=false
+                                        ng-click="skip()">
+                                    {{birdSurvey.skipButton}}
+                                </button>
+                                <br>
+                                <h4>Enter Start Time:</h4>
+                                <input type="time" class="form-control" ng-model="birdSurvey.time" ng-disabled="birdSurvey.skip">
+                                <h4>Sun</h4>
+                                <select class="form-control"
+                                        ng-model="birdSurvey.sun"
+                                        ng-options="opt.value as opt.name for opt in options.sun"
+                                        ng-disabled="birdSurvey.skip">
+                                    <option value="" disabled selected>Bright sun immediately overhead in minutes</option>
+                                </select>
+                                <h4>Temperature</h4>
+                                <select class="form-control"
+                                        ng-model="birdSurvey.temp"
+                                        ng-options="opt.value as opt.name for opt in options.temp"
+                                        ng-disabled="birdSurvey.skip">
+                                    <option value="" disabled selected>Temperature</option>
+                                </select>
+                                <h4>Precipitation</h4>
+                                <select class="form-control"
+                                        ng-model="birdSurvey.prec"
+                                        ng-options="opt.value as opt.name for opt in options.prec"
+                                        ng-disabled="birdSurvey.skip">
+                                    <option value="" disabled selected>Precipitation</option>
+                                </select>
+                                <h4>Wind</h4>
+                                <select class="form-control"
+                                        ng-model="birdSurvey.wind"
+                                        ng-options="opt.value as opt.name for opt in options.wind"
+                                        ng-disabled="birdSurvey.skip">
+                                    <option value="" disabled selected>Wind</option>
+                                </select>
+                                <h4>Other noise</h4>
+                                <select class="form-control"
+                                        ng-model="birdSurvey.othNoi"
+                                        ng-options="opt.value as opt.name for opt in options.othNoi"
+                                        ng-disabled="birdSurvey.skip">
+                                    <option value="" disabled selected>Other Noise</option>
+                                </select>
+                                <h4>Easting</h4>
+                                <input type="number" class="form-control"
+                                       ng-model="birdSurvey.east"
+                                       ng-disabled="birdSurvey.skip"
+                                       placeholder="Easting">
+                                <h4>Northing</h4>
+                                <input type="number" class="form-control"
+                                       ng-model="birdSurvey.north"
+                                       ng-disabled="birdSurvey.skip"
+                                       placeholder="Northing">
+                                <h4>GDX Fix</h4>
+                                <select class="form-control"
+                                        ng-model="birdSurvey.pos"
+                                        ng-options="opt.value as opt.name for opt in options.pos"
+                                        ng-disabled="birdSurvey.skip">
+                                    <option value="" disabled selected>GDX Fix</option>
+                                </select>
+                                <h4>Elevation</h4>
+                                <input type="number" class="form-control"
+                                       ng-model="birdSurvey.elev"
+                                       ng-disabled="birdSurvey.skip"
+                                       placeholder="Elevation">
+                                <h4>Notes</h4>
+                                <input type="text" class="form-control"
+                                       ng-model="birdSurvey.notes"
+                                       ng-disabled="birdSurvey.skip"
+                                       placeholder="Notes">
+                                <br>
+                                <button class="btn btn-default" ng-click="saveAction()">Submit</button>
+
+                            </div>
+                        </tab>
+                        <tab heading='Summary' select="intoJson()">
+                            <br>
+                            <table class="table table-striped table-bordered">
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Specie</th>
+                                    <th>Distance</th>
+                                    <th>Count</th>
+                                </tr>
+                                <tr ng-repeat="bird in radarBirds" ng-click="editBirdSummary(bird)">
+                                    <td>{{bird.time}}</td>
+                                    <td>{{bird.bird}}</td>
+                                    <td>{{bird.dist}}</td>
+                                    <td>{{bird.count}}</td>
+                                </tr>
+                            </table>
+                            <p style="color:grey;">(Touch a row to edit)</p>
+                        </tab>
+
+                    </tabset>
+                </div>
+            </div>
         </div>
         
         <script type="text/javascript" src="../cordova.js"></script>

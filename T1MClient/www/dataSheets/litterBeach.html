@@ -215,9 +215,7 @@
                 continuous: false,
                 callback: function(index, elem) {
                     var scope = angular.element($("#main")).scope();
-                    scope.$apply(function(){
-                        scope.tabs[index].active = true;     
-                    })
+                        scope.tabs[index].active = true;   
                 }   
             });
         </script>

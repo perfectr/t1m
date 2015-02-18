@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-sm-12">
+        <table width="100%;">
+            <tr><td><h3>Small Litter Item Details</h3></td></tr>
+            <tr><td colspan="2"><hr style="margin-top: 0px;"></td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-repeat="msg in selectedPerson.responseMessages">
+            <div class="alert alert-danger" role="alert">{{msg.description}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row" >
+    <dl class="dl-horizontal">
+        <dt>Instance ID</dt><dd>{{selectedLBItem.model.instanceId}}</dd>
+        <dt>DataSheet ID</dt><dd><a ng-click="goToDataSheet(selectedLBItem.model.dataSheetId)">{{selectedLBItem.model.dataSheetId}}</a></dd>
+        <dt>Litter Code</dt><dd>{{selectedLBItem.model.litterCode}}</dd>
+        <dt>Description</dt><dd>{{selectedLBItem.model.description}}</dd>
+        <dt>Count</dt><dd>{{selectedLBItem.model.count}}</dd>
+        <dt>Weight</dt><dd>{{selectedLBItem.model.weight}}</dd>
+        <dt>Notes</dt><dd>{{selectedLBItem.model.notes}}</dd>
+    </dl>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <hr>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8" align="right">
+            <button type="button" class="btn btn-default" ng-click="goBack()">Back</button>
+        </div>
+    </div>
+</div>
