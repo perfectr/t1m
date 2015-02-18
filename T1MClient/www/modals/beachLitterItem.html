@@ -5,35 +5,40 @@
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(233, 175, 102, 0.6);
         outline: 0;
     }
+    .tooltip-large + .tooltip .tooltip-inner {
+        max-width: 100%;
+    }   
 </style>
-<div class="modal-header">
-    <h4>Beach Litter Data</h4>
-</div>
+
 <div class="modal-body">
     <div class="row">
-        <div class="col-xs-4">
+        <div class="col-xs-6">
             <h4>Type</h4>
             <select class="form-control" ng-model="Type" 
                     ng-options="type.type as type.type for type in options.types" ng-change="litterTypeSelected()">
                 <option></option>
             </select>
         </div>
-        <div class="col-xs-5">
-            <h4>Specific</h4>
-            <select class="form-control" ng-class="{invalid: inValid.specific}" ng-options="specific as specific.value for specific in options.specific" 
-                    ng-change="litterSpecificSelected()" ng-model="Specific">
-                <option></option>
-            </select>
-        </div>
-        <div class="col-xs-3">
+        <div class="col-xs-6">
             <h4>Code</h4>
             <text ng-bind="SmallLitter.LitterCode" ></text>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
+            <h4>Specific</h4>
+            <select class="form-control tooltip-large" ng-class="{invalid: invalid.specific}" 
+                    ng-options="specific as specific.value for specific in options.specific" 
+                    ng-change="litterSpecificSelected()" ng-model="Specific"
+                     tooltip="{{specificValue()}}"  tooltip-trigger="focus" tooltip-placement="bottom">
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
             <h4>Description</h4>
-            <input ng-model="SmallLitter.Description" class="form-control" type="text"></input>
+            <input ng-model="SmallLitter.Description" ng-class="{invalid: invalid.description}" class="form-control" type="text"></input>
         </div>
     </div>
     <br>
@@ -42,7 +47,7 @@
             <h4>Count</h4>
         </div>
         <div class="col-xs-9">
-            <input ng-model="SmallLitter.Count" ng-class="{invalid: inValid.count}" class="form-control" type="number"></input>
+            <input ng-model="SmallLitter.Count" ng-class="{invalid: invalid.count}" class="form-control" type="number"></input>
         </div>
     </div>
     <div class="row">
@@ -50,7 +55,7 @@
             <h4>Weight</h4>
         </div>
         <div class="col-xs-9">
-            <input ng-model="SmallLitter.Weight" ng-class="{invalid: inValid.weight}" class="form-control" type="number"></input>
+            <input ng-model="SmallLitter.Weight" ng-class="{invalid: invalid.weight}" class="form-control" type="number"></input>
         </div>
     </div>
     <div class="row">
@@ -77,7 +82,7 @@
     <div class="row">
         <div class="col-xs-12">
             <h4>Notes</h4>
-            <textArea ng-model="SmallLitter.Notes" class="form-control" type="text" rows="2"></textArea>
+            <textArea ng-model="SmallLitter.Notes" class="form-control" type="text" rows="1"></textArea>
         </div>
     </div>
 </div>

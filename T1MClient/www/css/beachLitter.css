@@ -7,6 +7,13 @@
    margin: 0 !important;
 }
 
+.invalid1 .invalid2 {
+    background-color: red;   
+}
+.invalid3{
+    background-color: orange;   
+}
+
 
 @media (min-width: 0px) {
   .nav-justified > li {

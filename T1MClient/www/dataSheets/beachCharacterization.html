@@ -56,7 +56,7 @@
                                 <h4><b>Location</b></h4>
                             </div>
                             <div class="col-xs-6">
-                                <button class="btn btn-default"  ng-click="retriveGPS()" >Retrive GPS Location</button>
+                                <button class="btn btn-default"  ng-click="retriveGPS()" >Retrieve GPS Location</button>
                             </div>
                         </div>
                         <div class="row">
@@ -73,7 +73,7 @@
                         <br/>
                         <div class="row">
                             <div class="col-xs-4">
-                                <h4>Coordiante System</h4>
+                                <h4>Coordinate System</h4>
                             </div>
                             <div class="col-xs-8">
                                 <input ng-model="beachCharacterization.CoordSystem" class="form-control" type="text" placeHolder="System">
@@ -109,10 +109,10 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                <h4>Substratum Uniformity</h4>
+                                <h4>Substrate Uniformity</h4>
                             </div>
                             <div class="col-xs-6">
-                                <input ng-model="beachCharacterization.SubstratumUniformity" class="form-control" type="number" 
+                                <input ng-model="beachCharacterization.SubstrateUniformity" class="form-control" type="number" 
                                        tooltip="Coverage by the predominant substrate type (Percent)" 
                                        tooltip-trigger="focus" tooltip-placement="bottom">
                             </div>
@@ -261,7 +261,13 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <textarea ng-model="beachCharacterization.OtherNotes" class="form-control" rows="2"></textarea>
+                                <textarea ng-model="beachCharacterization.Notes" class="form-control" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-primary" ng-click="saveClicked()">Save</button>
                             </div>
                         </div>
                     </div>  
@@ -270,9 +276,6 @@
             </div>
            <!-- </tabset>-->
             </div>
-                <div class="inner">
-                   <!-- <p>{{beachCharacterization}}</p>-->
-                </div>
             </div>
         </div>
         
