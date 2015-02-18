@@ -10,21 +10,25 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <link rel="shortcut icon" href="img/favicon.ico"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
 
     <title>T1M</title>
 
     <!-- Bootstrap core CSS -->
-    <link th:href="'/bower_components/bootstrap/dist/css/bootstrap.min.css'" rel="stylesheet"/>
+    <link th:href="'/resources/' + ${version} + '/bower_components/bootstrap/dist/css/bootstrap.min.css'" rel="stylesheet"/>
 
     <!-- Custom styles for this template -->
-    <link th:href="'/css/app.css'" rel="stylesheet"/>
+    <link th:href="'/resources/' + ${version} + '/css/app.css'" rel="stylesheet"/>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <link rel="icon" type="image/png" th:href="'/resources/' + ${version} + '/img/favicon-32x32.png'" sizes="32x32"></link>
+    <link rel="icon" type="image/png" th:href="'/resources/' + ${version} + '/img/favicon-96x96.png'" sizes="96x96"></link>
+    <link rel="icon" type="image/png" th:href="'/resources/' + ${version} + '/img/favicon-16x16.png'" sizes="16x16"></link>
 </head>
 
 <body>
@@ -38,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="" href="/"><img alt="NZTCS" src="img/T1MLogo.png"></img></a> <!-- closing img tag not strictly html standard, but Thymeleaf insists on it because ThymeLeaf is XML orientated -->
+            <a class="" href="/"><img alt="NZTCS" src="img/t1monitor_logo_small.png"></img></a> <!-- closing img tag not strictly html standard, but Thymeleaf insists on it because ThymeLeaf is XML orientated -->
         </div>
     </div>
 </div>
@@ -48,23 +52,23 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li>Surveys - View and Edit</li>
-                <li ng-class="{ active: isActive('/#/survey')}"><a href="#/survey/search">Survey Meta Data</a></li>
+                <li ng-class="{ active: isActive('/survey/search')}"><a href="#/survey/search">Survey Meta Data</a></li>
                 <li>Bird Survey Data</li>
-                <li ng-class="{ active: isActive('/#/birdCount')}"><a href="#/birdCount/search">Bird Count Data Sheets</a></li>
-                <li ng-class="{ active: isActive('/#/bcBird')}"><a href="#/bcBird/search">Bird Count Bird Instance</a></li>
-                <!--<li ng-class="{ active: isActive('/#/birdDistance')}"><a href="#/birdDistance/search">Bird Distances</a></li>-->
-                <!--<li ng-class="{ active: isActive('/#/bdBird')}"><a href="#/bdBird/search">BD Birds</a></li>-->
-                <!--<li ng-class="{ active: isActive('/#/incidentalBird')}"><a href="#/incidentalBird/search">Incidental Birds</a></li>-->
+                <li ng-class="{ active: isActive('/birdCount/search')}"><a href="#/birdCount/search">Bird Count Data Sheets</a></li>
+                <li ng-class="{ active: isActive('/bcBird/search')}"><a href="#/bcBird/search">Bird Count Bird Instance</a></li>
+                <!--<li ng-class="{ active: isActive('/birdDistance/search')}"><a href="#/birdDistance/search">Bird Distances</a></li>-->
+                <!--<li ng-class="{ active: isActive('/bdBird/search')}"><a href="#/bdBird/search">BD Birds</a></li>-->
+                <!--<li ng-class="{ active: isActive('/incidentalBird/search')}"><a href="#/incidentalBird/search">Incidental Birds</a></li>-->
                 <li>Litter Survey Data</li>
-                <li ng-class="{ active: isActive('/#/litterBeach')}"><a href="#/litterBeach/search">Beach Litter Data Sheets</a></li>
-                <li ng-class="{ active: isActive('/#/lbItem')}"><a href="#/lbItem/search">Small Litter Item Instances</a></li>
-                <!--<li ng-class="{ active: isActive('/#/litterLarge')}"><a href="#/litterLarge/search">Large Litters</a></li>-->
-                <!--<li ng-class="{ active: isActive('/#/llItem')}"><a href="#/llItem/search">LL Items</a></li>-->
-                <li ng-class="{ active: isActive('/#/beachCharacterization')}"><a href="#/beachCharacterization/search">Beach Characterization Information</a></li>
+                <li ng-class="{ active: isActive('/litterBeach/search')}"><a href="#/litterBeach/search">Beach Litter Data Sheets</a></li>
+                <li ng-class="{ active: isActive('/lbItem/search')}"><a href="#/lbItem/search">Small Litter Item Instances</a></li>
+                <!--<li ng-class="{ active: isActive('/litterLarge/search')}"><a href="#/litterLarge/search">Large Litters</a></li>-->
+                <!--<li ng-class="{ active: isActive('/llItem/search')}"><a href="#/llItem/search">LL Items</a></li>-->
+                <li ng-class="{ active: isActive('/beachCharacterization/search')}"><a href="#/beachCharacterization/search">Beach Characterization Information</a></li>
                 <li>Images</li>
-                <li ng-class="{ active: isActive('/#/landing')}"><a href="#/landing">Small Litter Item Images</a></li>
+                <li ng-class="{ active: isActive('/landing')}"><a href="#/landing">Small Litter Item Images</a></li>
                 <!--<li ng-class="{ active: isActive('/contact')}"><a href="#/contact">Contact</a></li>-->
-                <!--<li ng-class="{ active: isActive('/#/person')}"><a href="#/person/search">People</a></li>-->
+                <!--<li ng-class="{ active: isActive('/person/search')}"><a href="#/person/search">People</a></li>-->
                 <!--<li class=""><a href="{{publicAccessURL}}">Public Access</a></li>-->
                 <!--<li class=""><a href="{{secureLoginURL}}">Login</a></li>-->
             </ul>
@@ -84,16 +88,16 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script th:src="'/bower_components/jquery/dist/jquery.min.js'"></script>
-<script th:src="'/bower_components/angular/angular.js'"></script>
-<script th:src="'/bower_components/angular-bootstrap/ui-bootstrap-tpls.js'"></script>
-<script th:src="'/bower_components/angular-route/angular-route.js'"></script>
-<script th:src="'/bower_components/angular-resource/angular-resource.js'"></script>
-<script th:src="'/bower_components/bootstrap/dist/js/bootstrap.min.js'"></script>
-<script th:src="'/js/app.js'" ></script>
-<script th:src="'/js/services.js'" ></script>
-<script th:src="'/js/controllers.js'" ></script>
-<script th:src="'/js/filters.js'" ></script>
-<script th:src="'/js/directives.js'" ></script>
+<script th:src="'/resources/' + ${version} + '/bower_components/jquery/dist/jquery.min.js'"></script>
+<script th:src="'/resources/' + ${version} + '/bower_components/angular/angular.js'"></script>
+<script th:src="'/resources/' + ${version} + '/bower_components/angular-bootstrap/ui-bootstrap-tpls.js'"></script>
+<script th:src="'/resources/' + ${version} + '/bower_components/angular-route/angular-route.js'"></script>
+<script th:src="'/resources/' + ${version} + '/bower_components/angular-resource/angular-resource.js'"></script>
+<script th:src="'/resources/' + ${version} + '/bower_components/bootstrap/dist/js/bootstrap.min.js'"></script>
+<script th:src="'/resources/' + ${version} + '/js/app.js'" ></script>
+<script th:src="'/resources/' + ${version} + '/js/services.js'" ></script>
+<script th:src="'/resources/' + ${version} + '/js/controllers.js'" ></script>
+<script th:src="'/resources/' + ${version} + '/js/filters.js'" ></script>
+<script th:src="'/resources/' + ${version} + '/js/directives.js'" ></script>
 </body>
 </html>

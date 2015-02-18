@@ -423,6 +423,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                                         return;
                                     }
                                 }
+                                //should be add to plot list or similar
                                 $scope.incrementBird(bt);
                             }   
                         });
@@ -503,6 +504,12 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                     $scope.surveyRecord = new RecordSvc();
                     $scope.initializeRecord();
                 };
+                                                          
+                $scope.pretendSubmit = function(){
+                    if($window.confirm('Are you sure you want to save?')){
+                        $window.location="../surveys/birdSurvey.html";
+                    }
+                }
             }]);
 
 
@@ -645,8 +652,13 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
             $scope.birdName = "Unknown";
         }
         
+        $scope.birdAb = $scope.birdAbrev[$scope.birdName];
+        if($scope.birdAb == null){
+            $scope.birdAb = $scope.birdName;
+        }
+        
         bds.push({time:ct,bird:$scope.birdName,dist:$scope.dis,count:1,comment:"","x":x, "y":y});
-        touches.push({"x": x, "y": y,"bird":$scope.birdAbrev[$scope.birdName], col:"blue"});
+        touches.push({"x": x, "y": y,"bird":$scope.birdAb, col:"blue"});
         $scope.$apply;
         $scope.ok();
     }
@@ -665,8 +677,21 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
                         } else {
                             $scope.dis="Very Far";
                         }
+            
         
-                    $scope.newBird = {time:ct,bird:b.bird,dist:$scope.dis,count:1,comment:"","x":x, "y":y};
+                    if(b!=null){
+                        $scope.birdNameDetails = b.bird;
+                        $scope.birdAb = $scope.birdAbrev[b.bird];
+                        if($scope.birdAb == null){
+                            $scope.birdAb = b.bird;
+                        }
+                    } else {
+                        $scope.birdAb = '?';
+                        $scope.birdNameDetails = "Unknown";
+                    }
+                    
+        
+                    $scope.newBird = {time:ct,bird:$scope.birdNameDetails,dist:$scope.dis,count:1,comment:"","x":x, "y":y};
                     var modalInstance = $modal.open({
                               templateUrl: 'modals/radarIncrModalContent.html',
                               controller: 'radarIncrModalInstanceCtrl',
@@ -688,7 +713,7 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
                         
                         touches.push({"x": $scope.newBird.x, 
                                       "y": $scope.newBird.y,
-                                      "bird":$scope.birdAbrev[$scope.newBird.bird],
+                                      "bird":$scope.birdAb,
                                       "col":colour});
                         $scope.$apply;
                         $scope.ok();
@@ -727,8 +752,9 @@ t1mControllers.controller('radarIncrModalInstanceCtrl', function ($scope, $modal
 
 t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInstance) {
                 
+    //$scope.birdText = [];
                 $scope.birdSpecies = [
-                            {text:'Bellbird'},
+                            {text:'Bellbird', greyed:false},
                             {text:'Blackbird'},
                             {text:'Blue Duck'},
                             {text:'Brown Creeper'},
@@ -775,6 +801,7 @@ t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInsta
                             {text:'Yellowhead'}];
     
               $scope.birdPress = function(birdType){
+                  //$scope.birdText.push(birdType);
                   $scope.birdText = birdType;
                   $scope.ok();
               }

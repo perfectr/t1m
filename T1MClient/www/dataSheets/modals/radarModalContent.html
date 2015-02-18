@@ -6,7 +6,7 @@
         <input type="text" 
             class = "form-control" 
             ng-model="typedBird"
-            placeholder="Type Bird Name">
+            placeholder="Type Bird abbreviation">
         <span class="input-group-btn">
             <button class="btn btn-primary" type="button" ng-click="addBird()">OK</button>
         </span>
@@ -31,7 +31,10 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default btn-block" ng-click="addRadarbird(null)">Unknown</button>
+    <button class="btn btn-default col-xs-10" ng-click="addRadarbird(null)">Unknown</button>
+    <button class="btn btn-default" ng-click="addRadarIncrModal(null)">
+        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+    </button>
 </div>
 <div class="modal-footer">
     <button class="btn btn-warning" 
