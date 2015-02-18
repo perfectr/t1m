@@ -972,27 +972,21 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
     
   
     
-    $scope.retriveGPS = function(gpsField){
+    $scope.retrieveGPS = function(gpsField){
         
-           var retriveGPSSuccess = function(position) {
+           var retrieveGPSSuccess = function(position) {
                $scope.litterBeach["Latitude"+gpsField] = position.coords.latitude;
                $scope.litterBeach["Longitude"+gpsField] = position.coords.longitude;
                $scope.litterBeach.CoordSystem = "WGS84";
                $scope.$apply();       
            } 
            
-           var retriveGPSError = function(error){
-             /*  if(error.code = PositionError.PERMISSION_DENIED){
-               }
-               if(error.code = PositionError.POSITION_UNAVAILABLE){
-               }
-               if(error.code = PositionError.TIMEOUT){
-               }*/
+           var retrieveGPSError = function(error){
                
            }
            
            var options = { enableHighAccuracy: true, maximumAge: 100 };
-           navigator.geolocation.getCurrentPosition(retriveGPSSuccess, retriveGPSError, options);
+           navigator.geolocation.getCurrentPosition(retrieveGPSSuccess, retrieveGPSError, options);
     }
     
      
@@ -1388,20 +1382,20 @@ t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc
         window.localStorage.setItem(currentDataSheet, angular.toJson($scope.beachCharacterization, false));
     };
     
-    $scope.retriveGPS = function(){
+    $scope.retrieveGPS = function(){
         
-           var retriveGPSSuccess = function(position) {
+           var retrieveGPSSuccess = function(position) {
                $scope.beachCharacterization.Latitude = position.coords.latitude;
                $scope.beachCharacterization.Longitude = position.coords.longitude;
                $scope.beachCharacterization.CoordSystem = "WGS84";
                $scope.$apply();       
            } 
            
-           var retriveGPSError = function(error){               
+           var retrieveGPSError = function(error){               
            }
            
            var options = { enableHighAccuracy: true, maximumAge: 100 };
-           navigator.geolocation.getCurrentPosition(retriveGPSSuccess, retriveGPSError, options);
+           navigator.geolocation.getCurrentPosition(retrieveGPSSuccess, retrieveGPSError, options);
     }
     
 

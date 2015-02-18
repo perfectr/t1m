@@ -11,6 +11,7 @@
 </style>
 
 <div class="modal-body">
+    <form role="form" class="form-inline">
     <div class="row">
         <div class="col-xs-6">
             <h4>Type</h4>
@@ -26,13 +27,15 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <h4>Specific</h4>
-            <select class="form-control tooltip-large" ng-class="{invalid: invalid.specific}" 
-                    ng-options="specific as specific.value for specific in options.specific" 
-                    ng-change="litterSpecificSelected()" ng-model="Specific"
-                     tooltip="{{specificValue()}}"  tooltip-trigger="focus" tooltip-placement="bottom">
-                <option></option>
-            </select>
+            <div class="form-group required">
+                <label class="control-label" for="litterSpecific">Specific</label>
+                <select id="litterSpecific" class="form-control tooltip-large" ng-class="{invalid: invalid.specific}" 
+                        ng-options="specific as specific.value for specific in options.specific" 
+                        ng-change="litterSpecificSelected()" ng-model="Specific"
+                         tooltip="{{specificValue()}}"  tooltip-trigger="focus" tooltip-placement="bottom" required>
+                    <option></option>
+                </select>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -85,6 +88,7 @@
             <textArea ng-model="SmallLitter.Notes" class="form-control" type="text" rows="1"></textArea>
         </div>
     </div>
+</form>
 </div>
 <div class="modal-footer">
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
