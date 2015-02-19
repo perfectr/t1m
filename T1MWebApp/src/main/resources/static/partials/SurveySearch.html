@@ -1,37 +1,51 @@
 <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Surveys Received</h4></div>
-            <div class="panel-body">
-                <form role="form" class="form-inline">
-                    <div class="form-group">
-                        <input type="text" class="form-control input-sm" id="nameCriteria" ng-model="surveySearchSvc.searchCriteria.surveyCriteria">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-sm" ng-click="searchAction()">Search</button>
-                </form>
-            </div>
-            <table class="table table-hover">
-                <tbody>
-                <tr><td><b>Survey Type</b></td><td><b>Observer Name</b></td><td><b>Location</b></td><td><b>Received</b></td></tr>
-                <tr ng-repeat="survey in surveySearchSvc.searchResponse.results" ng-click="displayOne(survey.surveyId)">
-                    <td>{{getType(survey.surveyType)}}</td>
-                    <td>{{capFirst(survey.observer)}}</td>
-                    <td>{{capFirst(survey.locationId)}}</td>
-                    <td>{{survey.receivedDString}}</td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="panel-body">
-                <pagination
-                        max-size="4"
-                        boundary-links="true"
-                        ng-change="pageChanged()"
-                        ng-model="surveySearchSvc.searchCriteria.pageNumber"
-                        items-per-page="surveySearchSvc.searchCriteria.pageSize"
-                        total-items="surveySearchSvc.searchResponse.total"
-                        num-pages="surveySearchSvc.searchResponse.numPages">
-                </pagination>
-            </div>
-        </div>
+    <div class="col-sm-12">
+        <h3>Surveys Received</h3>
+        <hr>
+        <table class="table table-hover" style="width:92%;margin-left:4%;">
+            <thead>
+            <tr>
+                <td style="width:25%"><b>Survey Type</b></td>
+                <td style="width:25%"><b>Observer Name</b></td>
+                <td style="width:25%"><b>Location</b></td>
+                <td style="width:25%"><b>Received</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="survey in surveySearchSvc.searchResponse.results" ng-click="displayOne(survey.surveyId)">
+                <td>{{getType(survey.surveyType)}}</td>
+                <td>{{capFirst(survey.observer)}}</td>
+                <td>{{capFirst(survey.locationId)}}</td>
+                <td>{{survey.receivedDString}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <table style="width:98%;margin-left:1%;">
+            <tbody style="width:100%">
+            <tr style="width:100%">
+                <td align="left" style="width:50%">
+                    <form role="form" class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control input-sm" id="nameCriteria" ng-model="surveySearchSvc.searchCriteria.surveyCriteria">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm" ng-click="searchAction()">Search</button>
+                    </form>
+                </td>
+                <td align="right" style="width:50%">
+                    <pagination
+                            max-size="4"
+                            boundary-links="true"
+                            ng-change="pageChanged()"
+                            ng-model="surveySearchSvc.searchCriteria.pageNumber"
+                            items-per-page="surveySearchSvc.searchCriteria.pageSize"
+                            total-items="surveySearchSvc.searchResponse.total"
+                            num-pages="surveySearchSvc.searchResponse.numPages"
+                            style="margin:0px;">
+                    </pagination>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

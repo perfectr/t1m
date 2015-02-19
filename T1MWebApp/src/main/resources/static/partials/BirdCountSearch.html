@@ -1,19 +1,27 @@
 <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Bird Count Data Sheets Received</h4></div>
-            <table class="table table-hover">
-                <tbody>
-                <tr><td><h5>Data Sheet ID</h5></td><td><h5>Survey ID</h5></td><td><h5>Station ID</h5></td><td><h5>Start Time</h5></td><td><h5>Notes</h5></td></tr>
-                <tr ng-repeat="birdCount in birdCountSearchSvc.searchResponse.results" ng-click="displayOne(birdCount.dataSheetId)">
-                    <td>{{birdCount.dataSheetId}}</td>
-                    <td>{{birdCount.surveyId}}</td>
-                    <td>{{birdCount.stationId}}</td>
-                    <td>{{birdCount.startTime}}</td>
-                    <td>{{birdCount.notes}}</td>
-                </tr>
-                </tbody>
-            </table>
+    <div class="col-sm-12">
+        <h3>Bird Count Data Sheets Received</h3>
+        <hr>
+        <table class="table table-hover" style="width:92%;margin-left:4%;">
+            <thead>
+            <tr>
+                <td style="width:25%"><b>Station ID</b></td>
+                <td style="width:25%"><b>Start Time</b></td>
+                <td style="width:25%"><b>Skipped</b></td>
+                <td style="width:25%"><b>Position</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="birdCount in birdCountSearchSvc.searchResponse.results" ng-click="displayOne(birdCount.dataSheetId)">
+                <td>{{birdCount.stationId}}</td>
+                <td>{{birdCount.startTime}}</td>
+                <td>{{birdCount.stationSkipped}}</td>
+                <td>{{birdCount.position}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <div align="right" style="width:98%;margin-left:1%;">
             <pagination
                     max-size="4"
                     boundary-links="true"
@@ -21,7 +29,8 @@
                     ng-model="birdCountSearchSvc.searchCriteria.pageNumber"
                     items-per-page="birdCountSearchSvc.searchCriteria.pageSize"
                     total-items="birdCountSearchSvc.searchResponse.total"
-                    num-pages="birdCountSearchSvc.searchResponse.numPages">
+                    num-pages="birdCountSearchSvc.searchResponse.numPages"
+                    style="margin:0px;">
             </pagination>
         </div>
     </div>
