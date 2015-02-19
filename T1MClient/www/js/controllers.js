@@ -138,8 +138,6 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                 }
                 $scope.initializeRecord();            
                 
-                                                          
-                $scope.alarm = new Media("../sounds/alarm.mp3");                                           
                 $scope.timer = {};
                 $scope.timer.mins = 5;    
                 $scope.timer.secs = "00";
@@ -259,8 +257,11 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                     $scope.timer.alerted = false;
                 }
                 $scope.timerFin = function() {
-                    setTimeout(function() {
-                      $window.alert('Time\'s up!');
+                        setTimeout(function() {
+                        var alarm = new Media("/android_asset/www/sounds/alarm.mp3");
+                        alarm.play();
+                        $window.alert('Time\'s up!');
+                        alarm.stop();
                         $scope.timer.alerted = true;
                         if($scope.radarBirds.length == 0){
                             $window.confirm("There were no bird sightings at this station.");
