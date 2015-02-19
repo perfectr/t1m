@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
+        
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="../css/phonegap.css" />
+        <link rel="stylesheet" type="text/css" href="../css/beachLitter.css" />
+        
+        <title>T1MClient</title>
+    </head>
+    <body>
+        <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mBeachLitterCtrl">
+               <!-- <h1>T1 Monitoring</h1>-->
+            <tabset class="row" justified="true">
+                <tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="selectTab(tab.index)"  active="tab.active"> </tab>
+            </tabset>
+           <!-- <tabset class="row" justified="true">
+                <tab heading="{{tabs[0].title}}"  select="saveLitterBeach()" active="tabs[0].active"> -->
+            <div id="slider" class="swipe">
+                <div class="swipe-wrap">
+                    <div>
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>Start Time</h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="time" class="form-control" ng-model="litterBeach.TimeStart">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>End Time</h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="time" class="form-control" ng-model="litterBeach.TimeEnd">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4><b>Start Location</b></h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-default" ng-click="retrieveGPS('Start')">Retrieve GPS Location</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-xs-4">
+                                    <h4>Latitude</h4>
+                                    <h4>Longitude</h4>
+                            </div>
+                            <div class="col-xs-8">
+                                    <input ng-model="litterBeach.LatitudeStart" class="form-control " type="number" >
+                                    <input ng-model="litterBeach.LongitudeStart" class="form-control " type="number" >
+                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4><b>End Location </b></h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-default" ng-click="retrieveGPS('End')">Retrieve GPS Location</button>
+                                </div>
+                            </div>
+                                <div class="row">
+                                <div class="col-xs-4">
+                                    <h4>Latitude</h4>
+                                    <h4>Longitude</h4>
+                                </div>
+                                <div class="col-xs-8">
+                                    <input ng-model="litterBeach.LatitudeEnd" class="form-control " type="number" >
+                                    <input ng-model="litterBeach.LongitudeEnd" class="form-control " type="number" >
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>Coordinate System</h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input ng-model="litterBeach.CoordSystem" class="form-control" type="text">
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>Season</h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <select class="form-control" ng-model="litterBeach.Season" 
+                                            ng-options="opt.value as opt.name for opt in options.seasons">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>Date of last survey</h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="date" class="form-control" ng-model="litterBeach.LastSurveyDate">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <h4>Storm Activity</h4>
+                                </div>                         
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <input type="text" class="form-control" ng-model="litterBeach.StormActivity" 
+                                           placeholder="Any significant storm activity since the last survey">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>Number of People</h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="number" class="form-control"  ng-model="litterBeach.PersonsSurveying">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>Length of beach</h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="number" class="form-control"  ng-model="litterBeach.BeachLength">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h4>Width of Beach</h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="number" class="form-control"  ng-model="litterBeach.BeachWidth">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+             <!--   </tab>
+    new tab  starting litter data
+                <tab heading="{{tabs[1].title}}" select="saveLitterBeach()"  active="tabs[1].active"> -->
+                    <div>
+                        <div class="inner">
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <button class="btn btn-success btn-circle" ng-click="addLitterModal()">
+                                            <span class="glyphicon glyphicon-plus plusButton" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="col-xs-10">
+                                    <h3>Add Beach Litter Item</h3>
+                                </div>    
+                            </div>
+                        <div class="inner">
+                            <br>
+                            <div class ="panel panel-default" style="padding:5%;">
+                                <div>
+                                    <ul class="list-group">
+                                        <li ng-repeat="litter in litterBeach.Instances.Instances" 
+                                            class="list-group-item" ng-style="litter.colour"
+                                            ng-click="loadLitterModal($index)">{{litter.specific}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                            <br>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h4>Notes</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <textarea ng-model="litterBeach.Notes" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-default" ng-click="popNotes()">Populate Notes with test data</button>
+                            </div>
+                        </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!--</tab>
+            </tabset>-->
+            
+            <p>{{litterBeach}}</p>
+            <!--<p>{{testLitterBeach}}</p>-->
+        </div>
+        
+        <script type="text/javascript" src="../cordova.js"></script>
+        <script type="text/javascript" src="../js/index.js"></script>
+        <script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="../js/appFunctions.js"></script>
+        <script type="text/javascript" src="../js/angular.min.js"></script>
+        <script type="text/javascript" src="../js/angular-resource.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/controllers.js"></script>
+        <script type="text/javascript" src="../js/services.js"></script>
+        <script type="text/javascript">app.initialize();</script>
+        <script type="text/javascript" src="../js/app.js"></script>
+        <script type="text/javascript" src="../js/ui-bootstrap-tpls-0.12.0.min.js"></script>
+        <script type="text/javascript" src="../js/swipe.js"></script>
+        <script type="text/javascript">
+            window.mySwipe = Swipe(document.getElementById('slider'),{
+                continuous: false,
+                callback: function(index, elem) {
+                    var scope = angular.element($("#main")).scope();
+                        scope.tabs[index].active = true;   
+                }   
+            });
+        </script>
+        
+    </body>
+    
+</html>
