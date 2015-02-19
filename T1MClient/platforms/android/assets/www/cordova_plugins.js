@@ -192,8 +192,8 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "org.apache.cordova.geolocation": "0.3.11",
-    "org.apache.cordova.camera": "0.3.4",
+    "org.apache.cordova.camera": "0.3.5",
+    "org.apache.cordova.geolocation": "0.3.12",
     "org.apache.cordova.media": "0.2.16",
     "org.apache.cordova.file": "1.3.3"
 }
