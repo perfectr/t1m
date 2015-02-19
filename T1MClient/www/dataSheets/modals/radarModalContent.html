@@ -1,0 +1,47 @@
+<link rel="stylesheet" type="text/css" href="../../css/fiveMinBirdCount.css" />
+
+<div class="modal-header">
+    <h4>Add Bird</h4>
+    <div class="input-group">
+        <input type="text" 
+            class = "form-control" 
+            ng-model="typedBird"
+            placeholder="Type Bird abbreviation">
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" ng-click="addBird()">OK</button>
+        </span>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="panel-body" style="padding:0;">
+        <ul class="list-group">
+            <li class="list-group-item col-xs-6 listItems"
+                ng-repeat="bird in birds"
+                 ng-click="addRadarbird(bird)">
+                
+                <span class="pull-right">
+                    <button class="btn btn-xs btn-default" 
+                            ng-click="addRadarIncrModal(bird); $event.stopPropagation();">
+                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                    </button>
+                </span>
+                {{bird.bird}}
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default col-xs-10" ng-click="addRadarbird(null)">Unknown</button>
+    <button class="btn btn-default" ng-click="addRadarIncrModal(null)">
+        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+    </button>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" 
+            ng-click="cancel()"
+            style="display: block;
+                   margin-left: auto;
+                   margin-right: auto;">
+        Cancel
+    </button>
+</div>
