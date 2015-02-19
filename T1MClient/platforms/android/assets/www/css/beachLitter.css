@@ -1,0 +1,49 @@
+.glyphicons-lg{
+    font-size: 4em;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.invalid1 .invalid2 {
+    background-color: red;   
+}
+.invalid3{
+    background-color: orange;   
+}
+
+
+@media (min-width: 0px) {
+  .nav-justified > li {
+    display: table-cell;
+    width: 50%;
+    white-space: nowrap;
+  }
+  .nav-justified > li > a  {
+    border-bottom: 1px solid #ddd !important;
+    border-radius: 0px 0px 0 0 !important;
+    margin-bottom: 1 !important;
+  }
+      .nav-tabs.nav-justified > .active > a,
+  .nav-tabs.nav-justified > .active > a:hover,
+  .nav-tabs.nav-justified > .active > a:focus {
+    border-bottom-color: #ffffff !important;
+  }
+    
+.swipe {
+    overflow: hidden;
+    visibility: hidden;
+    position: relative;
+}
+.swipe-wrap {
+    overflow: hidden;
+    position: relative;
+}
+.swipe-wrap > div {
+    overflow:hidden;
+    float:left;
+    width:100%;
+    position: relative;
+}
