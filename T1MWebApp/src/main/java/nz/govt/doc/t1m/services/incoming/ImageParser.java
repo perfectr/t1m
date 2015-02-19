@@ -34,6 +34,7 @@ public class ImageParser {
         ImageEntity imageEntity = new ImageEntity();
         imageEntity.setInstanceId(id);
         imageEntity.setInstanceType(type);
+        imageEntity.setImageName(type + " (" + id + ")");
         imageEntity.setImage(image.getBytes());
         ImageEntity res = imageService.saveImage(imageEntity);
         return imageEntity;

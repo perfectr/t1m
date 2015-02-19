@@ -1,19 +1,27 @@
 <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Small Litter Item Instances Received</h4></div>
-            <table class="table table-hover">
-                <tbody>
-                <tr><td><h5>Instance ID</h5></td><td><h5>Data Sheet ID</h5></td><td><h5>Litter Code</h5></td><td><h5>Description</h5></td><td><h5>Notes</h5></td></tr>
-                <tr ng-repeat="lbItem in lbItemSearchSvc.searchResponse.results" ng-click="displayOne(lbItem.instanceId)">
-                    <td>{{lbItem.instanceId}}</td>
-                    <td>{{lbItem.dataSheetId}}</td>
-                    <td>{{lbItem.litterCode}}</td>
-                    <td>{{lbItem.description}}</td>
-                    <td>{{lbItem.notes}}</td>
-                </tr>
-                </tbody>
-            </table>
+    <div class="col-sm-12">
+        <h3>Small Litter Item Instances Received</h3>
+        <hr>
+        <table class="table table-hover" style="width:92%;margin-left:4%;">
+            <thead>
+            <tr>
+                <td style="width:25%"><b>Litter Code</b></td>
+                <td style="width:25%"><b>Description</b></td>
+                <td style="width:25%"><b>Count</b></td>
+                <td style="width:25%"><b>Weight</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="lbItem in lbItemSearchSvc.searchResponse.results" ng-click="displayOne(lbItem.instanceId)">
+                <td>{{lbItem.litterCode}}</td>
+                <td>{{lbItem.description}}</td>
+                <td>{{lbItem.count}}</td>
+                <td>{{lbItem.weight}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <div align="right" style="width:98%;margin-left:1%;">
             <pagination
                     max-size="4"
                     boundary-links="true"
@@ -21,7 +29,8 @@
                     ng-model="lbItemSearchSvc.searchCriteria.pageNumber"
                     items-per-page="lbItemSearchSvc.searchCriteria.pageSize"
                     total-items="lbItemSearchSvc.searchResponse.total"
-                    num-pages="lbItemSearchSvc.searchResponse.numPages">
+                    num-pages="lbItemSearchSvc.searchResponse.numPages"
+                    style="margin:0px;">
             </pagination>
         </div>
     </div>

@@ -1,33 +1,31 @@
 <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h4>Small Litter Item Images</h4></div>
-            <table class="table">
-                <thead>
-                    <pagination
-                            max-size="4"
-                            boundary-links="true"
-                            ng-change="pageChanged()"
-                            ng-model="imageSearchSvc.searchCriteria.pageNumber"
-                            items-per-page="imageSearchSvc.searchCriteria.pageSize"
-                            total-items="imageSearchSvc.searchResponse.total"
-                            num-pages="imageSearchSvc.searchResponse.numPages">
-                    </pagination>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="image in imageSearchSvc.searchResponse.results">
-                        <td>
-                            <img style="display:none;" id="{{image.imageId}}"/>
-                            {{setImage(image)}}
-                            {{scaleImage(image.imageId)}}
-                        </td>
-                        <td>
-                            <b>ImageId: </b>{{image.imageId}}<br>
-                            <b>InstanceId: </b>{{image.instanceId}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="col-sm-12">
+        <h3>Small Litter Item Images</h3>
+        <hr>
+        <table class="table" style="width:92%;margin-left:4%;">
+            <thead>
+            <tr>
+                <td ng-repeat="image in imageSearchSvc.searchResponse.results">
+                    <img style="display:none;" id="{{image.imageId}}"/>
+                    {{setImage(image)}}
+                    {{scaleImage(image.imageId)}}
+                    <b>Image Name: </b>{{image.imageName}}
+                </td>
+            </tr>
+            </thead>
+        </table>
+        <hr>
+        <div align="right" style="width:98%;margin-left:1%;">
+            <pagination
+                    max-size="4"
+                    boundary-links="true"
+                    ng-change="pageChanged()"
+                    ng-model="imageSearchSvc.searchCriteria.pageNumber"
+                    items-per-page="imageSearchSvc.searchCriteria.pageSize"
+                    total-items="imageSearchSvc.searchResponse.total"
+                    num-pages="imageSearchSvc.searchResponse.numPages"
+                    style="margin:0px;">
+            </pagination>
         </div>
     </div>
 </div>
