@@ -1,0 +1,98 @@
+<style>
+    .invalid {
+        border-color : #e9af66; 
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(233, 175, 102, 0.6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(233, 175, 102, 0.6);
+        outline: 0;
+    }
+    .tooltip-large + .tooltip .tooltip-inner {
+        max-width: 100%;
+    }   
+</style>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-6">
+            <h4>Type</h4>
+            <select class="form-control" ng-model="Type" 
+                    ng-options="type.type as type.type for type in options.types" ng-change="litterTypeSelected()">
+                <option></option>
+            </select>
+        </div>
+        <div class="col-xs-6">
+            <h4>Code</h4>
+            <text ng-bind="SmallLitter.LitterCode" ></text>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Specific</h4>
+            <select class="form-control tooltip-large" ng-class="{invalid: invalid.specific}" 
+                    ng-options="specific as specific.value for specific in options.specific" 
+                    ng-change="litterSpecificSelected()" ng-model="Specific"
+                     tooltip="{{specificValue()}}"  tooltip-trigger="focus" tooltip-placement="bottom">
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Description</h4>
+            <input ng-model="SmallLitter.Description" ng-class="{invalid: invalid.description}" class="form-control" type="text"></input>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-3">
+            <h4>Count</h4>
+        </div>
+        <div class="col-xs-9">
+            <input ng-model="SmallLitter.Count" ng-class="{invalid: invalid.count}" class="form-control" type="number"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            <h4>Weight</h4>
+        </div>
+        <div class="col-xs-9">
+            <input ng-model="SmallLitter.Weight" ng-class="{invalid: invalid.weight}" class="form-control" type="number"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-5">
+            <div class="col-xs-5 nopadding">
+                <h4>Photo</h4>
+            </div>
+            <div class="col-xs-6">
+                <button class="btn btn-default" style=" padding: 0px; border: 0px" ng-click="takePicture()">
+                        <span class="glyphicon glyphicon-camera glyphicons-lg" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-7 nopadding">
+            <div class="col-xs-4 nopadding" ng-repeat="imgSrc in ImageSrc" >
+                <a class="thumbnail nopadding">
+                    <div style="padding-bottom:100%; overflow:hidden; position:relative">
+                        <img ng-model="Img" style="max-width:100%;position:absolute;" ng-src="data:image/jpeg;base64,{{imgSrc}}"></img>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Notes</h4>
+            <textArea ng-model="SmallLitter.Notes" class="form-control" type="text" rows="1"></textArea>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary" ng-click="save()">{{positiveButton}}</button>
+        </div>
+    </div>
+</div>
