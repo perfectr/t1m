@@ -257,7 +257,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                     $scope.timer.alerted = false;
                 }
                 $scope.timerFin = function() {
-                        setTimeout(function() {
+                    setTimeout(function() {
                         var alarm = new Media("/android_asset/www/sounds/alarm.mp3");
                         alarm.play();
                         $window.alert('Time\'s up!');
