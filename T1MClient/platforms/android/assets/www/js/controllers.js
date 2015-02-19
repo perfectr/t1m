@@ -244,7 +244,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                                   }
                               }
                             $scope.countdown();
-                          },1000); 
+                          },10); 
                 };
                 $scope.stop = function(){
                   $timeout.cancel(stopped);  
