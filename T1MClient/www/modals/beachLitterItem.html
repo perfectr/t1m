@@ -44,7 +44,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error': invalid.descriptionLevel1, 'has-warning': invalid.descriptionLevel3}">
                 <label class="control-label" for="litterDescription">Description</label>
                 <input id="litterDescription" ng-model="SmallLitter.Description" ng-class="{invalid: invalid.description}" 
                        class="form-control" type="text"></input>
@@ -67,8 +67,19 @@
                 <label class="control-label" for="litterWeight">Weight</label>
             </div>
             <div class="col-xs-9">
-                <input id="litterWeight" ng-model="SmallLitter.Weight" ng-class="{idnvalid: invalid.weight}" 
-                       class="form-control" type="number"></input>
+                <div class="input-group">
+                    <input id="litterWeight" ng-model="SmallLitter.Weight" ng-class="{idnvalid: invalid.weight}" 
+                           class="form-control" type="number"></input>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+                                aria-expanded="false">{{weightUnit.value}}  <span class="caret"></span></button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li ng-repeat="unit in options.weightUnits">
+                                <a ng-click="changeWeightUnit(unit)">{{unit.value}}</a>
+                            </li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                </div>        
             </div>
         </div>
     </div>
