@@ -1080,8 +1080,20 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
                 {type:"Wood"},
                 {type:"Other"}           
               ],
-        specific: []
+        specific: [],
+        weightUnits: [
+                {value: "Kg", conversion:1},
+                {value: "g", conversion:1000}
+                ]
    };
+    
+    $scope.weightUnit = $scope.options.weightUnits[0];
+    
+    $scope.changeWeightUnit = function(unit){
+            var kgWeight = $scope.SmallLitter.Weight / $scope.weightUnit.conversion;
+            $scope.SmallLitter.Weight = kgWeight * unit.conversion;
+            $scope.weightUnit = unit;   
+    }
 
     $scope.options.specific = litterCodeSelection(null,null);
     $scope.SmallLitter = angular.fromJson(window.localStorage.getItem(saveName));
@@ -1154,6 +1166,7 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
     };
     
     $scope.saveAndClose = function(level){
+        $scope.SmallLitter.Weight = $scope.SmallLitter.Weight/$scope.weightUnit.conversion;
         window.localStorage.setItem(saveName, angular.toJson($scope.SmallLitter, false));
         $modalInstance.close({specific: $scope.Specific.value, invalidLevel: level});
     }
@@ -1169,7 +1182,7 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
         var invalidFields = [];
         if($scope.Specific == null){
             invalidFields.push({level: 1, value:"Specific field must be entered"});
-            $scope.invalid.specific = true;
+            $scope.smallLitterForm.specific.$pristine = false;
             launchItemValidationModal(invalidFields);
             return false;
         }
@@ -1178,14 +1191,14 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
             if($scope.Specific.value.toLowerCase().indexOf("specify") > -1){
                 if($scope.SmallLitter.Description == null || $scope.SmallLitter.Description == ""){
                     invalidFields.push({level: 1, value:"If specific field contains \"specify\", Description must not be empty"});
-                    $scope.invalid.description = true;
+                    $scope.invalid.descriptionLevel1 = true;
                     launchItemValidationModal(invalidFields);
                     return false;   // return as it is a level 1 invalid field.
                 }
             }
         }
-        if($scope.SmallLitter.Count == null || $scope.SmallLitter.Count < 1){
-            if($scope.SmallLitter.Weight == null || $scope.SmallLitter.Weight < 1){
+        if($scope.SmallLitter.Count == null || $scope.SmallLitter.Count <= 0){
+            if($scope.SmallLitter.Weight == null || $scope.SmallLitter.Weight <= 0){
                 invalidFields.push({level: 2, value:"Either count or weight (or both) must be entered"});
                 $scope.invalid.count = true;
                 $scope.invalid.weight = true;
@@ -1194,7 +1207,7 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
         
         if($scope.SmallLitter.Description == null || $scope.SmallLitter.Description == ""){
             invalidFields.push({level: 3, value:"A description should be entered"});
-            $scope.invalid.description = true;
+            $scope.invalid.descriptionLevel3 = true;
         }
        
         if(invalidFields.length > 0){

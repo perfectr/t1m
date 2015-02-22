@@ -26,9 +26,9 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link rel="icon" type="image/png" th:href="'/resources/' + ${version} + '/img/favicon-32x32.png'" sizes="32x32"></link>
-    <link rel="icon" type="image/png" th:href="'/resources/' + ${version} + '/img/favicon-96x96.png'" sizes="96x96"></link>
-    <link rel="icon" type="image/png" th:href="'/resources/' + ${version} + '/img/favicon-16x16.png'" sizes="16x16"></link>
+    <link rel="icon" type="image/png" th:href="'/resources/' + ${version} + '/img/favicon-32x32.png'" sizes="32x32"/>
+    <link rel="icon" type="image/png" th:href="'/resources/' + ${version} + '/img/favicon-96x96.png'" sizes="96x96"/>
+    <link rel="icon" type="image/png" th:href="'/resources/' + ${version} + '/img/favicon-16x16.png'" sizes="16x16"/>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="" href="/"><img alt="NZTCS" src="img/t1monitor_logo_small.png"></img></a> <!-- closing img tag not strictly html standard, but Thymeleaf insists on it because ThymeLeaf is XML orientated -->
+            <a class="" href="/"><img alt="T1M" src="img/t1monitor_logo_small.png"></img></a> <!-- closing img tag not strictly html standard, but Thymeleaf insists on it because ThymeLeaf is XML orientated -->
         </div>
     </div>
 </div>
@@ -51,21 +51,21 @@
     <div class="row" ng-controller="MenuCtrl">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li>Surveys - View and Edit</li>
+                <li style="padding-bottom:10px;"><b>Surveys - View and Edit</b></li>
                 <li ng-class="{ active: isActive('/survey/search')}"><a href="#/survey/search">Survey Meta Data</a></li>
-                <li>Bird Survey Data</li>
+                <li style="padding-bottom:10px;padding-top:25px;"><b>Bird Survey Data</b></li>
                 <li ng-class="{ active: isActive('/birdCount/search')}"><a href="#/birdCount/search">Bird Count Data Sheets</a></li>
                 <li ng-class="{ active: isActive('/bcBird/search')}"><a href="#/bcBird/search">Bird Count Bird Instance</a></li>
                 <!--<li ng-class="{ active: isActive('/birdDistance/search')}"><a href="#/birdDistance/search">Bird Distances</a></li>-->
                 <!--<li ng-class="{ active: isActive('/bdBird/search')}"><a href="#/bdBird/search">BD Birds</a></li>-->
                 <!--<li ng-class="{ active: isActive('/incidentalBird/search')}"><a href="#/incidentalBird/search">Incidental Birds</a></li>-->
-                <li>Litter Survey Data</li>
-                <li ng-class="{ active: isActive('/litterBeach/search')}"><a href="#/litterBeach/search">Beach Litter Data Sheets</a></li>
+                <li style="padding-bottom:10px;padding-top:25px;"><b>Litter Survey Data</b></li>
+                <li ng-class="{ active: isActive('/litterBeach/search')}"><a href="#/litterBeach/search">Small Litter Data Sheets</a></li>
                 <li ng-class="{ active: isActive('/lbItem/search')}"><a href="#/lbItem/search">Small Litter Item Instances</a></li>
                 <!--<li ng-class="{ active: isActive('/litterLarge/search')}"><a href="#/litterLarge/search">Large Litters</a></li>-->
                 <!--<li ng-class="{ active: isActive('/llItem/search')}"><a href="#/llItem/search">LL Items</a></li>-->
                 <li ng-class="{ active: isActive('/beachCharacterization/search')}"><a href="#/beachCharacterization/search">Beach Characterization Information</a></li>
-                <li>Images</li>
+                <li style="padding-bottom:10px;padding-top:25px;"><b>Images</b></li>
                 <li ng-class="{ active: isActive('/landing')}"><a href="#/landing">Small Litter Item Images</a></li>
                 <!--<li ng-class="{ active: isActive('/contact')}"><a href="#/contact">Contact</a></li>-->
                 <!--<li ng-class="{ active: isActive('/person/search')}"><a href="#/person/search">People</a></li>-->

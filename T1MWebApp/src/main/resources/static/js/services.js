@@ -511,7 +511,7 @@ myAppServices.factory('ImageSearchSvc', ['$http', function($http) {
     var service = {
         searchCriteria: {
             pageNumber : 1,
-            pageSize : 5,
+            pageSize : 4,
             nameCriteria : null
         },
 
