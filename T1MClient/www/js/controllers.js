@@ -244,7 +244,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                                   }
                               }
                             $scope.countdown();
-                          },10); 
+                          },100); 
                 };
                 $scope.stop = function(){
                   $timeout.cancel(stopped);  
@@ -260,7 +260,13 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                     setTimeout(function() {
                         var alarm = new Media("/android_asset/www/sounds/alarm.mp3");
                         alarm.play();
+                        /*while(true){
+                            if(alarm.getCurrentPosition()>0){
+                                break;
+                            }
+                        }*///FIX MEEEEEE
                         $window.alert('Time\'s up!');
+                        
                         alarm.stop();
                         $scope.timer.alerted = true;
                         if($scope.radarBirds.length == 0){

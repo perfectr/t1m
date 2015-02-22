@@ -77,7 +77,7 @@ svg circle {
 }
 
 .radar {
-    height: 29.5em;
+    height: 50em;
     background:url(../radar.png) no-repeat;
     background-size: contain;
 }
