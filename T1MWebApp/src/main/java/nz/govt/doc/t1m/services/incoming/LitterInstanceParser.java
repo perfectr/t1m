@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by McCaulC on 3/02/2015.
+ * parses litter survey instances
  */
 @Component
 public class LitterInstanceParser {
@@ -30,12 +30,22 @@ public class LitterInstanceParser {
 
     private int count;
 
+    /**
+     * used to initialise the parser for a new instance
+     * @param instanceField
+     * @param instanceData
+     */
     public void initialize(String[][] instanceField, String[][] instanceData) {
         this.instanceField = instanceField;
         this.instanceData = instanceData;
         this.count = 0;
     }
 
+    /**
+     * parses data into a small litter item entity
+     * @param dataSheetId
+     * @param numLBItems
+     */
     public void saveLBItem(Integer dataSheetId, int numLBItems){
         for (int i = 0 ; i < numLBItems ; i++) {
             System.out.println("New LBItem instance found");
@@ -68,6 +78,12 @@ public class LitterInstanceParser {
         }
     }
 
+    /**
+     * parses data into a large litter item entity
+     * incomplete in prototype
+     * @param dataSheetId
+     * @param numLLItems
+     */
     public void saveLLItem(Integer dataSheetId, int numLLItems) {
         for (int i = 0 ; i < numLLItems ; i++) {
             System.out.println("New LLItem instance found");

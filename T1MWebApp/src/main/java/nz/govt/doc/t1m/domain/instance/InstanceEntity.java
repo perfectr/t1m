@@ -1,7 +1,7 @@
 package nz.govt.doc.t1m.domain.instance;
 
 /**
- * Created by McCaulC on 28/01/2015.
+ * wrapper class to allow grouping of instances
  */
 public abstract class InstanceEntity {
 

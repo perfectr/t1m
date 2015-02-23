@@ -1,7 +1,8 @@
 package nz.govt.doc.t1m.services.incoming;
 
 /**
- * Created by McCaulC on 9/02/2015.
+ * basic form for testing image sending to server
+ * not used in full implementation of prototype
  */
 public class ImageForm {
 

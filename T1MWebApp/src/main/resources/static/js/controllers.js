@@ -384,12 +384,12 @@ myAppControllers.controller('ImageSearchCtrl', ['$scope', '$window', 'ImageSearc
         var scale = 1;
         var height = $('#'+id).height();
         var width = $('#'+id).width();
-        if (height > width) { scale = 500/height; }
-        else { scale = 500/width; }
-        if (scale < 0) {
-            $('#'+id).height(height*scale);
-            $('#'+id).width(width*scale);
-        }
+//        if (height > width) { scale = 500/height; }
+//        else { scale = 500/width; }
+//        if (scale != 1) {
+//            $('#'+id).height(height*scale);
+//            $('#'+id).width(width*scale);
+//        }
         var size = 300;
         $('#'+id).height(height*(size/width));
         $('#'+id).width(size);

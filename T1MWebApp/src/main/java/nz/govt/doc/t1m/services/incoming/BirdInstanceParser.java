@@ -25,12 +25,23 @@ public class BirdInstanceParser {
 
     private int count;
 
+    /**
+     * used to initialise the parser for a new instance
+     * @param instanceField
+     * @param instanceData
+     */
     public void initialize(String[][] instanceField, String[][] instanceData) {
         this.instanceField = instanceField;
         this.instanceData = instanceData;
         this.count = 0;
     }
 
+    /**
+     * parses data into a bird count bird entity
+     * incomplete in prototype
+     * @param dataSheetId
+     * @param numBCBirds
+     */
     public void saveBCBird(Integer dataSheetId, int numBCBirds){
         for (int i = 0 ; i < numBCBirds ; i++) {
             System.out.println("New BCBird instance found");
@@ -53,6 +64,12 @@ public class BirdInstanceParser {
         }
     }
 
+    /**
+     * parses data into a bird distance bird entity
+     * incomplete in prototype
+     * @param dataSheetId
+     * @param numBDBirds
+     */
     public void saveBDBird(Integer dataSheetId, int numBDBirds) {
         for (int i = 0 ; i < numBDBirds ; i++) {
             System.out.println("New BDBird instance found");

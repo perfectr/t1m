@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * Created by McCaulC on 27/01/2015.
+ * parses bird survey data sheets and calls instance parsers
  */
 @Component
 public class BirdParser {
@@ -30,11 +30,22 @@ public class BirdParser {
     private String[] field;
     private String[] data;
 
+    /**
+     * used to initialise the parser for a new data sheet
+     * @param field
+     * @param data
+     */
     public void initialize(String[] field, String[] data) {
         this.field = field;
         this.data = data;
     }
 
+    /**
+     * dictates data sheet type for processing
+     * @param dataSheetName
+     * @param surveyId
+     * @return generic data sheet response
+     */
     public DataSheetEntity saveEntity(String dataSheetName, Integer surveyId) {
         if (dataSheetName.equals("birdCount")) return birdCount(surveyId);
         else if (dataSheetName.equals("birdDistance")) return birdDistance(surveyId);
@@ -45,6 +56,12 @@ public class BirdParser {
         }
     }
 
+    /**
+     * parses data into a bird count entity and calls instance parser
+     * incomplete in prototype
+     * @param surveyId
+     * @return birdCount data sheet response
+     */
     private BirdCountEntity birdCount(Integer surveyId) {
         System.out.println("New 5 minute bird count data sheet found");
         BirdCountEntity birdCountEntity = new BirdCountEntity();
@@ -73,6 +90,12 @@ public class BirdParser {
         return birdCountEntity;
     }
 
+    /**
+     * parses data into a bird distance entity and calls instance parser
+     * incomplete in prototype
+     * @param surveyId
+     * @return birdDistance data sheet response
+     */
     private BirdDistanceEntity birdDistance(Integer surveyId) {
         System.out.println("New 5 minute bird distance data sheet found");
         BirdDistanceEntity birdDistanceEntity = new BirdDistanceEntity();
@@ -101,6 +124,12 @@ public class BirdParser {
         return birdDistanceEntity;
     }
 
+    /**
+     * parses data into a incidental bird entity
+     * incomplete in prototype
+     * @param surveyId
+     * @return incidentalBird data sheet response
+     */
     private IncidentalBirdEntity incidentalBird(Integer surveyId) {
         System.out.println("New incidental bird sighting data sheet found");
         IncidentalBirdEntity incidentalBirdEntity = new IncidentalBirdEntity();
