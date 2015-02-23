@@ -11,7 +11,7 @@
 </style>
 
 <div class="modal-body">
-    <form role="form" name="smallLitterForm">
+    <form role="form" name="smallLitterForm" novalidate>
     <div class="row">
         <div class="col-xs-6">
             <div class="form-group">
@@ -58,7 +58,7 @@
                 <label class="control-label" for="litterCount">Count</label>
             </div>
             <div class="col-xs-9">
-                <input id="litterCount" ng-model="SmallLitter.Count"  ng-class="{ignvalid: invalid.count}"
+                <input id="litterCount" ng-model="SmallLitter.Count" 
                        class="form-control" type="number"></input>
             </div>
         </div>
@@ -68,7 +68,7 @@
             </div>
             <div class="col-xs-9">
                 <div class="input-group">
-                    <input id="litterWeight" ng-model="SmallLitter.Weight" ng-class="{idnvalid: invalid.weight}" 
+                    <input id="litterWeight" ng-model="SmallLitter.Weight" 
                            class="form-control" type="number"></input>
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
@@ -89,7 +89,7 @@
                 <h4>Photo</h4>
             </div>
             <div class="col-xs-6">
-                <button class="btn btn-default" style=" padding: 0px; border: 0px" ng-click="takePicture()">
+                <button class="btn btn-default" style=" padding: 0px; border: 0px" ng-click="takePicture()" type="button">
                         <span class="glyphicon glyphicon-camera glyphicons-lg" aria-hidden="true"></span>
                 </button>
             </div>

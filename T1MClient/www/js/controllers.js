@@ -863,27 +863,45 @@ t1mControllers.controller('birdIncrementModalCtrl', function ($scope, $modalInst
 
 
 /* ================== controllers for beach litter survey ========================= */
-t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
+t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$modal', function($scope, RecordSvc, $modal) {
     
     var currentSurvey = window.location.search.replace("?","");
     
     $scope.survey = angular.fromJson(window.localStorage.getItem(currentSurvey));
-    
+     $scope.hideProgress = true;
     $scope.meta = {};  
     
     if($scope.survey != null){ 
         $scope.meta = angular.fromJson(window.localStorage.getItem($scope.survey.meta));
     }
     
+    $scope.disableSendButton = false;
+    
     $scope.meta.typ = "litter";
     
     if($scope.survey == null){
         $scope.survey = {meta:currentSurvey+"Meta", 
-                         dataSheets:[{name:currentSurvey+'beachCharacterization', 
+                         dataSheets:[{name: "Beach Characterization", saveName:currentSurvey+'beachCharacterization', 
                                       type:'beachCharacterization'}], 
                          count:0};
         window.localStorage.setItem(currentSurvey, angular.toJson($scope.survey, false));
     }  
+    
+    for(var i = 0; i < $scope.survey.dataSheets.length; i++){
+        var dataSheet = $scope.survey.dataSheets[i];
+        console.log("do stuff" + dataSheet);
+        var dst = angular.fromJson(window.localStorage.getItem(dataSheet.saveName));
+        if(dst == null){console.log("its null"); continue;}
+        console.log(dst.validationLevel);
+        var invalidColour = '';
+        if(dst.validationLevel != null){
+            invalidColour =  "list-group-item-success";
+            if(dst.validationLevel == 1 || dst.validationLevel == 2){ invalidColour = "list-group-item-danger";}
+            if(dst.validationLevel == 3){invalidColour = "list-group-item-warning";}
+        }
+        dataSheet.validationColour = invalidColour;
+        dataSheet.validationLevel = dst.validationLevel;
+    }
     
      $scope.tabs = [
         {title:"Survey Info", index: 0},
@@ -895,15 +913,23 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
         window.mySwipe.slide(index, 500);
         window.localStorage.setItem($scope.survey.meta, angular.toJson($scope.meta, false));
     };
-    
-    
-    $scope.beachChar = angular.fromJson(window.localStorage.getItem($scope.survey.dataSheets[0].name));
 
-    $scope.startDataSheet = function(dataSheetType) {
-        var dstName = currentSurvey+dataSheetType+$scope.survey.count;
-        $scope.survey.count ++;
-        $scope.survey.dataSheets.push({name:dstName, type:dataSheetType});
-       // $scope.loadDataSheet(dstName, dataSheetType);
+    $scope.addDataSheet = function(dataSheetType) {
+        
+         var modalInstance = $modal.open({
+            templateUrl: '../modals/dataSheetName.html',
+            controller: 'beachLitterNamingCtrl'
+        });
+        modalInstance.result.then(function (name) {
+            var displayName = name;
+            if(displayName == null || displayName == ""){
+                displayName = "Sample Location " + $scope.survey.count; 
+            }
+            var dstName = currentSurvey+dataSheetType+$scope.survey.count;
+            $scope.survey.count ++;
+            $scope.survey.dataSheets.push({name:displayName, saveName: dstName, type:dataSheetType});
+            $scope.loadDataSheet(dstName, dataSheetType);
+        });
     };
     
     $scope.loadDataSheet = function(dataSheetName, dataSheetType){
@@ -919,22 +945,118 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc',functio
         window.localStorage.setItem(surveyStorageKey, angular.toJson($scope.toSend, false));
         
         saveMetaDataToSurveyRecord($scope.survey.meta, surveyStorageKey);
-        
         var dataSheets = $scope.survey.dataSheets;
         for(var i = 0; i < dataSheets.length; i++){
-            saveDataSheetToSurveyRecord(dataSheets[i].type, dataSheets[i].name, surveyStorageKey);
+            saveDataSheetToSurveyRecord(dataSheets[i].type, dataSheets[i].saveName, surveyStorageKey);
         }
         
         $scope.toSend = angular.fromJson(window.localStorage.getItem(surveyStorageKey));
+        
     };
 
     $scope.sendToServer = function (){
         //TODO need to add validaton so that important fields are filled
+        
+        if(!isValid()){ return; }
+        
+        $scope.disableSendButton = true;
         $scope.saveSurvey();
         sendSurveyRecordToServer(new RecordSvc, surveyStorageKey);
     }
     
+    
+    function isValid(){
+        $scope.invalid = {};
+        
+        var invalidFields = [];
+        
+        if($scope.meta.obs == null){
+            invalidFields.push({level: 2, value:"A Recorder must be entered"});
+            $scope.invalid.obs = true;
+        }
+        
+        if($scope.meta.sli == null){
+            invalidFields.push({level: 2, value:"A Beach Name must be entered"});
+            $scope.invalid.sli = true;
+        }
+        
+        if($scope.meta.sdt == null){
+            invalidFields.push({level: 2, value:"A start date must be entered"});
+            $scope.invalid.sdt = true;
+        }
+        
+        if($scope.meta.edt == null){
+            invalidFields.push({level: 2, value:"An end date must be entered"});
+            $scope.invalid.edt = true;
+        }
+        
+        for(var i = 0; i < $scope.survey.dataSheets.length; i++){
+            var dataSheet = $scope.survey.dataSheets[i];
+            if(dataSheet.validationLevel == 1 || dataSheet.validationLevel == 2){
+                invalidFields.push({level: 2, value: dataSheet.name + " is missing critical information"});   
+                continue;
+            }
+            if(dataSheet.validationLevel == 3){
+                invalidFields.push({level: 3, value: dataSheet.name + " is missing wanted information"});   
+            }
+        }
+        
+        
+         if(invalidFields.length > 0){
+            launchItemValidationModal(invalidFields);
+            return false;   
+        } 
+        
+        return true;
+    }; 
+    
+    var launchItemValidationModal = function(invalidFields){
+         if(invalidFields.length == 0){
+            return true;   
+        }else{
+            var posButt = "Send";
+            for(var i = 0; i <  invalidFields.length; i++){
+                if(invalidFields[i].level == 2){
+                    posButt = null;
+                    break;
+                }
+            }
+            
+            var modalInstance = $modal.open({
+                templateUrl: '../modals/qualityCheck.html',
+                controller: 'qualityCheckCtrl',
+                resolve:{invalidFields: function(){
+                            return invalidFields;
+                            },
+                         positiveButton: function(){
+                            return posButt;
+                         }
+                        }
+            }); 
+            modalInstance.result.then(function (level) {
+                $scope.saveLitterBeach();
+                history.back();
+            });
+        }
+    }
+    
+    
 }]);
+
+
+t1mControllers.controller('beachLitterNamingCtrl', function($scope, $modalInstance){
+    
+    
+    $scope.okClick = function(){
+         $modalInstance.close($scope.displayName);
+    }
+    
+    $scope.cancelClick = function(){
+         $modalInstance.dismiss('cancel');
+    }
+    
+});
+
 
 /*--========================== Beach Litter controler ==================================*/
 t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal',function($scope, RecordSvc, $modal) {
@@ -967,11 +1089,119 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
         InstanceCount : 0
         };
     };
-
+    
+    $scope.saveClicked = function(){
+        if(!isValid(true)){return;}
+        $scope.saveLitterBeach();
+        history.back();
+    };
 
     $scope.saveLitterBeach = function(){
         window.localStorage.setItem(currentDataSheet, angular.toJson($scope.litterBeach, false));
     };
+    
+    $scope.invalid = {};
+    
+    var isValid = function(launchModal){
+        $scope.beachLitterForm.$pristine = true;
+        $scope.invalid = {};
+        var invalidFields = [];
+        
+        if($scope.litterBeach.TimeStart == null){
+            invalidFields.push({level: 2, value:"A start time must be entered"});
+            $scope.invalid.timeStart = true;
+        }
+        
+        if($scope.litterBeach.TimeEnd == null){
+            invalidFields.push({level: 2, value:"An end time must be entered"});
+            $scope.invalid.timeEnd = true;
+        }
+        
+        if($scope.litterBeach.LatitudeStart == null){
+            invalidFields.push({level: 2, value:"A start latitude must be entered"});
+            $scope.invalid.lattitudeStart = true;
+        }
+        
+        if($scope.litterBeach.LongitudeStart == null){
+            invalidFields.push({level: 2, value:"A start time longitude be entered"});
+            $scope.invalid.longitudeStart = true;
+        }
+        
+        if($scope.litterBeach.LatitudeEnd == null){
+            invalidFields.push({level: 2, value:"A end latitude must be entered"});
+            $scope.invalid.latitudeEnd = true;
+        }
+        
+        if($scope.litterBeach.LongitudeEnd == null){
+            invalidFields.push({level: 2, value:"A end longitude must be entered"});
+            $scope.invalid.longitudeEnd = true;
+        }
+        
+        if($scope.litterBeach.CoordSystem == null){
+            invalidFields.push({level: 2, value:"A coordinate system must be entered"});
+            $scope.invalid.coordSystem = true;
+        }
+        
+        var instances = $scope.litterBeach.Instances.Instances;
+        var instance;
+        for(var i = 0; i < instances.length; i++){
+            instance = instances[i];
+            if(instance.invalidLevel == 1 || instance.invalidLevel == 2){
+                invalidFields.push({
+                                level: instance.invalidLevel,
+                                value: "The beach litter item '" + instance.specific + "' is missing critical information"
+                                });
+            }
+             if(instance.invalidLevel == 3){
+                invalidFields.push({
+                                level: instance.invalidLevel,
+                                value: "The beach litter item '" + instance.specific + "' is missing wanted information"
+                                });
+            }
+        }   
+        var validLevel = 999;
+        for(var i = 0; i < invalidFields.length; i++){
+            var field = invalidFields[i];
+            if(field.level < validLevel){
+                validLevel = field.level;
+            }
+        }
+        
+        $scope.litterBeach.validationLevel = validLevel;   
+        console.log($scope.litterBeach.validationLevel);
+        
+         if(invalidFields.length > 0){
+             if(launchModal){
+                launchItemValidationModal(invalidFields);
+             }
+            return false;   
+        } 
+        
+        return true;
+        
+    }
+    
+    var launchItemValidationModal = function(invalidFields){
+         if(invalidFields.length == 0){
+            return true;   
+        }else{
+            var modalInstance = $modal.open({
+                templateUrl: '../modals/qualityCheck.html',
+                controller: 'qualityCheckCtrl',
+                resolve:{invalidFields: function(){
+                            return invalidFields;
+                            },
+                         positiveButton: function(){
+                            return "Save";
+                         }
+                        }
+            }); 
+            modalInstance.result.then(function (level) {
+                $scope.saveLitterBeach();
+                history.back();
+            });
+        }
+    }
     
   
     
@@ -1023,9 +1253,9 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
                     }
         });
         modalInstance.result.then(function (data) {
-            var invalidColour = {'background-color': 'green'};
-            if(data.invalidLevel == 1 || data.invalidLevel == 2){ invalidColour = {'background-color': 'red'}}
-            if(data.invalidLevel == 3){invalidColour = {'background-color': 'orange'}}
+            var invalidColour = "list-group-item-success";
+            if(data.invalidLevel == 1 || data.invalidLevel == 2){ invalidColour = "list-group-item-danger";}
+            if(data.invalidLevel == 3){invalidColour = "list-group-item-warning";}
             var SmallLitter = {saveName: saveName, specific: data.specific, invalidLevel: data.invalidLevel,
                                colour: invalidColour};
             $scope.litterBeach.Instances.Instances.push(SmallLitter);
@@ -1045,9 +1275,9 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
                     }
                 });
         modalInstance.result.then(function (data) {
-                var invalidColour =  {'background-color': 'green'};
-                if(data.invalidLevel == 1 || data.invalidLevel == 2){ invalidColour = {'background-color': 'red'}}
-                if(data.invalidLevel == 3){invalidColour = {'background-color': 'orange'}}
+                var invalidColour =  "list-group-item-success";
+                if(data.invalidLevel == 1 || data.invalidLevel == 2){ invalidColour = "list-group-item-danger";}
+                if(data.invalidLevel == 3){invalidColour = "list-group-item-warning";}
                 SmallLitter.colour = invalidColour;
                 SmallLitter.specific = data.specific;
                 SmallLitter.invalidLevel = data.invalidLevel;
@@ -1057,6 +1287,69 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
     }
     
 }]);
+    
+
+t1mControllers.controller('qualityCheckCtrl', function($scope, $modalInstance, invalidFields, positiveButton){
+    if(invalidFields == null){
+        return;
+    }
+    
+    $scope.positiveButton = positiveButton;
+    $scope.showPositiveButton = true;
+    
+    if($scope.positiveButton == null){
+        $scope.showPositiveButton = false;   
+    }
+    
+    $scope.criticalFields = [];
+    $scope.mandatoryFields = [];
+    $scope.warningFields = [];
+    
+    $scope.criticalFieldsShow = false;
+    $scope.mandatoryFieldsShow = false;
+    $scope.warningFieldsShow = false;
+    
+    var level = 999;
+    
+    for(var i = 0; i < invalidFields.length; i++){
+        var field = invalidFields[i];
+        if(field.level < level){ level = field.level;}
+        switch(field.level){
+                case 1:
+                    $scope.criticalFields.push(field.value);
+                    break;
+                case 2:
+                    $scope.mandatoryFields.push(field.value);
+                    break;
+                case 3:
+                    $scope.warningFields.push(field.value);
+                    break;
+        }
+    }
+    
+    if($scope.criticalFields.length > 0){
+        $scope.criticalFieldsShow = true;   
+        $scope.showPositiveButton = false;
+    }
+    if($scope.mandatoryFields.length > 0){
+        $scope.mandatoryFieldsShow = true;   
+    }
+     if($scope.warningFields.length > 0){
+        $scope.warningFieldsShow = true;   
+    }
+    
+    $scope.saveClicked = function(){
+        $modalInstance.close(level);   
+    }
+    
+    $scope.cancelClicked = function(){
+        $modalInstance.dismiss('cancel');
+    }
+    
+});
+
+    
+    
 
 t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance, $modal, $q, saveName){
     
@@ -1206,7 +1499,7 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
        
         if(invalidFields.length > 0){
             launchItemValidationModal(invalidFields);
-        return false;   
+            return false;   
         } 
         
         return true;
@@ -1217,8 +1510,8 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
             return true;   
         }else{
             var modalInstance = $modal.open({
-                templateUrl: '../modals/beachLitterItemValidation.html',
-                controller: 'beachLitterItemValidCtrl',
+                templateUrl: '../modals/qualityCheck.html',
+                controller: 'qualityCheckCtrl',
                 resolve:{invalidFields: function(){
                             return invalidFields;
                             },
@@ -1257,61 +1550,6 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
     });
     
   
-});
-
-t1mControllers.controller('beachLitterItemValidCtrl', function($scope, $modalInstance, invalidFields, positiveButton){
-    if(invalidFields == null){
-        return;
-    }
-    
-    $scope.positiveButton = positiveButton;
-    $scope.showPositiveButton = true;
-    
-    $scope.criticalFields = [];
-    $scope.mandatoryFields = [];
-    $scope.warningFields = [];
-    
-    $scope.criticalFieldsShow = false;
-    $scope.mandatoryFieldsShow = false;
-    $scope.warningFieldsShow = false;
-    
-    var level = 999;
-    
-    for(var i = 0; i < invalidFields.length; i++){
-        var field = invalidFields[i];
-        if(field.level < level){ level = field.level;}
-        switch(field.level){
-                case 1:
-                    $scope.criticalFields.push(field.value);
-                    break;
-                case 2:
-                    $scope.mandatoryFields.push(field.value);
-                    break;
-                case 3:
-                    $scope.warningFields.push(field.value);
-                    break;
-        }
-    }
-    
-    if($scope.criticalFields.length > 0){
-        $scope.criticalFieldsShow = true;   
-        $scope.showPositiveButton = false;
-    }
-    if($scope.mandatoryFields.length > 0){
-        $scope.mandatoryFieldsShow = true;   
-    }
-     if($scope.warningFields.length > 0){
-        $scope.warningFieldsShow = true;   
-    }
-    
-    $scope.saveClicked = function(){
-        $modalInstance.close(level);   
-    }
-    
-    $scope.cancelClicked = function(){
-        $modalInstance.dismiss('cancel');
-    }
-    
 });
 
 
