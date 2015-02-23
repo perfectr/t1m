@@ -155,7 +155,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                             return;
                         }
                     }
-                    $scope.birdCount.push({bird:bt,near:0,far:0,veryFar:0,notes:""});
+                    $scope.birdCount.push({bird:bt});
                 }
                 
                 
@@ -418,22 +418,80 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                 }
                 
                 $scope.radarBirds = [];
+                $scope.birdSpecies = [
+                        {text:'Bellbird'},
+                        {text:'Blackbird'},
+                        {text:'Blue Duck'},
+                        {text:'Brown Creeper'},
+                        {text:'Californian Quail'},
+                        {text:'Chaffinch'},
+                        {text:'Dunnock (Hedge Sparrow)'},
+                        {text:'Eastern Rosella'},
+                        {text:'Falcon (NZ)'},
+                        {text:'Fantail'},
+                        {text:'Fernbird'},
+                        {text:'Goldfinch'},
+                        {text:'Gray Warbler'},
+                        {text:'Greenfinch'},
+                        {text:'Harrier Hawk'},
+                        {text:'House Sparrow'},
+                        {text:'Indian Myna'},
+                        {text:'Kaka'},
+                        {text:'Kea'},
+                        {text:'Kingfisher (NZ)'},
+                        {text:'Kiwi (* specify)'},
+                        {text:'Long Tail Cuckoo'},
+                        {text:'Magpie (Australian)'},
+                        {text:'Morepork'},
+                        {text:'Oystercatcher (* specify)'},
+                        {text:'Paradise Shelduck'},
+                        {text:'Parakeet (* specify)'},
+                        {text:'Pukeko'},
+                        {text:'Redpoll'},
+                        {text:'Rifleman'},
+                        {text:'Robin'},
+                        {text:'Rock Pigeon (Feral)'},
+                        {text:'Rock Wren'},
+                        {text:'Shinning Cuckoo'},
+                        {text:'Silvereye'},
+                        {text:'Song Thrush'},
+                        {text:'Spur Wing Plover'},
+                        {text:'Starling'},
+                        {text:'Tomtit'},
+                        {text:'Tui'},
+                        {text:'Weka'},
+                        {text:'Welcome Swallow'},
+                        {text:'Wood Pigeon (Kereru)'},
+                        {text:'Yellow Hammer'},
+                        {text:'Yellowhead'}];
                 
                 $scope.addBirdModal = function(){
                     
                     var modalInstance = $modal.open({
                               templateUrl: 'modals/birdModalContent.html',
                               controller: 'birdModalInstanceCtrl',
+                              resolve:{
+                                  prevBirds: function(){
+                                      return $scope.birdCount;
+                                  },
+                                  birdSpecies: function(){
+                                      return $scope.birdSpecies;
+                                  }
+                              }
                             });
                     modalInstance.result.then(function (bt) {
                             if(bt!=null){
-                                for(var i = 0; i < $scope.birdCount.length; i++){
-                                    if($scope.birdCount[i].bird==bt){
-                                        return;
-                                    }
-                                }
+//                                for(var i = 0; i < $scope.birdCount.length; i++){
+//                                    if($scope.birdCount[i].bird==bt){
+//                                        return;
+//                                    }
+//                                }
                                 //should be add to plot list or similar
-                                $scope.incrementBird(bt);
+                                $scope.birdCount = [];
+                                for(var i=0; i<bt.length;i++){
+                                    $scope.incrementBird(bt[i]);
+                                }
+                                //$scope.birdCount = bt;
                             }   
                         });
                     
@@ -759,64 +817,37 @@ t1mControllers.controller('radarIncrModalInstanceCtrl', function ($scope, $modal
     };
 });
 
-t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInstance) {
-                
-    //$scope.birdText = [];
-                $scope.birdSpecies = [
-                            {text:'Bellbird', greyed:false},
-                            {text:'Blackbird'},
-                            {text:'Blue Duck'},
-                            {text:'Brown Creeper'},
-                            {text:'Californian Quail'},
-                            {text:'Chaffinch'},
-                            {text:'Dunnock (Hedge Sparrow)'},
-                            {text:'Eastern Rosella'},
-                            {text:'Falcon (NZ)'},
-                            {text:'Fantail'},
-                            {text:'Fernbird'},
-                            {text:'Goldfinch'},
-                            {text:'Gray Warbler'},
-                            {text:'Greenfinch'},
-                            {text:'Harrier Hawk'},
-                            {text:'House Sparrow'},
-                            {text:'Indian Myna'},
-                            {text:'Kaka'},
-                            {text:'Kea'},
-                            {text:'Kingfisher (NZ)'},
-                            {text:'Kiwi (* specify)'},
-                            {text:'Long Tail Cuckoo'},
-                            {text:'Magpie (Australian)'},
-                            {text:'Morepork'},
-                            {text:'Oystercatcher (* specify)'},
-                            {text:'Paradise Shelduck'},
-                            {text:'Parakeet (* specify)'},
-                            {text:'Pukeko'},
-                            {text:'Redpoll'},
-                            {text:'Rifleman'},
-                            {text:'Robin'},
-                            {text:'Rock Pigeon (Feral)'},
-                            {text:'Rock Wren'},
-                            {text:'Shinning Cuckoo'},
-                            {text:'Silvereye'},
-                            {text:'Song Thrush'},
-                            {text:'Spur Wing Plover'},
-                            {text:'Starling'},
-                            {text:'Tomtit'},
-                            {text:'Tui'},
-                            {text:'Weka'},
-                            {text:'Welcome Swallow'},
-                            {text:'Wood Pigeon (Kereru)'},
-                            {text:'Yellow Hammer'},
-                            {text:'Yellowhead'}];
+
+
+t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInstance, prevBirds, birdSpecies) {
+    $scope.birdSpecies = birdSpecies;            
+    $scope.selectedBirds = [];
+    for(var i=0;i<prevBirds.length;i++){
+        $scope.selectedBirds.push(prevBirds[i].bird);
+    }
     
-              $scope.birdPress = function(birdType){
-                  //$scope.birdText.push(birdType);
-                  $scope.birdText = birdType;
-                  $scope.ok();
+                
+            
+              $scope.addToList = function(){
+                  $scope.birdSpecies.push({text: $scope.birdText});
+                  $scope.birdText = "";
+              }    
+                
+              $scope.birdPress = function(bird){
+                  if(bird.disabled == null || bird.disabled == false){
+                    $scope.selectedBirds.push(bird.text);
+                    bird.disabled = true;
+                  } else if(bird.disabled == true){
+                      var index = $scope.selectedBirds.indexOf(bird.text);
+                      $scope.selectedBirds.splice(index,1);
+                      bird.disabled = false;
+                  }
+                  //$scope.birdText = birdType;
+                  //$scope.ok();
               }
     
               $scope.ok = function () {
-                $modalInstance.close($scope.birdText);
+                $modalInstance.close($scope.selectedBirds);
               };
 
               $scope.cancel = function () {
