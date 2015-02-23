@@ -16,24 +16,6 @@
   }
 }
 
-/*input[type="text"]:disabled{
-    background: #d11f1f;
-}
-
-input[type="time"]:disabled{
-    background: #d11f1f;
-}
-
-input[type="number"]:disabled{
-    background: #d11f1f;
-}
-
-select:disabled{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: #d11f1f;
-}*/
 
 .plusButton {
     font-size: 370%;
