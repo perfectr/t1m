@@ -33,6 +33,7 @@ body {
 }
 @media (min-width: 768px) {
   .sidebar {
+    color: #233600;
     position: fixed;
     top: 51px;
     bottom: 0;
@@ -43,13 +44,15 @@ body {
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #dfeacc;
-    border-right: 1px solid #eee;
+    border-right: 6px solid #B9D18C;
   }
+  .sidebar :hover { border-color: #d0e2b1; }
 }
 
 /* navbar is the main header across the top of the app */
 .navbar-default {
   background-color: #90AE57 !important;
+    border-bottom-color: #90AE57 !important;
 }
 
 /* Sidebar navigation */
@@ -174,7 +177,7 @@ a.app-header-link:hover	  { color: #FFF; text-decoration: none; }
 
 .version {
   font-size: 9px;
-  color: #AAA;
+  color: #B9D18C;
 }
 
 /*
