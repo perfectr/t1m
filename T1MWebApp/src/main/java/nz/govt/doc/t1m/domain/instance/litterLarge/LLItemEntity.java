@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by McCaulC on 27/01/2015.
+ * table for storing data on large litter item instances
+ * unused in prototype
  */
 @Entity
 public class LLItemEntity extends InstanceEntity {

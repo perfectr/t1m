@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * generic image table used for small litter items (litterBeach) in prototype
+ * duplicate for other types of images so as not to store all in same place
  */
 @Entity
 public class ImageEntity {

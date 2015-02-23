@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * top level table for all survey meta data
  */
 @Entity
 public class SurveyEntity {

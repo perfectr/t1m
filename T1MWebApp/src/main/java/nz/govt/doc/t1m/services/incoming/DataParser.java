@@ -11,7 +11,8 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by McCaulC on 27/01/2015.
+ * initial parser level the takes the survey meta information and saves it
+ * passes data on to the appropriate survey type parser
  */
 @Component
 public class DataParser {
@@ -40,7 +41,10 @@ public class DataParser {
 
     public DataForm getDataForm() { return dataForm; }
 
-    /** pulls a surveyEntity from the dataForm to be saved to the DB */
+    /**
+     * pulls from the dataForm and constructs a survey entity to be saved to the DB
+     * @return survey response
+     */
     public SurveyEntity getSurvey() {
         if (dataForm.getSli() != null && dataForm.getObs() != null) {
             SurveyEntity surveyEntity = new SurveyEntity();
@@ -54,6 +58,10 @@ public class DataParser {
         } else return null;
     }
 
+    /**
+     * dictates which second level parser to call based on survey meta information
+     * @param surveyId
+     */
     public void saveDataSheets(Integer surveyId) {
         if (dataForm.getTyp().contains("ird")) {
             System.out.println("New bird survey found");
@@ -72,7 +80,11 @@ public class DataParser {
         } else System.out.println("Bad survey type received");
     }
 
-    /** to parse formatted strings from JSONs into date objects */
+    /**
+     * to parse formatted strings from JSONs into date objects
+     * @param dateString
+     * @return formatted dates
+     */
     private Date parseDate(String dateString){
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         Date date = null;

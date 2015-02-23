@@ -1,7 +1,9 @@
 package nz.govt.doc.t1m.services.incoming;
 
 /**
- * Created by McCaulC on 27/01/2015.
+ * structure for sending full surveys to the server
+ * effectively a dictator of the API
+ * reads JSONs into a workable format for parsing
  */
 public class DataForm {
 

@@ -9,7 +9,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by McCaulC on 27/01/2015.
+ * table for string meta data for the incidental bird for bird surveys data sheets
+ * unused in prototype
  */
 @Entity
 public class IncidentalBirdEntity extends DataSheetEntity {
