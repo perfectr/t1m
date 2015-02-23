@@ -246,20 +246,20 @@
                     <div class="col-md-6">
                         <div class="form-group" ng-class="{'has-error' : beachCharacterizationForm.notesTxtFld.$invalid && !beachCharacterizationForm.notesTxtFld.$pristine}">
                             <label class="control-label" for="notesTxtFld">Notes</label>
-                            <input type="text" class="form-control" id="notesTxtFld" name="notesTxtFld" ng-model="selectedBeachCharacterization.model.notes">
+                            <!--<input type="text" class="form-control" id="notesTxtFld" name="notesTxtFld" ng-model="selectedBeachCharacterization.model.notes">-->
+                            <textarea rows="3" class="form-control" id="notesTxtFld" name="notesTxtFld" ng-model="selectedBeachCharacterization.model.notes"/>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <hr>
-            <div class="row">
-                <div class="col-md-8" align="right">
-                    <button type="submit" class="btn btn-primary" ng-click="saveAction(beachCharacterizationForm.$invalid)" ng-disabled="beachCharacterizationForm.$invalid">Save</button>
-                    <button type="button" class="btn btn-default" ng-click="cancelAction()">Cancel</button>
-                </div>
-            </div>
         </form>
+        <hr>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8" align="right">
+            <button type="submit" class="btn btn-primary" ng-click="saveAction(beachCharacterizationForm.$invalid)" ng-disabled="beachCharacterizationForm.$invalid">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancelAction()">Cancel</button>
+        </div>
     </div>
 </div>
 
