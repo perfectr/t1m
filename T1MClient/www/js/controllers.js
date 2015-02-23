@@ -138,6 +138,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                 }
                 $scope.initializeRecord();            
                 
+                // 5 min timer initialization
                 $scope.timer = {};
                 $scope.timer.mins = 5;    
                 $scope.timer.secs = "00";
@@ -145,72 +146,14 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                 $scope.timer.started = false;
                 var stopped;
                 
-                $scope.birdCount = [];    
-                $scope.birdText = '';
-    
-                $scope.incrementBird = function(bt){
-                    for(var i=0; i < $scope.birdCount.length; i++){
-                        if($scope.birdCount[i].bird==bt){
-                            $scope.birdCount[i].near++;
-                            return;
-                        }
-                    }
-                    $scope.birdCount.push({bird:bt,near:0,far:0,veryFar:0,notes:""});
-                }
-                
-                
-                //initialising radar.
-                
-                $scope.radar = {};
-                $scope.radar.height;         
-                $scope.radar.center;
-
-                
-                
-                $scope.touches = [];
-                $scope.x;
-                $scope.y;
-                $scope.addTouch = function(event, element){
-                    
-                    $scope.doRadarHeight();
-                    $scope.getX(event);
-                    $scope.getY(event);
-                    $scope.addRadarModal();
-                    
-                        /*$scope.touches.push({
-                            "x": $scope.x,
-                            "y": $scope.y
-                        });*/
-                    
-                };
-                                                          
-                $scope.doRadarHeight = function(){
-                    $scope.radar.height = document.getElementById("radar").clientHeight;
-                    $scope.radar.width = document.getElementById("radar").clientWidth;
-                    if($scope.radar.height < $scope.radar.width){
-                        $scope.radar.center = $scope.radar.height/2;
-                    } else {
-                        $scope.radar.center = $scope.radar.width/2;
-                    }
-                    
-                }
-                                                          
-                $scope.getX = function(event){
-                    $scope.x = event.offsetX;
-                }; 
-                                                          
-                $scope.getY = function(event){
-                    $scope.y = event.offsetY;
-                };                                          
-    
-                
                 $scope.startCountdown = function(){
                     if($scope.timer.started == false){
                         $scope.countdown();
                         $scope.timer.started = true;
                     }
                 };
-                                                          
+                
+                //main timer logic
                 $scope.countdown = function(){
                           stopped = $timeout(function(){
 
@@ -244,7 +187,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                                   }
                               }
                             $scope.countdown();
-                          },10); 
+                          },100); 
                 };
                 $scope.stop = function(){
                   $timeout.cancel(stopped);  
@@ -270,7 +213,58 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                   };
                     
                 
+                $scope.birdCount = [];    
+                $scope.birdText = '';
     
+                $scope.addBirdToPlotList = function(bt){
+                    for(var i=0; i < $scope.birdCount.length; i++){
+                        if($scope.birdCount[i].bird==bt){
+                            $scope.birdCount[i].near++;
+                            return;
+                        }
+                    }
+                    $scope.birdCount.push({bird:bt});
+                }
+                
+                
+                //initialising radar.
+                
+                $scope.radar = {};
+                $scope.radar.height;         
+                $scope.radar.center;
+                $scope.touches = [];
+                $scope.x;
+                $scope.y;
+                $scope.addTouch = function(event, element){
+                    
+                    $scope.doRadarHeight();
+                    $scope.getX(event);
+                    $scope.getY(event);
+                    $scope.addRadarModal();
+                    
+                };
+                                                          
+                $scope.doRadarHeight = function(){
+                    $scope.radar.height = document.getElementById("radar").clientHeight;
+                    $scope.radar.width = document.getElementById("radar").clientWidth;
+                    if($scope.radar.height < $scope.radar.width){
+                        $scope.radar.center = $scope.radar.height/2;
+                    } else {
+                        $scope.radar.center = $scope.radar.width/2;
+                    }
+                    
+                }
+                                                          
+                $scope.getX = function(event){
+                    $scope.x = event.offsetX;
+                }; 
+                                                          
+                $scope.getY = function(event){
+                    $scope.y = event.offsetY;
+                };                                                                                 
+                                                          
+                                                          
+                //sets up options for site meta data
                 $scope.options = {
                      sun: [
                         {name: "0", value: "0"},
@@ -325,6 +319,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                          value: "Averaged"}]
                 };
                 
+                //packages site meta data into a json ready to be sent to the server
                 $scope.intoJson = function(){
 
                     $scope.surveyRecord.fld[$scope.surveyRecord.dst.length-1] = ['StationId',
@@ -360,6 +355,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                     /*window.localStorage.setItem(b.typ,angular.toJson($scope.surveyRecord,false));*/
                 }
                 
+                //skip functionality for the stations
                 $scope.skip = function () {
                     if(!($scope.birdSurvey.skip)){
                         $scope.birdSurvey.skipButton = 'Un-skip station';
@@ -381,6 +377,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                         });
                 }
                 
+                //a modal pop up for each entry on the summary tab
                 $scope.editBirdSummary = function(bird){
                     var modalInstance = $modal.open({
                               templateUrl: 'modals/editSummaryModalContent.html',
@@ -393,8 +390,6 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                             });
                     modalInstance.result.then(function (b) {
                             
-                            
-                            
                                 for(var j=0; j<$scope.touches.length; j++){
                                     if(b.x==$scope.touches[j].x &&
                                        b.y==$scope.touches[j].y){
@@ -406,33 +401,87 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                                     if(index > -1){
                                         $scope.radarBirds.splice(index,1);
                                 }
-                            
-                            
                         });
                 }
                 
                 $scope.radarBirds = [];
                 
+                //set up for the managing plot list modal
+                $scope.birdSpecies = [
+                        {text:'Bellbird'},
+                        {text:'Blackbird'},
+                        {text:'Blue Duck'},
+                        {text:'Brown Creeper'},
+                        {text:'Californian Quail'},
+                        {text:'Chaffinch'},
+                        {text:'Dunnock (Hedge Sparrow)'},
+                        {text:'Eastern Rosella'},
+                        {text:'Falcon (NZ)'},
+                        {text:'Fantail'},
+                        {text:'Fernbird'},
+                        {text:'Goldfinch'},
+                        {text:'Gray Warbler'},
+                        {text:'Greenfinch'},
+                        {text:'Harrier Hawk'},
+                        {text:'House Sparrow'},
+                        {text:'Indian Myna'},
+                        {text:'Kaka'},
+                        {text:'Kea'},
+                        {text:'Kingfisher (NZ)'},
+                        {text:'Kiwi (* specify)'},
+                        {text:'Long Tail Cuckoo'},
+                        {text:'Magpie (Australian)'},
+                        {text:'Morepork'},
+                        {text:'Oystercatcher (* specify)'},
+                        {text:'Paradise Shelduck'},
+                        {text:'Parakeet (* specify)'},
+                        {text:'Pukeko'},
+                        {text:'Redpoll'},
+                        {text:'Rifleman'},
+                        {text:'Robin'},
+                        {text:'Rock Pigeon (Feral)'},
+                        {text:'Rock Wren'},
+                        {text:'Shinning Cuckoo'},
+                        {text:'Silvereye'},
+                        {text:'Song Thrush'},
+                        {text:'Spur Wing Plover'},
+                        {text:'Starling'},
+                        {text:'Tomtit'},
+                        {text:'Tui'},
+                        {text:'Weka'},
+                        {text:'Welcome Swallow'},
+                        {text:'Wood Pigeon (Kereru)'},
+                        {text:'Yellow Hammer'},
+                        {text:'Yellowhead'}];
+                
+                //managing plot list modal
                 $scope.addBirdModal = function(){
-                    
                     var modalInstance = $modal.open({
                               templateUrl: 'modals/birdModalContent.html',
                               controller: 'birdModalInstanceCtrl',
+                              resolve:{
+                                  prevBirds: function(){
+                                      return $scope.birdCount;
+                                  },
+                                  birdSpecies: function(){
+                                      return $scope.birdSpecies;
+                                  }
+                              }
                             });
                     modalInstance.result.then(function (bt) {
                             if(bt!=null){
-                                for(var i = 0; i < $scope.birdCount.length; i++){
-                                    if($scope.birdCount[i].bird==bt){
-                                        return;
-                                    }
+                                $scope.birdCount = [];
+                                for(var i=0; i<bt.length;i++){
+                                    $scope.addBirdToPlotList(bt[i]);
                                 }
-                                //should be add to plot list or similar
-                                $scope.incrementBird(bt);
                             }   
                         });
                     
                 }
                 
+                //NO LONGER USED
+                //This functionality has been replaced by the radar.
+                //a modal to increment the bird count for each species.
                 $scope.addBirdIncrementModal = function(bName){
                     var b;
                     
@@ -457,6 +506,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                     
                 }
                 
+                //The modal pop up for adding a bird to the radar
                 $scope.addRadarModal = function(){
                     
                     var modalInstance = $modal.open({
@@ -497,17 +547,15 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                     
                 }
                 
-                
-                
-                
-                
+                //Sending the saved Json to the server
                 $scope.saveAction = function(){
                     $scope.intoJson();
                     $scope.surveyRecord.$save();
                     $scope.surveyRecord = new RecordSvc();
                     $scope.initializeRecord();
                 };
-                                                          
+                
+                //Placeholder function as sending surveys is implemented elswhere in the app.
                 $scope.pretendSubmit = function(){
                     if($window.confirm('Are you sure you want to save?')){
                         $window.location="../surveys/birdSurvey.html";
@@ -516,6 +564,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
             }]);
 
 
+//Modal for the skip pop up on the site meta data
 t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInstance) {
 
     $scope.ok = function () {
@@ -527,6 +576,7 @@ t1mControllers.controller('skipModalInstanceCtrl', function ($scope, $modalInsta
     };
 });
 
+//Modal for the summary edit pop up
 t1mControllers.controller('SummaryModalInstanceCtrl', function ($scope, $window, $modalInstance, bird) {
     
     $scope.bird = bird;
@@ -554,6 +604,7 @@ t1mControllers.controller('SummaryModalInstanceCtrl', function ($scope, $window,
     };
 });
 
+//Modal when the user presses on the radar
 t1mControllers.controller('radarModalInstanceCtrl', function ($scope, 
                                                                $modalInstance, 
                                                                birds, 
@@ -634,6 +685,7 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
     $scope.birdAbrev;
     $scope.setBirdAbrev
     
+    //adding singular birds
     $scope.addRadarbird = function(b){
         
         var xSq = Math.pow((x-radius),2);
@@ -666,6 +718,7 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
         $scope.ok();
     }
     
+    //Adding multiple birds at once
     $scope.addRadarIncrModal = function(b){
                     $scope.ok();
         
@@ -730,6 +783,7 @@ t1mControllers.controller('radarModalInstanceCtrl', function ($scope,
                 };
 });
 
+//modal for multiple bird adds to the radar
 t1mControllers.controller('radarIncrModalInstanceCtrl', function ($scope, $modalInstance, bird) {
     
     $scope.bird = bird;
@@ -753,64 +807,36 @@ t1mControllers.controller('radarIncrModalInstanceCtrl', function ($scope, $modal
     };
 });
 
-t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInstance) {
-                
-    //$scope.birdText = [];
-                $scope.birdSpecies = [
-                            {text:'Bellbird', greyed:false},
-                            {text:'Blackbird'},
-                            {text:'Blue Duck'},
-                            {text:'Brown Creeper'},
-                            {text:'Californian Quail'},
-                            {text:'Chaffinch'},
-                            {text:'Dunnock (Hedge Sparrow)'},
-                            {text:'Eastern Rosella'},
-                            {text:'Falcon (NZ)'},
-                            {text:'Fantail'},
-                            {text:'Fernbird'},
-                            {text:'Goldfinch'},
-                            {text:'Gray Warbler'},
-                            {text:'Greenfinch'},
-                            {text:'Harrier Hawk'},
-                            {text:'House Sparrow'},
-                            {text:'Indian Myna'},
-                            {text:'Kaka'},
-                            {text:'Kea'},
-                            {text:'Kingfisher (NZ)'},
-                            {text:'Kiwi (* specify)'},
-                            {text:'Long Tail Cuckoo'},
-                            {text:'Magpie (Australian)'},
-                            {text:'Morepork'},
-                            {text:'Oystercatcher (* specify)'},
-                            {text:'Paradise Shelduck'},
-                            {text:'Parakeet (* specify)'},
-                            {text:'Pukeko'},
-                            {text:'Redpoll'},
-                            {text:'Rifleman'},
-                            {text:'Robin'},
-                            {text:'Rock Pigeon (Feral)'},
-                            {text:'Rock Wren'},
-                            {text:'Shinning Cuckoo'},
-                            {text:'Silvereye'},
-                            {text:'Song Thrush'},
-                            {text:'Spur Wing Plover'},
-                            {text:'Starling'},
-                            {text:'Tomtit'},
-                            {text:'Tui'},
-                            {text:'Weka'},
-                            {text:'Welcome Swallow'},
-                            {text:'Wood Pigeon (Kereru)'},
-                            {text:'Yellow Hammer'},
-                            {text:'Yellowhead'}];
+
+
+//managing the bird plot list modal
+t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInstance, prevBirds, birdSpecies) {
+    $scope.birdSpecies = birdSpecies;            
+    $scope.selectedBirds = [];
+    for(var i=0;i<prevBirds.length;i++){
+        $scope.selectedBirds.push(prevBirds[i].bird);
+    }
     
-              $scope.birdPress = function(birdType){
-                  //$scope.birdText.push(birdType);
-                  $scope.birdText = birdType;
-                  $scope.ok();
+                
+            
+              $scope.addToList = function(){
+                  $scope.birdSpecies.push({text: $scope.birdText});
+                  $scope.birdText = "";
+              }    
+                
+              $scope.birdPress = function(bird){
+                  if(bird.disabled == null || bird.disabled == false){
+                    $scope.selectedBirds.push(bird.text);
+                    bird.disabled = true;
+                  } else if(bird.disabled == true){
+                      var index = $scope.selectedBirds.indexOf(bird.text);
+                      $scope.selectedBirds.splice(index,1);
+                      bird.disabled = false;
+                  }
               }
     
               $scope.ok = function () {
-                $modalInstance.close($scope.birdText);
+                $modalInstance.close($scope.selectedBirds);
               };
 
               $scope.cancel = function () {
@@ -818,6 +844,8 @@ t1mControllers.controller('birdModalInstanceCtrl', function ($scope, $modalInsta
               };
         });
 
+//NO LONGER USED
+//modal for bird increment function that was replaced by the radar.
 t1mControllers.controller('birdIncrementModalCtrl', function ($scope, $modalInstance, b) {
                 
               $scope.bird = b;

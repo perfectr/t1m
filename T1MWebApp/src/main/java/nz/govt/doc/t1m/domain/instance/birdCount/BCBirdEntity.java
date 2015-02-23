@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by McCaulC on 27/01/2015.
+ * table for storing data on bird count bird instances
  */
 @Entity
 public class BCBirdEntity extends InstanceEntity {

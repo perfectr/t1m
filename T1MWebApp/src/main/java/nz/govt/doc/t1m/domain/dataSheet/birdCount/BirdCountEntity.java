@@ -5,7 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by McCaulC on 27/01/2015.
+ * table for string meta data for the bird count for bird surveys data sheets
  */
 @Entity
 public class BirdCountEntity extends DataSheetEntity {

@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by McCaulC on 9/02/2015.
+ * parses data from JSON strings to an image entity for storage
  */
 @Component
 public class ImageParser {
@@ -20,6 +20,11 @@ public class ImageParser {
     @Autowired
     protected ImageService imageService;
 
+    /**
+     * parser method for testing images, not used by full implementation
+     * @param imageForm
+     * @return the completed testing entity
+     */
     public ImageEntity saveImage(ImageForm imageForm) {
         ImageEntity imageEntity = new ImageEntity();
         imageEntity.setInstanceId(-1);
@@ -29,6 +34,13 @@ public class ImageParser {
         return imageEntity;
     }
 
+    /**
+     * parser method for the final implementation
+     * @param id
+     * @param type
+     * @param image
+     * @return the completed entity
+     */
     public ImageEntity saveImage(Integer id, String type, String image) {
         System.out.println("New image found");
         ImageEntity imageEntity = new ImageEntity();

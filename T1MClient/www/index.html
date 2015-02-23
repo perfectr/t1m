@@ -44,7 +44,6 @@
             </div>
             <div ng-app="t1mApp" id="main" class="app" ng-controller="t1mCtrl">
                 <div class="inner">
-                    <!--<p>{{surveys}}</p>-->
                     <p>Select type of survey to create:</p>
                     <button ng-click="addSurvey('bird')"  class="btn btn-success">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -66,9 +65,6 @@
                         <img ng-repeat="image in images" style="display:block;height:60px;" ng-src="{{ image.src }}" ></img>
                     </div>-->
                 </div>
-                {{currentSurvey}}
-                <br>
-                {{toSend}}
             </div>
         </div>
 

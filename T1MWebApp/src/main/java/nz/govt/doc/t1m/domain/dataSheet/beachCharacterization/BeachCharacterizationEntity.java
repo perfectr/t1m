@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by McCaulC on 27/01/2015.
+ * table for string meta data for the beach characterization for litter surveys data sheets
  */
 @Entity
 public class BeachCharacterizationEntity extends DataSheetEntity {

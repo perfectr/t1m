@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * Created by McCaulC on 27/01/2015.
+ * parses litter survey data sheets and calls instance parsers
  */
 @Component
 public class LitterParser {
@@ -30,11 +30,22 @@ public class LitterParser {
     private String[] field;
     private String[] data;
 
+    /**
+     * used to initialise the parser for a new data sheet
+     * @param field
+     * @param data
+     */
     public void initialize(String[] field, String[] data) {
         this.field = field;
         this.data = data;
     }
 
+    /**
+     * dictates data sheet type for processing
+     * @param dataSheetName
+     * @param surveyId
+     * @return generic data sheet response
+     */
     public DataSheetEntity saveEntity(String dataSheetName, Integer surveyId) {
         if (dataSheetName.equals("litterBeach")) return litterBeach(surveyId);
         else if (dataSheetName.equals("litterLarge")) return litterLarge(surveyId);
@@ -45,6 +56,11 @@ public class LitterParser {
         }
     }
 
+    /**
+     * parses data into a small litter entity and calls instance parser
+     * @param surveyId
+     * @return litterBeach data sheet response
+     */
     private LitterBeachEntity litterBeach(Integer surveyId) {
         System.out.println("New beach litter data sheet found");
         LitterBeachEntity litterBeachEntity = new LitterBeachEntity();
@@ -73,6 +89,12 @@ public class LitterParser {
         return litterBeachEntity;
     }
 
+    /**
+     * parses data into a large litter entity and calls instance parser
+     * incomplete in prototype
+     * @param surveyId
+     * @return litterLarge data sheet response
+     */
     private LitterLargeEntity litterLarge(Integer surveyId) {
         System.out.println("New large litter data sheet found");
         LitterLargeEntity litterLargeEntity = new LitterLargeEntity();
@@ -101,6 +123,11 @@ public class LitterParser {
         return litterLargeEntity;
     }
 
+    /**
+     * parses data into a beach char. entity
+     * @param surveyId
+     * @return beachChar. data sheet response
+     */
     private BeachCharacterizationEntity beachCharacterization(Integer surveyId) {
         System.out.println("New beach characterization data sheet found");
         BeachCharacterizationEntity beachCharacterizationEntity = new BeachCharacterizationEntity();
