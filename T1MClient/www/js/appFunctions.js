@@ -2,16 +2,21 @@
 
 /* File to hold larger functions that the litter survey requires */
 
-
+/* This function takes the saved meta data and populates the begining fields of the survey
+    metaDataStorageKey - the key that the meta data Json is saved under in local storage
+    surveyStorageKey - the key that the survey is saved under in local storage
+*/
 function saveMetaDataToSurveyRecord(metaDataStorageKey, surveyStorageKey){
     var surveyRecord = angular.fromJson(window.localStorage.getItem(surveyStorageKey));
 
     var metaData = angular.fromJson(window.localStorage.getItem(metaDataStorageKey));
      
+    // add the saved metaData to the survey.
      angular.forEach(metaData, function(value, key){
         surveyRecord[key] = value;
      });
     
+    //check for any null values and add test info - only for before validation
     if(surveyRecord.sli == null){
         surveyRecord.sli = "test";
     } 
@@ -24,6 +29,8 @@ function saveMetaDataToSurveyRecord(metaDataStorageKey, surveyStorageKey){
     if(surveyRecord.obs == null){
         surveyRecord.obs = "test";
     } 
+    
+    // initialise the fields that will be filled by the instances
         surveyRecord.dst = [];
         surveyRecord.fld = [];
         surveyRecord.dat = [];
@@ -36,8 +43,8 @@ function saveMetaDataToSurveyRecord(metaDataStorageKey, surveyStorageKey){
 
 /* saves the given data sheet into the survey record file
     dataSheetType - the name of the data sheet (following the database data model)
-    dataSheetSaveKey - the key of the key-value pair that data sheet is saved under in local storage.
-    index - the index of the data sheet if it is already saved in the survey record.
+    dataSheetStorageKey - the key of the key-value pair that data sheet is saved under in local storage.
+    surveyStorageKey - the key of the key-value pair that the survey is saved under in local storage
 */
 function saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey, surveyStorageKey) {
     var surveyRecord = angular.fromJson(window.localStorage.getItem(surveyStorageKey));
@@ -49,11 +56,12 @@ function saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey, surveyS
     }
     
     
-    // get the given data sheet from local storage.
+    // get the data sheet from local storage.
     var dataSheetData = angular.fromJson(window.localStorage.getItem(dataSheetStorageKey));
     
     
     if(dataSheetData==null){
+        // nothing to add to the survey
         return;   
     }
     
@@ -106,7 +114,7 @@ function saveDataSheetToSurveyRecord(dataSheetType, dataSheetStorageKey, surveyS
 
 /* method that will take a survey record and an array of instances and populate the inf and ind fields.
     surveyRecord - the surveyRecord that is to be populated
-    instances - the array of instances to be added to the surveyRecord
+    data - the array of instances to be added to the surveyRecord
 */
 function populateInstances(surveyRecord, data){
     
@@ -139,12 +147,12 @@ function populateInstances(surveyRecord, data){
         var instanceField = [];
         var instanceData = [];
         for (field in instance){
-            if(field == "ImageSrc"){
+            if(field == "ImageSrc"){ // if there is images saved to the instace, retrieve them.
                 var images = instance[field];
                 for(var j = 0; j < images.length; j++){
                     var imageData = window.localStorage.getItem(images[i]);
                     if(imageData == null){ continue;}
-                    instanceField.push("Image" + i);   
+                    instanceField.push("Image" + i);  // save the images
                     instanceData.push(imageData);
                 }
                 continue;
@@ -166,7 +174,7 @@ function populateInstances(surveyRecord, data){
 function sendSurveyRecordToServer(recordService, surveyStorageKey){
     var surveyRecord = angular.fromJson(window.localStorage.getItem(surveyStorageKey), false);
     
-    var necessaryFields = [
+    var necessaryFields = [ // defaultValues are for pre validation
         {field:"sli", defaultValue:"test"},
         {field:"sdt", defaultValue:"test"},
         {field:"edt", defaultValue:"test"},
@@ -183,7 +191,8 @@ function sendSurveyRecordToServer(recordService, surveyStorageKey){
     //(only needed until validation exists.)
     for(field in necessaryFields){
         if(surveyRecord[field.field] == null){
-            surveyRecord[field.field] = field.defaultValue;   
+            //surveyRecord[field.field] = field.defaultValue;   
+            return; // don't send the survey if a field is missing
         }
     }
     
@@ -193,7 +202,7 @@ function sendSurveyRecordToServer(recordService, surveyStorageKey){
     return recordService.$save();
 }
 
-
+// A list of all the possible litter items and their codes.
 var litterCodes = [
         {code:"PL01", type:"Plastic", value:"Bottle caps & lids"},
         {code:"PL02", type:"Plastic", value:"Bottles < 2 L"},
@@ -274,6 +283,10 @@ var litterCodes = [
         {code:"OT05", type:"Other", value:"Other (specify)"}
     ];
 
+
+/* this function takes a litter code and returns the corresponding litterCode element
+    Provides the type and value to re-populate the instance.
+*/
 function litterCodeSelectionByCode(code){
     var listCode;
     for (var i = 0; i < litterCodes.length; i++){
@@ -285,6 +298,10 @@ function litterCodeSelectionByCode(code){
     return null;
 }
 
+/*
+    function to return a set of litter codes that match the given type and specific value.
+    if specific is given, only one litter code element will be returned. 
+*/
 function litterCodeSelection(type, specific){
     if(type == null){
          return selectFromSpecific(litterCodes, specific);  
@@ -298,10 +315,16 @@ function litterCodeSelection(type, specific){
             codeOptions.push(code);   
         }
     }
+    // select the single value from the list.
     return selectFromSpecific(codeOptions, specific);
     
 }
-            
+
+/*
+    function that takes a list of litterCodes and a specific value
+    if will return the item in the list that has the specific value in it.
+    if no specific is given the codeOptions is returned.
+*/
 function selectFromSpecific(codeOptions, specific){
     if(specific == null){
         return codeOptions;   

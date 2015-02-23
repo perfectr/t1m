@@ -51,26 +51,7 @@ t1mControllers.controller('t1mCtrl', ['$scope', 'RecordSvc', 'ImageSvc',function
             saveToPhotoAlbum: false 
        });
   }
-    
-     
-    
-   /* var storageData = window.localStorage.getItem('birdSurvey');
-     $scope.surveyRecord = new RecordSvc();
-
-
-
-        $scope.startSurvey = function(surveyType){
-            $scope.surveyRecord.typ = surveyType;
-            $scope.surveyRecord.dst = [];
-            $scope.surveyRecord.fld = [];
-            $scope.surveyRecord.dat = [];
-            $scope.surveyRecord.inf = [];
-            $scope.surveyRecord.ind = [];
-            window.localStorage.setItem(surveyType,angular.toJson($scope.surveyRecord,false));
-            window.localStorage.setItem("surveyRecord", angular.toJson($scope.surveyRecord,false)); //beach litter saving reference.
-            window.location = "surveys/"+surveyType+"Survey.html";
-        };*/
-    }]);
+}]);
 
 t1mControllers.controller('t1mBirdSurveyCtrl', ['$scope', 'RecordSvc',function($scope, RecordSvc) {
     $scope.currentSurvey = window.location.search.replace("?","");
@@ -917,10 +898,8 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
     
     for(var i = 0; i < $scope.survey.dataSheets.length; i++){
         var dataSheet = $scope.survey.dataSheets[i];
-        console.log("do stuff" + dataSheet);
         var dst = angular.fromJson(window.localStorage.getItem(dataSheet.saveName));
-        if(dst == null){console.log("its null"); continue;}
-        console.log(dst.validationLevel);
+        if(dst == null){ continue;}
         var invalidColour = '';
         if(dst.validationLevel != null){
             invalidColour =  "list-group-item-success";
@@ -982,11 +961,15 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
         
     };
 
-    $scope.sendToServer = function (){
-        //TODO need to add validaton so that important fields are filled
-        
+    $scope.sendToServer = function (){        
         if(!isValid()){ return; }
         
+        $scope.disableSendButton = true;
+        $scope.saveSurvey();
+        sendSurveyRecordToServer(new RecordSvc, surveyStorageKey);
+    }
+    
+    $scope.sendToServerNoValid = function(){
         $scope.disableSendButton = true;
         $scope.saveSurvey();
         sendSurveyRecordToServer(new RecordSvc, surveyStorageKey);
@@ -1026,6 +1009,11 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
             }
             if(dataSheet.validationLevel == 3){
                 invalidFields.push({level: 3, value: dataSheet.name + " is missing wanted information"});   
+                continue;
+            }
+            if(dataSheet.validationLevel == null){
+                invalidFields.push({level: 2, value: dataSheet.name + " has not been saved"});   
+                continue;
             }
         }
         
@@ -1062,8 +1050,7 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
                         }
             }); 
             modalInstance.result.then(function (level) {
-                $scope.saveLitterBeach();
-                history.back();
+                $scope.sendToServerNoValid();
             });
         }
     }
