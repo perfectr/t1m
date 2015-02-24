@@ -1,6 +1,6 @@
 var t1mControllers = angular.module('t1mControllers', []);
 
-t1mControllers.controller('t1mCtrl', ['$scope', 'RecordSvc', 'ImageSvc',function($scope, RecordSvc, ImageSvc) {
+t1mControllers.controller('t1mCtrl', ['$scope', 'RecordSvc', function($scope, RecordSvc) {
     
     var storedSurveys = window.localStorage.getItem("Surveys");
     $scope.surveys = angular.fromJson(storedSurveys);
