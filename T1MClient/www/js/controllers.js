@@ -872,23 +872,25 @@ t1mControllers.controller('birdIncrementModalCtrl', function ($scope, $modalInst
 
 
 /* ================== controllers for beach litter survey ========================= */
+/* This conroller manages the litterSurvey page */
 t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$modal', function($scope, RecordSvc, $modal) {
     
     var currentSurvey = window.location.search.replace("?","");
     
     $scope.survey = angular.fromJson(window.localStorage.getItem(currentSurvey));
-     $scope.hideProgress = true;
+     //$scope.hideProgress = true;
     $scope.meta = {};  
     
     if($scope.survey != null){ 
         $scope.meta = angular.fromJson(window.localStorage.getItem($scope.survey.meta));
     }
     
-    $scope.disableSendButton = false;
+    $scope.disableSendButton = false; // variable to disable the send survey button 
     
     $scope.meta.typ = "litter";
     
     if($scope.survey == null){
+        // initialise and save the survey
         $scope.survey = {meta:currentSurvey+"Meta", 
                          dataSheets:[{name: "Beach Characterization", saveName:currentSurvey+'beachCharacterization', 
                                       type:'beachCharacterization'}], 
@@ -896,7 +898,8 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
         window.localStorage.setItem(currentSurvey, angular.toJson($scope.survey, false));
     }  
     
-    for(var i = 0; i < $scope.survey.dataSheets.length; i++){
+    // for each of the data sheets check their validation status and apply classes accordingly.
+    for(var i = 1; i < $scope.survey.dataSheets.length; i++){
         var dataSheet = $scope.survey.dataSheets[i];
         var dst = angular.fromJson(window.localStorage.getItem(dataSheet.saveName));
         if(dst == null){ continue;}
@@ -921,6 +924,7 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
         window.localStorage.setItem($scope.survey.meta, angular.toJson($scope.meta, false));
     };
 
+    // function to add a new beach liter data sheet. uses a modal to retrieve a name.
     $scope.addDataSheet = function(dataSheetType) {
         
          var modalInstance = $modal.open({
@@ -948,6 +952,7 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
     
     var surveyStorageKey = "storedSurvey";
     
+    // save the data in the survey into a single file, ready to send to the server.
     $scope.saveSurvey = function(){
         window.localStorage.setItem(surveyStorageKey, angular.toJson($scope.toSend, false));
         
@@ -975,7 +980,9 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
         sendSurveyRecordToServer(new RecordSvc, surveyStorageKey);
     }
     
-    
+    /* function to check if the survey is valid.
+        if the survey is invalid a popup is shown
+    */
     function isValid(){
         $scope.invalid = {};
         
@@ -1001,7 +1008,7 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
             $scope.invalid.edt = true;
         }
         
-        for(var i = 0; i < $scope.survey.dataSheets.length; i++){
+        for(var i = 1; i < $scope.survey.dataSheets.length; i++){
             var dataSheet = $scope.survey.dataSheets[i];
             if(dataSheet.validationLevel == 1 || dataSheet.validationLevel == 2){
                 invalidFields.push({level: 2, value: dataSheet.name + " is missing critical information"});   
@@ -1058,7 +1065,7 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
     
 }]);
 
-
+/* controller for the data sheet naming modal */
 t1mControllers.controller('beachLitterNamingCtrl', function($scope, $modalInstance){
     
     
@@ -1073,7 +1080,7 @@ t1mControllers.controller('beachLitterNamingCtrl', function($scope, $modalInstan
 });
 
 
-/*--========================== Beach Litter controler ==================================*/
+/*============================ Beach Litter controler ==================================*/
 t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal',function($scope, RecordSvc, $modal) {
     
     var currentDataSheet = window.location.search.replace("?","");
@@ -1098,6 +1105,7 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
     if(savedLitterBeach != null){
         $scope.litterBeach = angular.fromJson(savedLitterBeach);
     } else {
+        // if there is no saved litter data sheet then initialise the variables.
         $scope.litterBeach.Season = $scope.options.seasons[0].value;  
         $scope.litterBeach.Instances = {
         Instances: [],
