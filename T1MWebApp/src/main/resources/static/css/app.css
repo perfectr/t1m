@@ -206,3 +206,13 @@ h3 {
     padding: 4px;
     padding-left: 2%;
 }
+
+.col-md-6 {
+    width: 92%;
+    left: 4%;
+}
+
+#notesTxtFld {
+    height: 74px;
+    resize: none;
+}
