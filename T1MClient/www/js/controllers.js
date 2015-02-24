@@ -21,8 +21,7 @@ t1mControllers.controller('t1mCtrl', ['$scope', 'RecordSvc', function($scope, Re
         window.location = "surveys/"+surveyType+"Survey.html?"+surveyName;
     }
     
-    $scope.images = [
-    ];
+    $scope.images = [];
     
     $scope.onPhotoDataSuccess = function(imageData) {
         var imageSvc = new ImageSvc;
@@ -1055,7 +1054,7 @@ t1mControllers.controller('t1mLitterSurveyCtrl', [ '$scope', 'RecordSvc', '$moda
                             return posButt;
                          }
                         }
-            }); 
+            });
             modalInstance.result.then(function (level) {
                 $scope.sendToServerNoValid();
             });
@@ -1204,6 +1203,7 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
         
     }
     
+    //load the modal to display all invalid fields.
     var launchItemValidationModal = function(invalidFields){
          if(invalidFields.length == 0){
             return true;   
@@ -1311,7 +1311,7 @@ t1mControllers.controller('t1mBeachLitterCtrl', [ '$scope', 'RecordSvc', '$modal
     
 }]);
     
-
+/* controller for the modal that displays all invalid fields */
 t1mControllers.controller('qualityCheckCtrl', function($scope, $modalInstance, invalidFields, positiveButton){
     if(invalidFields == null){
         return;
@@ -1442,6 +1442,7 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
         $scope.SmallLitter.LitterCode = codeOption.code;
     }
     
+    /* callback function for photo retrieval success */
      $scope.onPhotoDataSuccess = function(imageData) {
         var imageStoreName = saveName + "Image" + $scope.SmallLitter.ImageSrc.length;
         $scope.SmallLitter.ImageSrc.push(imageStoreName);
@@ -1450,11 +1451,11 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
         window.localStorage.setItem(imageStoreName, imageData);
     }
     
+     /* callback function for photo retrieval failure (backed out of app) */
     $scope.onFail = function(message) {
-      alert('Failed because: ' + message);
     }
 
-    // var destinationType = navigator.camera.destinationType;
+    // function to load the camera app
     $scope.takePicture = function(){
         if($scope.ImageSrc.length >= 3){ return;}
         
