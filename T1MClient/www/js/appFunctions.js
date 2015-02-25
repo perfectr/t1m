@@ -187,15 +187,6 @@ function sendSurveyRecordToServer(recordService, surveyStorageKey){
         {field:"ind", defaultValue:[]},
     ];
     
-    //make sure the necessary fields in the survey record exist, so that they are sent to the server.
-    //(only needed until validation exists.)
-    for(field in necessaryFields){
-        if(surveyRecord[field.field] == null){
-            //surveyRecord[field.field] = field.defaultValue;   
-            return; // don't send the survey if a field is missing
-        }
-    }
-    
     angular.forEach(surveyRecord, function(value, key){
         recordService[key] = value; 
     });

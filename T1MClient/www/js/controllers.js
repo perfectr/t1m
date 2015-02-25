@@ -1577,6 +1577,7 @@ t1mControllers.controller('beachLitterItemCtrl', function($scope, $modalInstance
 });
 
 
+/* conroller for the beach characterization data sheet */
 t1mControllers.controller('t1mBeachCharacterizationCtrl', [ '$scope', 'RecordSvc',function($scope, RecordSvc) {
     
     var currentDataSheet = window.location.search.replace("?","");
