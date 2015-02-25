@@ -538,7 +538,7 @@ t1mControllers.controller('t1mfiveMinBirdCountCtrl', [ '$rootScope',
                 //Placeholder function as sending surveys is implemented elswhere in the app.
                 $scope.pretendSubmit = function(){
                     if($window.confirm('Are you sure you want to save?')){
-                        $window.location="../surveys/birdSurvey.html";
+                        history.back();
                     }
                 }
             }]);
